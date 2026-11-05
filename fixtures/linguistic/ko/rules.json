@@ -1,0 +1,1419 @@
+[
+  {
+    "id": "ko-rules-001",
+    "lang": "ko",
+    "text": "닭장",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "dakjang"
+    },
+    "tags": [
+      "rule1-cluster"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-002",
+    "lang": "ko",
+    "text": "읽다",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "ikda"
+    },
+    "tags": [
+      "rule1-cluster"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-003",
+    "lang": "ko",
+    "text": "없다",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "eopda"
+    },
+    "tags": [
+      "rule1-cluster"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-004",
+    "lang": "ko",
+    "text": "젊다",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "jeomda"
+    },
+    "tags": [
+      "rule1-cluster"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-005",
+    "lang": "ko",
+    "text": "넓다",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "neolda"
+    },
+    "tags": [
+      "rule1-cluster"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-006",
+    "lang": "ko",
+    "text": "삶이",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "salmi"
+    },
+    "tags": [
+      "rule1-cluster"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-007",
+    "lang": "ko",
+    "text": "사랑이",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "sarangi"
+    },
+    "tags": [
+      "rule2-liaison"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-008",
+    "lang": "ko",
+    "text": "음악이",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "eumagi"
+    },
+    "tags": [
+      "rule2-liaison"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-009",
+    "lang": "ko",
+    "text": "옷이",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "osi"
+    },
+    "tags": [
+      "rule2-liaison"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-010",
+    "lang": "ko",
+    "text": "책을",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "chaegeul"
+    },
+    "tags": [
+      "rule2-liaison"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-011",
+    "lang": "ko",
+    "text": "집에",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "jibe"
+    },
+    "tags": [
+      "rule2-liaison"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-012",
+    "lang": "ko",
+    "text": "꿈이",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "kkumi"
+    },
+    "tags": [
+      "rule2-liaison"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-013",
+    "lang": "ko",
+    "text": "달이",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "dari"
+    },
+    "tags": [
+      "rule2-liaison"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-014",
+    "lang": "ko",
+    "text": "손을",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "soneul"
+    },
+    "tags": [
+      "rule2-liaison"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-015",
+    "lang": "ko",
+    "text": "길이",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "giri"
+    },
+    "tags": [
+      "rule2-liaison"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-016",
+    "lang": "ko",
+    "text": "좋고",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "joko"
+    },
+    "tags": [
+      "rule3-aspiration"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-017",
+    "lang": "ko",
+    "text": "많고",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "manko"
+    },
+    "tags": [
+      "rule3-aspiration"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-018",
+    "lang": "ko",
+    "text": "입학",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "ipak"
+    },
+    "tags": [
+      "rule3-aspiration"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-019",
+    "lang": "ko",
+    "text": "백화점",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "baekwajeom"
+    },
+    "tags": [
+      "rule3-aspiration"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-020",
+    "lang": "ko",
+    "text": "싫다",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "silta"
+    },
+    "tags": [
+      "rule3-aspiration"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-021",
+    "lang": "ko",
+    "text": "좋아요",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "joayo"
+    },
+    "tags": [
+      "rule4-h-deletion"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-022",
+    "lang": "ko",
+    "text": "싫어",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "sireo"
+    },
+    "tags": [
+      "rule4-h-deletion"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-023",
+    "lang": "ko",
+    "text": "낳아",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "naa"
+    },
+    "tags": [
+      "rule4-h-deletion"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-024",
+    "lang": "ko",
+    "text": "괜찮아요",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "gwaenchanayo"
+    },
+    "tags": [
+      "rule4-h-deletion"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-025",
+    "lang": "ko",
+    "text": "놓여",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "noyeo"
+    },
+    "tags": [
+      "rule4-h-deletion"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-026",
+    "lang": "ko",
+    "text": "붙이다",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "buchida"
+    },
+    "tags": [
+      "rule5-palatalisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-027",
+    "lang": "ko",
+    "text": "밭이",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "bachi"
+    },
+    "tags": [
+      "rule5-palatalisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-028",
+    "lang": "ko",
+    "text": "미닫이",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "midaji"
+    },
+    "tags": [
+      "rule5-palatalisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-029",
+    "lang": "ko",
+    "text": "먹는",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "meongneun"
+    },
+    "tags": [
+      "rule6-nasalisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-030",
+    "lang": "ko",
+    "text": "앞마당",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "ammadang"
+    },
+    "tags": [
+      "rule6-nasalisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-031",
+    "lang": "ko",
+    "text": "읽는",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "ingneun"
+    },
+    "tags": [
+      "rule6-nasalisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-032",
+    "lang": "ko",
+    "text": "십만",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "simman"
+    },
+    "tags": [
+      "rule6-nasalisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-033",
+    "lang": "ko",
+    "text": "있는",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "inneun"
+    },
+    "tags": [
+      "rule6-nasalisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-034",
+    "lang": "ko",
+    "text": "꽃내음",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "kkonnaeeum"
+    },
+    "tags": [
+      "rule6-nasalisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-035",
+    "lang": "ko",
+    "text": "심리",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "simni"
+    },
+    "tags": [
+      "rule7-r-to-n"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-036",
+    "lang": "ko",
+    "text": "항로",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "hangno"
+    },
+    "tags": [
+      "rule7-r-to-n"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-037",
+    "lang": "ko",
+    "text": "대통령",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "daetongnyeong"
+    },
+    "tags": [
+      "rule7-r-to-n"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-038",
+    "lang": "ko",
+    "text": "협력",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "hyeomnyeok"
+    },
+    "tags": [
+      "rule7-r-to-n"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-039",
+    "lang": "ko",
+    "text": "침략",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "chimnyak"
+    },
+    "tags": [
+      "rule7-r-to-n"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-040",
+    "lang": "ko",
+    "text": "능력",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "neungnyeok"
+    },
+    "tags": [
+      "rule7-r-to-n"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-041",
+    "lang": "ko",
+    "text": "난로",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "nallo"
+    },
+    "tags": [
+      "rule8-liquidisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-042",
+    "lang": "ko",
+    "text": "칼날",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "kallal"
+    },
+    "tags": [
+      "rule8-liquidisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-043",
+    "lang": "ko",
+    "text": "신령",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "sillyeong"
+    },
+    "tags": [
+      "rule8-liquidisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-044",
+    "lang": "ko",
+    "text": "천리",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "cheolli"
+    },
+    "tags": [
+      "rule8-liquidisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-045",
+    "lang": "ko",
+    "text": "광한루",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "gwanghallu"
+    },
+    "tags": [
+      "rule8-liquidisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-046",
+    "lang": "ko",
+    "text": "끝",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "kkeut"
+    },
+    "tags": [
+      "rule9-neutralisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-047",
+    "lang": "ko",
+    "text": "낮",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "nat"
+    },
+    "tags": [
+      "rule9-neutralisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-048",
+    "lang": "ko",
+    "text": "있다",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "itda"
+    },
+    "tags": [
+      "rule9-neutralisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-049",
+    "lang": "ko",
+    "text": "옷",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "ot"
+    },
+    "tags": [
+      "rule9-neutralisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-050",
+    "lang": "ko",
+    "text": "앞",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "ap"
+    },
+    "tags": [
+      "rule9-neutralisation"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-051",
+    "lang": "ko",
+    "text": "라디오",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "radio"
+    },
+    "tags": [
+      "rule10-letters"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-052",
+    "lang": "ko",
+    "text": "리듬",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "rideum"
+    },
+    "tags": [
+      "rule10-letters"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-053",
+    "lang": "ko",
+    "text": "우리",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "uri"
+    },
+    "tags": [
+      "rule10-letters"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-054",
+    "lang": "ko",
+    "text": "얼굴",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "eolgul"
+    },
+    "tags": [
+      "rule10-letters"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-055",
+    "lang": "ko",
+    "text": "노래",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "norae"
+    },
+    "tags": [
+      "rule10-letters"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-056",
+    "lang": "ko",
+    "text": "달",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "dal"
+    },
+    "tags": [
+      "rule10-letters"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-057",
+    "lang": "ko",
+    "text": "나는",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "naneun"
+    },
+    "tags": [
+      "particle"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-058",
+    "lang": "ko",
+    "text": "너를",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "neoreul"
+    },
+    "tags": [
+      "particle"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-059",
+    "lang": "ko",
+    "text": "우리가",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "uriga"
+    },
+    "tags": [
+      "particle"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-060",
+    "lang": "ko",
+    "text": "하늘에서",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "haneureseo"
+    },
+    "tags": [
+      "particle"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-061",
+    "lang": "ko",
+    "text": "친구와",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "chinguwa"
+    },
+    "tags": [
+      "particle"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-062",
+    "lang": "ko",
+    "text": "집으로",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "jibeuro"
+    },
+    "tags": [
+      "particle"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-063",
+    "lang": "ko",
+    "text": "학교에",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "hakgyoe"
+    },
+    "tags": [
+      "particle"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-064",
+    "lang": "ko",
+    "text": "너의",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "neoui"
+    },
+    "tags": [
+      "particle"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-065",
+    "lang": "ko",
+    "text": "사랑은",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "sarangeun"
+    },
+    "tags": [
+      "particle"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-066",
+    "lang": "ko",
+    "text": "꿈도",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "kkumdo"
+    },
+    "tags": [
+      "particle"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-067",
+    "lang": "ko",
+    "text": "오늘만",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "oneulman"
+    },
+    "tags": [
+      "particle"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-068",
+    "lang": "ko",
+    "text": "해",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "hae"
+    },
+    "tags": [
+      "contraction"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-069",
+    "lang": "ko",
+    "text": "봐",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "bwa"
+    },
+    "tags": [
+      "contraction"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-070",
+    "lang": "ko",
+    "text": "줘",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "jwo"
+    },
+    "tags": [
+      "contraction"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-071",
+    "lang": "ko",
+    "text": "돼",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "dwae"
+    },
+    "tags": [
+      "contraction"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-072",
+    "lang": "ko",
+    "text": "그래서",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "geuraeseo"
+    },
+    "tags": [
+      "contraction"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-073",
+    "lang": "ko",
+    "text": "해줘",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "haejwo"
+    },
+    "tags": [
+      "contraction"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-074",
+    "lang": "ko",
+    "text": "뭐해",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "mwohae"
+    },
+    "tags": [
+      "contraction"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-075",
+    "lang": "ko",
+    "text": "왜",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "wae"
+    },
+    "tags": [
+      "contraction"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-076",
+    "lang": "ko",
+    "text": "되어",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "doeeo"
+    },
+    "tags": [
+      "contraction"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-077",
+    "lang": "ko",
+    "text": "추워",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "chuwo"
+    },
+    "tags": [
+      "irregular-p"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-078",
+    "lang": "ko",
+    "text": "고마워",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "gomawo"
+    },
+    "tags": [
+      "irregular-p"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-079",
+    "lang": "ko",
+    "text": "아름다워",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "areumdawo"
+    },
+    "tags": [
+      "irregular-p"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-080",
+    "lang": "ko",
+    "text": "들어",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "deureo"
+    },
+    "tags": [
+      "irregular-d"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-081",
+    "lang": "ko",
+    "text": "몰라",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "molla"
+    },
+    "tags": [
+      "irregular-reu"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-082",
+    "lang": "ko",
+    "text": "달라",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "dalla"
+    },
+    "tags": [
+      "irregular-reu"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-083",
+    "lang": "ko",
+    "text": "빨라",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "ppalla"
+    },
+    "tags": [
+      "irregular-reu"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-084",
+    "lang": "ko",
+    "text": "그래",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "geurae"
+    },
+    "tags": [
+      "irregular-h"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-085",
+    "lang": "ko",
+    "text": "baby 내 맘을",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "baby nae mameul"
+    },
+    "tags": [
+      "mixed-english"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-086",
+    "lang": "ko",
+    "text": "I love 너",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "I love neo"
+    },
+    "tags": [
+      "mixed-english"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-087",
+    "lang": "ko",
+    "text": "OK 괜찮아",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "OK gwaenchana"
+    },
+    "tags": [
+      "mixed-english"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-088",
+    "lang": "ko",
+    "text": "Hello 안녕",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "Hello annyeong"
+    },
+    "tags": [
+      "mixed-english"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-089",
+    "lang": "ko",
+    "text": "사랑해 U",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "saranghae U"
+    },
+    "tags": [
+      "mixed-english"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-090",
+    "lang": "ko",
+    "text": "ㅋㅋ",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "kk"
+    },
+    "tags": [
+      "compat-jamo"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-091",
+    "lang": "ko",
+    "text": "ㅠㅠ",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "yuyu"
+    },
+    "tags": [
+      "compat-jamo"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-092",
+    "lang": "ko",
+    "text": "ㅎㅎ",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "hh"
+    },
+    "tags": [
+      "compat-jamo"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-093",
+    "lang": "ko",
+    "text": "안녕",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "annyeong"
+    },
+    "tags": [
+      "lyric-spelling"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-094",
+    "lang": "ko",
+    "text": "감사합니다",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "gamsahamnida"
+    },
+    "tags": [
+      "lyric-spelling"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-095",
+    "lang": "ko",
+    "text": "미안해",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "mianhae"
+    },
+    "tags": [
+      "lyric-spelling"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-096",
+    "lang": "ko",
+    "text": "고마워 사랑해",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "gomawo saranghae"
+    },
+    "tags": [
+      "lyric-spelling"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-097",
+    "lang": "ko",
+    "text": "행복",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "haengbok"
+    },
+    "tags": [
+      "lyric-spelling"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-098",
+    "lang": "ko",
+    "text": "약속",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "yaksok"
+    },
+    "tags": [
+      "lyric-spelling"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-099",
+    "lang": "ko",
+    "text": "영화",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "yeonghwa"
+    },
+    "tags": [
+      "lyric-spelling"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-100",
+    "lang": "ko",
+    "text": "음악",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "eumak"
+    },
+    "tags": [
+      "lyric-spelling"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-101",
+    "lang": "ko",
+    "text": "한글",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "hangeul"
+    },
+    "tags": [
+      "lyric-spelling"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-102",
+    "lang": "ko",
+    "text": "서울",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "seoul"
+    },
+    "tags": [
+      "lyric-spelling"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-103",
+    "lang": "ko",
+    "text": "김치",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "gimchi"
+    },
+    "tags": [
+      "lyric-spelling"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-104",
+    "lang": "ko",
+    "text": "불고기",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "bulgogi"
+    },
+    "tags": [
+      "lyric-spelling"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-105",
+    "lang": "ko",
+    "text": "비빔밥",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "bibimbap"
+    },
+    "tags": [
+      "lyric-spelling"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-106",
+    "lang": "ko",
+    "text": "솜이불",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "somnibul"
+    },
+    "tags": [
+      "n-insertion-exception"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-107",
+    "lang": "ko",
+    "text": "한여름",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "hannyeoreum"
+    },
+    "tags": [
+      "n-insertion-exception"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-108",
+    "lang": "ko",
+    "text": "색연필",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "saengnyeonpil"
+    },
+    "tags": [
+      "n-insertion-exception"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "ko-rules-109",
+    "lang": "ko",
+    "text": "알약",
+    "source": "original (written for Overtone); expected romanisation derived by the implementer from the Revised Romanization rules",
+    "expected": {
+      "romanLine": "allyak"
+    },
+    "tags": [
+      "n-insertion-exception"
+    ],
+    "reviewed": false
+  }
+]

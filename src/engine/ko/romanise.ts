@@ -337,7 +337,8 @@ const composeFinalLetter = (T: readonly string[]): string =>
   T.length === 2 ? (CLUSTER[T.join('')] ?? '') : (T[0] ?? '');
 
 // Compatibility jamo typed on their own (ㅋㅋ, ㅠㅠ): transliterated letter by letter.
-const COMPAT: Record<string, string> = { ...INITIAL_ROMAN, ...VOWEL_ROMAN };
+// A lone ㅇ is read "eung"; the bare silent initial would produce an empty string, so use "ng".
+const COMPAT: Record<string, string> = { ...INITIAL_ROMAN, ...VOWEL_ROMAN, ㅇ: 'ng' };
 
 /** Romanises one eojeol. Non-Hangul characters pass through unchanged. */
 export function romaniseEojeol(word: string, mode: KoMode = 'pronunciation'): string {

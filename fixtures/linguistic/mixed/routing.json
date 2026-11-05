@@ -1,0 +1,1043 @@
+[
+  {
+    "id": "mixed-001",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "baby 내 맘을 알아",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "baby",
+          "en"
+        ],
+        [
+          "내",
+          "ko"
+        ],
+        [
+          "맘을",
+          "ko"
+        ],
+        [
+          "알아",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-002",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "I love 너",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "I",
+          "en"
+        ],
+        [
+          "love",
+          "en"
+        ],
+        [
+          "너",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-003",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "사랑해 U",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "사랑해",
+          "ko"
+        ],
+        [
+          "U",
+          "en"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-004",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "OK 괜찮아",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "OK",
+          "en"
+        ],
+        [
+          "괜찮아",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-005",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "Hello 안녕",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "Hello",
+          "en"
+        ],
+        [
+          "안녕",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-006",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "사랑해 愛してる",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "사랑해",
+          "ko"
+        ],
+        [
+          "愛してる",
+          "ja"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-007",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "君が好き 사랑해",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "君が好き",
+          "ja"
+        ],
+        [
+          "사랑해",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-008",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "東京 도쿄",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "東京",
+          "other"
+        ],
+        [
+          "도쿄",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-009",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "사랑 愛",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "사랑",
+          "ko"
+        ],
+        [
+          "愛",
+          "other"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-010",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "ありがとう 고마워",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "ありがとう",
+          "ja"
+        ],
+        [
+          "고마워",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-011",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "카페 café",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "카페",
+          "ko"
+        ],
+        [
+          "café",
+          "en"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-012",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "naïve 사랑",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "naïve",
+          "en"
+        ],
+        [
+          "사랑",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-013",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "ＡＢＣ 사랑",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "ＡＢＣ",
+          "en"
+        ],
+        [
+          "사랑",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-014",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "１２３ 사랑해",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "１２３",
+          "other"
+        ],
+        [
+          "사랑해",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-015",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "24시간 사랑",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "24",
+          "other"
+        ],
+        [
+          "시간",
+          "ko"
+        ],
+        [
+          "사랑",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-016",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "사랑해😀",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "사랑해",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-017",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "😀 사랑해 😀",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "사랑해",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-018",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "don't stop 사랑",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "don't",
+          "en"
+        ],
+        [
+          "stop",
+          "en"
+        ],
+        [
+          "사랑",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-019",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "rock-n-roll 사랑",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "rock-n-roll",
+          "en"
+        ],
+        [
+          "사랑",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-020",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "Mr. Kim 사랑",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "Mr",
+          "en"
+        ],
+        [
+          "Kim",
+          "en"
+        ],
+        [
+          "사랑",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-021",
+    "lang": "mixed",
+    "songLang": "ko",
+    "text": "ㅋㅋ 웃겨",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "ㅋㅋ",
+          "ko"
+        ],
+        [
+          "웃겨",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-022",
+    "lang": "mixed",
+    "songLang": "ja",
+    "text": "I love you 君が好き",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "I",
+          "en"
+        ],
+        [
+          "love",
+          "en"
+        ],
+        [
+          "you",
+          "en"
+        ],
+        [
+          "君が好き",
+          "ja"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-023",
+    "lang": "mixed",
+    "songLang": "ja",
+    "text": "Tokyo 東京",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "Tokyo",
+          "en"
+        ],
+        [
+          "東京",
+          "ja"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-024",
+    "lang": "mixed",
+    "songLang": "ja",
+    "text": "こんにちは world",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "こんにちは",
+          "ja"
+        ],
+        [
+          "world",
+          "en"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-025",
+    "lang": "mixed",
+    "songLang": "ja",
+    "text": "カタカナ English",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "カタカナ",
+          "ja"
+        ],
+        [
+          "English",
+          "en"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-026",
+    "lang": "mixed",
+    "songLang": "ja",
+    "text": "愛してる 사랑해",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "愛してる",
+          "ja"
+        ],
+        [
+          "사랑해",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-027",
+    "lang": "mixed",
+    "songLang": "ja",
+    "text": "ＬＯＶＥ 愛",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "ＬＯＶＥ",
+          "en"
+        ],
+        [
+          "愛",
+          "ja"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-028",
+    "lang": "mixed",
+    "songLang": "ja",
+    "text": "ｱｲ ｼﾃﾙ",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "ｱｲ",
+          "ja"
+        ],
+        [
+          "ｼﾃﾙ",
+          "ja"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-029",
+    "lang": "mixed",
+    "songLang": "ja",
+    "text": "コーヒー 一杯",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "コーヒー",
+          "ja"
+        ],
+        [
+          "一杯",
+          "ja"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-030",
+    "lang": "mixed",
+    "songLang": "ja",
+    "text": "人々 の 声",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "人々",
+          "ja"
+        ],
+        [
+          "の",
+          "ja"
+        ],
+        [
+          "声",
+          "ja"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-031",
+    "lang": "mixed",
+    "songLang": "ja",
+    "text": "三ヶ月 前",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "三ヶ月",
+          "ja"
+        ],
+        [
+          "前",
+          "ja"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-032",
+    "lang": "mixed",
+    "songLang": "zh",
+    "text": "我愛你 I miss you",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "我愛你",
+          "zh"
+        ],
+        [
+          "I",
+          "en"
+        ],
+        [
+          "miss",
+          "en"
+        ],
+        [
+          "you",
+          "en"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-033",
+    "lang": "mixed",
+    "songLang": "zh",
+    "text": "我爱你 baby",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "我爱你",
+          "zh"
+        ],
+        [
+          "baby",
+          "en"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-034",
+    "lang": "mixed",
+    "songLang": "zh",
+    "text": "你好 world",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "你好",
+          "zh"
+        ],
+        [
+          "world",
+          "en"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-035",
+    "lang": "mixed",
+    "songLang": "zh",
+    "text": "我想你 2024",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "我想你",
+          "zh"
+        ],
+        [
+          "2024",
+          "other"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-036",
+    "lang": "mixed",
+    "songLang": "zh",
+    "text": "哈囉 hi",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "哈囉",
+          "zh"
+        ],
+        [
+          "hi",
+          "en"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-037",
+    "lang": "mixed",
+    "songLang": "yue",
+    "text": "我好掛住你 I miss you",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "我好掛住你",
+          "yue"
+        ],
+        [
+          "I",
+          "en"
+        ],
+        [
+          "miss",
+          "en"
+        ],
+        [
+          "you",
+          "en"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-038",
+    "lang": "mixed",
+    "songLang": "yue",
+    "text": "佢哋 so sweet",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "佢哋",
+          "yue"
+        ],
+        [
+          "so",
+          "en"
+        ],
+        [
+          "sweet",
+          "en"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-039",
+    "lang": "mixed",
+    "songLang": "yue",
+    "text": "唔該 thank you",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "唔該",
+          "yue"
+        ],
+        [
+          "thank",
+          "en"
+        ],
+        [
+          "you",
+          "en"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-040",
+    "lang": "mixed",
+    "songLang": "yue",
+    "text": "我愛你 forever",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "我愛你",
+          "yue"
+        ],
+        [
+          "forever",
+          "en"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-041",
+    "lang": "mixed",
+    "songLang": "yue",
+    "text": "OK 啦",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "OK",
+          "en"
+        ],
+        [
+          "啦",
+          "yue"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-042",
+    "lang": "mixed",
+    "songLang": "zh",
+    "text": "song 사랑",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "song",
+          "en"
+        ],
+        [
+          "사랑",
+          "ko"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "mixed-043",
+    "lang": "mixed",
+    "songLang": "zh",
+    "text": "ありがとう 谢谢",
+    "source": "original (written for Overtone)",
+    "expected": {
+      "routing": [
+        [
+          "ありがとう",
+          "ja"
+        ],
+        [
+          "谢谢",
+          "zh"
+        ]
+      ]
+    },
+    "tags": [
+      "routing"
+    ],
+    "reviewed": false
+  }
+]
