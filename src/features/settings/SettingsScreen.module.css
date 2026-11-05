@@ -136,3 +136,19 @@
   display: grid;
   gap: var(--space-8);
 }
+
+.linkRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+  color: inherit;
+  text-decoration: none;
+}
+.chevron {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--text-tertiary);
+  border-bottom: 2px solid var(--text-tertiary);
+  transform: rotate(-45deg);
+}

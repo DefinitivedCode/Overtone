@@ -45,6 +45,8 @@ self.addEventListener('activate', (event) => {
 // WebKit writes Cache Storage from an uncontrolled first page to a transient store.
 self.addEventListener('message', (event) => {
   if (event.data === 'claim-for-pack-install') event.waitUntil(self.clients.claim());
+  // The page asks for this only after the user chose to update (ARCHITECTURE §9).
+  if (event.data === 'skip-waiting') self.skipWaiting();
 });
 
 // Static hosts add 'Vary: Origin'; a CORS font request would otherwise miss its own precached entry.
@@ -118,7 +120,22 @@ export function overtoneServiceWorker(): Plugin {
       publicDir = config.publicDir;
     },
     generateBundle(_opts, bundle) {
-      const files = Object.keys(bundle).filter((f) => !f.endsWith('.map') && f !== 'sw.js');
+      const all = Object.keys(bundle).filter((f) => !f.endsWith('.map') && f !== 'sw.js');
+      // The engine worker is built separately and arrives here as plain JS assets; the main-thread fallback gets its own
+      // chunk copies of the same language readers (ADR 0014). Precache the worker's copy and leave the fallback copy to
+      // be cached the first time it is fetched.
+      const stem = (f: string) => /^assets\/(.+)-[\w-]{8}\.js$/.exec(f)?.[1] ?? null;
+      const size = (f: string) => {
+        const o = bundle[f]!;
+        return o.type === 'chunk' ? Buffer.byteLength(o.code) : Buffer.byteLength(o.source);
+      };
+      const workerCopies = all.filter((f) => bundle[f]?.type === 'asset' && stem(f) !== null);
+      const files = all.filter((f) => {
+        if (bundle[f]?.type !== 'chunk' || stem(f) === null) return true;
+        return !workerCopies.some(
+          (w) => stem(w) === stem(f) && Math.abs(size(w) - size(f)) <= size(f) * 0.02,
+        );
+      });
       let bytes = 0;
       for (const f of files) {
         const o = bundle[f]!;

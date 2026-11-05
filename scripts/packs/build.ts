@@ -6,12 +6,18 @@ import { gzipSync } from 'node:zlib';
 import type { PackFile, PackInfo, PackManifest } from '../../src/engine/dict/types';
 import { fetchSource, root, sources } from './fetch-sources';
 import type { SourceId } from './fetch-sources';
+import { parseKengdic, parseWiktionaryKo } from './ko';
 import { parseCanto, parseCedict, toJsonLines } from './parse';
 import { unzip } from './zip';
 import { parseJMdict } from './jmdict';
 
 /** Compressed size budgets (LANGUAGE_ENGINE §9) — the build fails if exceeded by more than 25 %. */
-const BUDGET_MB: Record<string, number> = { 'zh-core': 6, 'yue-core': 4, 'ja-core': 25 };
+const BUDGET_MB: Record<string, number> = {
+  'zh-core': 6,
+  'yue-core': 4,
+  'ja-core': 25,
+  'ko-core': 8,
+};
 const require = createRequire(import.meta.url);
 
 async function text(id: SourceId, entry: RegExp): Promise<string> {
@@ -23,6 +29,10 @@ async function text(id: SourceId, entry: RegExp): Promise<string> {
 
 async function rowsFor(pack: string) {
   if (pack === 'zh-core') return parseCedict(await text('cedict', /cedict_ts\.u8$/));
+  if (pack === 'ko-core') {
+    const wiktionary = parseWiktionaryKo((await fetchSource('wiktionary-ko')).toString('utf8'));
+    return [...wiktionary, ...parseKengdic((await fetchSource('kengdic')).toString('utf8'))];
+  }
   if (pack === 'ja-core') return parseJMdict(await text('jmdict', /jmdict-eng.*\.json$/));
   const canto = parseCanto(await text('cccanto', /cccanto-webdist\.txt$/), true);
   const readings = parseCanto(await text('cccanto-readings', /\.txt$/), false, 1_000_000);

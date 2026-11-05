@@ -12,6 +12,8 @@ export interface PackRow {
   s: { g: string[]; p?: string }[];
   /** 1 = ordinary entry, 0 = proper noun (ranked after common entries). */
   q: number;
+  /** Korean: source of the row, `w` Wiktionary or `k` kengdic. */
+  x?: 'w' | 'k';
 }
 
 /** Row as stored in the dictionary database. */

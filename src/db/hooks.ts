@@ -3,9 +3,10 @@ import { isUnloading } from '@/platform/lifecycle';
 import { getDb } from './schema';
 import { listAnalyses } from './repositories/analysis';
 import { getLearnedKeys } from './repositories/progress';
+import { listCorrections } from './repositories/corrections';
 import { getSettings } from './repositories/settings';
 import { getLines, getSong, listSongs } from './repositories/songs';
-import type { Line, LineAnalysisCache, Settings, Song } from './types';
+import type { Correction, Line, LineAnalysisCache, Settings, Song } from './types';
 
 const never = <T>() => new Promise<T>(() => undefined);
 
@@ -51,3 +52,10 @@ export const useSettings = (): Settings | undefined =>
 
 export const useAnalysisRows = (songId: string): LineAnalysisCache[] | undefined =>
   useLiveQuery(() => safe(() => listAnalyses(songId)), [songId]);
+
+/** All corrections of a song, live. Language filtering happens where they are applied (inactive ones stay stored). */
+export const useCorrections = (songId: string | undefined): Correction[] | undefined =>
+  useLiveQuery(
+    () => safe(() => (songId ? listCorrections(songId) : Promise.resolve([]))),
+    [songId],
+  );

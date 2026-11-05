@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { MoreHorizontal } from 'lucide-react';
 import { TopBar } from '@/app/TopBar';
-import { useLearnedKeys, useLines, useSettings, useSong } from '@/db/hooks';
+import { useCorrections, useLearnedKeys, useLines, useSettings, useSong } from '@/db/hooks';
 import { resetProgress } from '@/db/repositories/progress';
 import { updateSettings } from '@/db/repositories/settings';
 import { setCleanVariant, setDisplayMode, touchOpened } from '@/db/repositories/songs';
@@ -14,6 +14,7 @@ import { langAttr } from '@/engine/segment/detect';
 import { LANG_CODE, LANG_NAME } from '@/features/language';
 import { LanguageDataBanner } from '@/features/packs/PackUi';
 import {
+  Banner,
   Button,
   Chip,
   ChipButton,
@@ -28,14 +29,20 @@ import {
 } from '@/ui';
 import type { MenuItem } from '@/ui';
 import type { Song } from '@/db/types';
+import type { WordTarget } from '@/features/word/target';
 import { EditDetailsSheet } from './EditDetailsSheet';
 import { EditLyricsSheet } from './EditLyricsSheet';
 import { CleanView, KaraokeView, LearnView } from './LyricViews';
 import { firstVisibleLineIndex, toItems } from './lyricModel';
 import type { LyricItem } from './lyricModel';
 import s from './SongScreen.module.css';
+import { UnmatchedSheet } from '@/features/word/UnmatchedSheet';
+import { WordSheet } from '@/features/word/WordSheet';
+import { useInstalledPacks } from '@/features/packs/packs';
 import { useDeleteSong } from './useDeleteSong';
 import { useLineAnalyses } from './useLineAnalyses';
+import { applyCorrections } from '@/engine/overlay';
+import type { LineAnalysis } from '@/engine/model';
 
 const MODE_OPTIONS = [
   { value: 'learn', label: 'Learn' },
@@ -256,7 +263,42 @@ function SongBody({
   onVariant: (v: 'original' | 'romanised') => void;
 }) {
   const lines = useMemo(() => items.map((i) => i.line), [items]);
-  const { byLine, processing } = useLineAnalyses(song, lines);
+  const { byLine: generated, processing } = useLineAnalyses(song, lines);
+  const stored = useCorrections(song.id);
+  const corrections = useMemo(
+    () => (stored ?? []).filter((c) => c.language === song.language),
+    [stored, song.language],
+  );
+  // Corrections are applied at render time, so edits show in every mode at once and never need re-analysis (J8.3).
+  const { byLine, applied } = useMemo(() => {
+    const out = new Map<string, LineAnalysis>();
+    const hit = new Set<string>();
+    const keyOf = new Map(lines.map((l) => [l.id, l.key]));
+    for (const [id, a] of generated) {
+      const key = keyOf.get(id);
+      const r =
+        key === undefined
+          ? { analysis: a, applied: new Set<string>() }
+          : applyCorrections(a, key, corrections);
+      out.set(id, r.analysis);
+      r.applied.forEach((x) => hit.add(x));
+    }
+    return { byLine: out, applied: hit };
+  }, [generated, lines, corrections]);
+  // Not-applied corrections are reported once every line has been analysed (never silently dropped).
+  const packs = useInstalledPacks();
+  const analysed = items.every((i) => i.kind !== 'lyric' || generated.has(i.line.id));
+  const ready =
+    !processing &&
+    analysed &&
+    (song.language === 'ko' || !!packs?.some((p) => p.lang === song.language));
+  const unmatched = useMemo(
+    () => (ready ? corrections.filter((c) => !applied.has(c.id)) : []),
+    [ready, corrections, applied],
+  );
+  const [reviewing, setReviewing] = useState(false);
+  const [word, setWord] = useState<WordTarget | null>(null);
+  const [wordOpen, setWordOpen] = useState(false);
   const common = {
     items,
     language: song.language,
@@ -272,12 +314,53 @@ function SongBody({
           <div className={s['processingBar']} aria-hidden="true" />
         </div>
       ) : null}
+      {unmatched.length > 0 ? (
+        <div className={s['banner']}>
+          <Banner
+            tone="warning"
+            action={
+              <Button variant="secondary" onClick={() => setReviewing(true)}>
+                Review
+              </Button>
+            }
+          >
+            {unmatched.length === 1
+              ? "1 correction couldn't be applied."
+              : `${unmatched.length} corrections couldn't be applied.`}
+          </Banner>
+        </div>
+      ) : null}
+      <UnmatchedSheet
+        corrections={unmatched}
+        open={reviewing && unmatched.length > 0}
+        onClose={() => setReviewing(false)}
+      />
       {mode === 'karaoke' ? (
         <KaraokeView {...common} syllables={syllables} />
       ) : mode === 'clean' ? (
         <CleanView {...common} variant={variant} onVariant={onVariant} />
       ) : (
-        <LearnView {...common} songId={song.id} learned={learned} emphasis={emphasis} />
+        <>
+          <LearnView
+            {...common}
+            songId={song.id}
+            learned={learned}
+            emphasis={emphasis}
+            onWord={(target) => {
+              setWord(target);
+              setWordOpen(true);
+            }}
+          />
+          <WordSheet
+            target={word}
+            language={song.language}
+            prefs={prefs}
+            songId={song.id}
+            corrections={corrections}
+            open={wordOpen}
+            onClose={() => setWordOpen(false)}
+          />
+        </>
       )}
     </>
   );

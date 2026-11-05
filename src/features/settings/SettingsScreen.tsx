@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import { TopBar } from '@/app/TopBar';
 import { TEXT_SIZE_LABELS, setTextSize, setTheme, useTextSize, useTheme } from '@/app/preferences';
 import type { TextSize, ThemePref } from '@/app/preferences';
+import { applyUpdate, useUpdateReady } from '@/app/updates';
 import { APP_NAME, APP_VERSION } from '@/app/version';
 import { useSettings } from '@/db/hooks';
 import { updateSettings } from '@/db/repositories/settings';
-import { SegmentedControl, Switch, useToast } from '@/ui';
+import { Button, SegmentedControl, Switch, useToast } from '@/ui';
 import { DEFAULT_ROMAN_PREFS } from '@/engine/romanLine';
 import type { RomanPrefs } from '@/engine/romanLine';
 import { LANG_NAME } from '@/features/language';
@@ -53,6 +55,7 @@ function Disclosure({
 }
 
 export function SettingsScreen() {
+  const updateReady = useUpdateReady();
   const theme = useTheme();
   const size = useTextSize();
   const settings = useSettings();
@@ -269,7 +272,8 @@ export function SettingsScreen() {
             <PackSettingsRows />
           </div>
           <p className={s['note']}>
-            Downloaded once, then works offline. Korean needs no download.
+            Downloaded once, then works offline. Korean pronunciation needs no download; the Korean
+            dictionary (for word meanings) is optional.
           </p>
         </section>
 
@@ -286,28 +290,15 @@ export function SettingsScreen() {
                 <span className={s['summaryValue']}>Version {APP_VERSION}</span>
               </p>
             </Row>
-            <Disclosure title="Dictionary sources and licences">
-              <p className={s['itemHint']}>
-                CC-CEDICT (CC BY-SA 4.0); CC-Canto and the CC-CEDICT Cantonese readings (CC BY-SA
-                3.0, © Pleco). Japanese uses JMdict from the{' '}
-                <a
-                  href="https://www.edrdg.org/edrdg/newlic.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Electronic Dictionary Research and Development Group
-                </a>{' '}
-                (CC BY-SA 4.0) and Lindera/IPADIC (
-                <a
-                  href={`${import.meta.env.BASE_URL}licenses/IPADIC-COPYING.txt`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  IPADIC notice
-                </a>
-                ).
-              </p>
-            </Disclosure>
+            {updateReady ? (
+              <Row hint="Your songs and settings stay as they are.">
+                <Button onClick={applyUpdate}>Reload to update</Button>
+              </Row>
+            ) : null}
+            <Link className={s['linkRow']} to="/licences">
+              <span>Licences and data sources</span>
+              <span className={s['chevron']} aria-hidden="true" />
+            </Link>
           </div>
         </section>
       </main>

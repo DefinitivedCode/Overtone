@@ -98,7 +98,7 @@
   font-size: 0.82em;
 }
 .learn[data-emphasis='reading']:not([data-script='ja']) .learnText rt {
-  font-size: 1.16em;
+  font-size: 1.05em;
   line-height: 1.25;
 }
 .learn[data-emphasis='reading'][data-script='ja'] .romaji {
@@ -108,6 +108,8 @@
 }
 /* Invisible, not removed: the lyric text stays in the DOM for copy, search and screen readers. */
 .englishBase {
+  /* Same size as the annotation, so the ruby is exactly as wide as the English it shows. */
+  font-size: 1.05em;
   color: transparent;
 }
 .english rt {
@@ -127,6 +129,43 @@
 }
 .unknown {
   color: var(--text-tertiary);
+}
+
+/* Tappable words (ADR 0007): the vertical padding enlarges the hit area. */
+/* A <button> is an atomic inline box, so its padding would grow the line: the negative block margin cancels the
+   padding (hit area ≥ 44 px tall without changing line spacing). min-width gives narrow Chinese words a 24 px target. */
+.word {
+  display: inline-block;
+  min-width: 24px;
+  margin: -0.45em 0;
+  padding: 0.45em 0.08em;
+  vertical-align: baseline;
+  white-space: pre-wrap;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.word[data-corrected='true']::after {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-left: 1px;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: top;
+}
+.word:active {
+  background: var(--bg-sunken);
+}
+.word:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
 }
 
 /* ---------- Karaoke ---------- */

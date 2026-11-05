@@ -12,6 +12,8 @@ export interface SheetProps {
   leading?: ReactNode;
   /** Control shown at the trailing edge (e.g. Save, or a close button). */
   trailing?: ReactNode;
+  /** Where focus goes on close if the control that opened the sheet was re-rendered away meanwhile. */
+  restoreFocus?: () => HTMLElement | null;
   children: ReactNode;
 }
 
@@ -43,6 +45,7 @@ export function Sheet({
   detent = 'full',
   leading,
   trailing,
+  restoreFocus,
   children,
 }: SheetProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -54,8 +57,10 @@ export function Sheet({
   const pushed = useRef(false);
   const opener = useRef<HTMLElement | null>(null);
   const onCloseRef = useRef(onClose);
+  const restoreFocusRef = useRef(restoreFocus);
   useEffect(() => {
     onCloseRef.current = onClose;
+    restoreFocusRef.current = restoreFocus;
   });
   // Mount as soon as we are asked to open (adjusting state while rendering is the supported pattern).
   if (open && !mounted) setMounted(true);
@@ -68,7 +73,8 @@ export function Sheet({
       () => {
         // Close the native dialog (releases the inert background) and return focus to the opener.
         dialogRef.current?.close();
-        opener.current?.focus();
+        const target = opener.current?.isConnected ? opener.current : restoreFocusRef.current?.();
+        target?.focus();
         setMounted(false);
         setShown(false);
       },
@@ -179,7 +185,10 @@ export function Sheet({
           </h2>
           <div className={s['trail']}>{trailing}</div>
         </div>
-        <div className={s['body']}>{children}</div>
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- keyboard users must be able to scroll a sheet whose content has no controls (axe: scrollable-region-focusable) */}
+        <div className={s['body']} tabIndex={0}>
+          {children}
+        </div>
       </div>
     </dialog>
   );

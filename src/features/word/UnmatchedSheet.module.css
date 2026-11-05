@@ -1,0 +1,29 @@
+.lead {
+  margin: 0 0 var(--space-12);
+  font: var(--type-subhead);
+  color: var(--text-secondary);
+}
+.list {
+  display: grid;
+  margin: 0 0 var(--space-16);
+  padding: 0;
+  list-style: none;
+}
+.list > li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding: var(--space-8) 0;
+  border-bottom: 0.5px solid var(--separator);
+}
+.surface {
+  margin: 0;
+  font-size: 20px;
+  overflow-wrap: anywhere;
+}
+.what {
+  margin: 0;
+  font: var(--type-footnote);
+  color: var(--text-secondary);
+}

@@ -113,7 +113,34 @@ function DownloadButton({
   );
 }
 
-/** Settings → Offline language data (J12.2). */
+/** Download prompt for one pack, used where a feature needs data that is not installed (e.g. the Word sheet). */
+export function PackPrompt({ packId, name }: { packId: string; name: string }) {
+  const states = useInstallStates();
+  const installed = useInstalledPacks();
+  const m = useManifest(true);
+  const online = useOnline();
+  const info = m.status === 'ready' ? m.manifest.packs.find((p) => p.id === packId) : undefined;
+  const busy = states.get(packId)?.progress;
+  if (installed?.some((p) => p.id === packId)) return null;
+  if (busy) return <Progress id={packId} />;
+  if (info)
+    return (
+      <DownloadButton
+        info={info}
+        online={online}
+        label={`Download ${name} · ${formatBytes(info.bytes)}`}
+      />
+    );
+  return (
+    <p className={s['sub']}>
+      {m.status === 'error' ? 'Connect to the internet to see the download.' : 'Checking…'}
+    </p>
+  );
+}
+
+const PACK_TITLE: Record<string, string> = { 'ko-core': 'Korean dictionary' };
+
+/** Settings → Offline language downloads (J12.2). */
 export function PackSettingsRows() {
   const m = useManifest();
   const installed = useInstalledPacks();
@@ -142,7 +169,7 @@ export function PackSettingsRows() {
           return (
             <li key={id} className={s['row']}>
               <div className={s['head']}>
-                <strong>{LANG_NAME[pack.lang]}</strong>
+                <strong>{PACK_TITLE[pack.id] ?? LANG_NAME[pack.lang]}</strong>
                 <span className={s['sub']}>
                   {have
                     ? `Downloaded · ${formatBytes(have.bytes)} · v${have.version}`
@@ -174,7 +201,11 @@ export function PackSettingsRows() {
       <ConfirmDialog
         open={removing !== null}
         title="Remove language data?"
-        message="Songs in this language show their original text again until you download the data. Your songs and progress are not affected."
+        message={
+          removing === 'ko-core'
+            ? 'Word meanings for Korean will be unavailable until you download the dictionary again. Your songs and progress are not affected.'
+            : 'Songs in this language show their original text again until you download the data. Your songs and progress are not affected.'
+        }
         confirmLabel="Remove"
         destructive
         onConfirm={() => {

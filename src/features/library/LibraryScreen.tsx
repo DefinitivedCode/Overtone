@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowUpDown, Plus, Settings as SettingsIcon } from 'lucide-react';
 import { TopBar } from '@/app/TopBar';
+import { InstallTip } from '@/app/InstallTip';
 import { useDebounced } from '@/app/useDebounced';
 import { useSettings, useSongs } from '@/db/hooks';
 import { updateSettings } from '@/db/repositories/settings';
@@ -127,6 +128,8 @@ export function LibraryScreen() {
                 </Banner>
               </div>
             ) : null}
+
+            <InstallTip />
 
             <SearchField label="Search songs, artists, lyrics" value={query} onChange={setQuery} />
 

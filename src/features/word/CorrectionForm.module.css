@@ -1,0 +1,69 @@
+.form {
+  display: grid;
+  gap: var(--space-16);
+  padding-bottom: var(--space-24);
+}
+.group {
+  display: grid;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.legend {
+  padding: 0;
+  font: var(--type-subhead);
+  font-weight: 600;
+}
+.hint {
+  margin: 0;
+  font: var(--type-footnote);
+  color: var(--text-secondary);
+}
+.chars {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 28px;
+  line-height: 1.2;
+}
+.charWrap {
+  display: inline-flex;
+  align-items: center;
+}
+.char {
+  padding: 0 2px;
+}
+/* A 44 × 44 target that draws as a thin marker between two characters. */
+.cut {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.cut::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  bottom: 20%;
+  width: 2px;
+  transform: translateX(-50%);
+  border-radius: 1px;
+  background: var(--separator);
+}
+.cut[aria-pressed='true']::before {
+  width: 4px;
+  background: var(--accent);
+}
+.cut:focus-visible {
+  outline: 2px solid var(--accent);
+  border-radius: 8px;
+}
+.actions {
+  display: grid;
+  gap: var(--space-8);
+}

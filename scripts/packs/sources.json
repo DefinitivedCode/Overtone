@@ -31,6 +31,26 @@
       "licence": "CC BY-SA 4.0 (EDRDG)",
       "attribution": "JMdict is the property of the Electronic Dictionary Research and Development Group (https://www.edrdg.org/) and is used in conformance with the Group's licence (https://www.edrdg.org/edrdg/licence.html). Pack data was trimmed from jmdict-simplified."
     },
+    "wiktionary-ko": {
+      "name": "Wiktionary (English), Korean entries",
+      "url": "https://kaikki.org/dictionary/Korean/kaikki.org-dictionary-Korean.jsonl",
+      "file": "kaikki-ko.jsonl",
+      "bytes": 207649961,
+      "sha256": "c160b1dadd49b14109c2c1a29a616cc44064a738f91d2b98c1cdf457b90fde7f",
+      "version": "2026-10-01 dump (extracted 2026-10-30)",
+      "licence": "CC BY-SA 4.0 and GFDL",
+      "attribution": "Definitions from English Wiktionary contributors (https://en.wiktionary.org), extracted by Wiktextract and distributed by kaikki.org. Text is available under the Creative Commons Attribution-ShareAlike License 4.0 (https://creativecommons.org/licenses/by-sa/4.0/); additional terms may apply."
+    },
+    "kengdic": {
+      "name": "kengdic",
+      "url": "https://raw.githubusercontent.com/garfieldnate/kengdic/master/kengdic.tsv",
+      "file": "kengdic.tsv",
+      "bytes": 11650286,
+      "sha256": "d23236d5676f506514721e605534647ba4735a85bbb76b9e12d1ec067b8cfdb4",
+      "version": "2021-09-20",
+      "licence": "CC BY-SA 3.0",
+      "attribution": "kengdic, a Korean-English dictionary by Joe Speigle and contributors, maintained by Nathan Glenn (https://github.com/garfieldnate/kengdic). Used under CC BY-SA 3.0."
+    },
     "cccanto-readings": {
       "name": "CC-CEDICT Cantonese Readings",
       "url": "https://cantonese.org/cccedict-canto-readings-150923.zip",
@@ -45,6 +65,7 @@
   "packs": {
     "ja-core": { "lang": "ja", "version": "2026.11.5", "sources": ["jmdict"] },
     "zh-core": { "lang": "zh", "version": "2026.11.5.3", "sources": ["cedict"] },
+    "ko-core": { "lang": "ko", "version": "2026.11.5", "sources": ["wiktionary-ko", "kengdic"] },
     "yue-core": {
       "lang": "yue",
       "version": "2026.11.5.3",

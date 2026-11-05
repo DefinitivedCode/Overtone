@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Check } from 'lucide-react';
 import { setLearned } from '@/db/repositories/progress';
@@ -8,6 +8,7 @@ import { japaneseRomanRuns, romaniseLine, tokenRoman, tokenUnits } from '@/engin
 import type { RomanOptions, RomanPrefs } from '@/engine/romanLine';
 import { langAttr } from '@/engine/segment/detect';
 import { SegmentedControl, useToast } from '@/ui';
+import type { WordTarget } from '@/features/word/target';
 import type { LyricItem } from './lyricModel';
 import s from './LyricViews.module.css';
 
@@ -33,6 +34,7 @@ function LearnToken({
   prefs,
   language,
   readingFirst,
+  trail,
 }: {
   t: Token;
   /** Per-character display syllables (Mandarin/Cantonese), or null. */
@@ -41,21 +43,34 @@ function LearnToken({
   language: LangCode;
   /** Reading-first layout: English joins the reading row instead of interrupting it. */
   readingFirst: boolean;
+  /** Punctuation directly after an English word, shown with it in the reading row. */
+  trail: string;
 }): ReactNode {
   if (t.kind === 'space') return t.surface;
   // English in a Korean/Chinese song: when the reading leads, sing it from the same row as the romanisation.
   // The base stays in the DOM (collapsed) so copy, search and screen readers still get the lyric text.
-  if (readingFirst && language !== 'ja' && t.kind === 'latin')
+  if (readingFirst && language !== 'ja' && t.kind === 'latin') {
+    // One ruby per word so a long English phrase wraps like normal text; trailing punctuation stays with the last word.
+    const text = t.surface + trail;
     return (
-      <ruby className={s['english']}>
-        <span className={s['englishBase']} lang="en">
-          {t.surface}
-        </span>
-        <rt aria-hidden="true" lang="en">
-          {t.surface}
-        </rt>
-      </ruby>
+      <>
+        {text.split(/(\s+)/u).map((part, i) =>
+          part === '' || /^\s+$/u.test(part) ? (
+            part
+          ) : (
+            <ruby key={i} className={s['english']}>
+              <span className={s['englishBase']} lang="en">
+                {part}
+              </span>
+              <rt aria-hidden="true" lang="en">
+                {part}
+              </rt>
+            </ruby>
+          ),
+        )}
+      </>
     );
+  }
   if (language === 'ja') {
     if (t.lang === 'en') return <span lang="en">{t.surface}</span>;
     if (t.lang !== 'ja') return t.surface;
@@ -136,7 +151,16 @@ export interface LearnViewProps extends ViewProps {
   songId: string;
   learned: ReadonlySet<string>;
   emphasis: DisplaySettings['learnEmphasis'];
+  /** Opens the Word sheet for a tapped token. */
+  onWord: (target: WordTarget) => void;
 }
+
+const readingFirst = (emphasis: DisplaySettings['learnEmphasis'], language: LangCode): boolean =>
+  emphasis === 'reading' && language !== 'ja';
+
+/** Tokens with something to look up (not punctuation, English or unreadable segments). */
+const isTappable = (t: Token, language: LangCode): boolean =>
+  t.corrected === true || ((t.kind === 'word' || t.kind === 'particle') && t.lang === language);
 
 export function LearnView({
   items,
@@ -146,6 +170,7 @@ export function LearnView({
   songId,
   learned,
   emphasis,
+  onWord,
 }: LearnViewProps) {
   const toast = useToast();
   // Optimistic state: shown immediately, dropped once the stored value agrees (J7.1).
@@ -224,16 +249,61 @@ export function LearnView({
               {analysis && analysis.status !== 'failed'
                 ? (() => {
                     const units = tokenUnits(analysis.tokens, prefs);
-                    return analysis.tokens.map((t, i) => (
-                      <LearnToken
-                        key={i}
-                        t={t}
-                        units={units[i] ?? null}
-                        prefs={prefs}
-                        language={language}
-                        readingFirst={emphasis === 'reading'}
-                      />
-                    ));
+                    const english = readingFirst(emphasis, language);
+                    return analysis.tokens.map((t, i) => {
+                      const before = analysis.tokens[i - 1];
+                      const after = analysis.tokens[i + 1];
+                      if (english && t.kind === 'punct' && before?.kind === 'latin') return null;
+                      const node = (
+                        <LearnToken
+                          t={t}
+                          units={units[i] ?? null}
+                          prefs={prefs}
+                          language={language}
+                          readingFirst={emphasis === 'reading'}
+                          trail={
+                            english && t.kind === 'latin' && after?.kind === 'punct'
+                              ? after.surface
+                              : ''
+                          }
+                        />
+                      );
+                      return isTappable(t, language) ? (
+                        <button
+                          key={i}
+                          type="button"
+                          className={s['word']}
+                          aria-haspopup="dialog"
+                          data-word={t.start}
+                          data-line={line.index}
+                          data-corrected={t.corrected === true ? 'true' : undefined}
+                          onClick={() => {
+                            const same = analysis.tokens.filter(
+                              (x) => x.surface === t.surface && isTappable(x, language),
+                            );
+                            const following = analysis.tokens[i + 1];
+                            onWord({
+                              token: t,
+                              lineKey: line.key,
+                              lineIndex: line.index,
+                              occurrence: same.indexOf(t),
+                              repeats: same.length,
+                              next:
+                                following &&
+                                following.start === t.end &&
+                                isTappable(following, language) &&
+                                following.kind === 'word'
+                                  ? following
+                                  : null,
+                            });
+                          }}
+                        >
+                          {node}
+                        </button>
+                      ) : (
+                        <Fragment key={i}>{node}</Fragment>
+                      );
+                    });
                   })()
                 : line.text}
               {language === 'ja' &&

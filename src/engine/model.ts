@@ -39,6 +39,14 @@ export interface Token {
   /** Machine-readable reasons, e.g. 'particle:를', 'needs-language-data'. */
   notes: string[];
   userReading?: boolean;
+  /** Romanisation typed by the user (corrections overlay); wins over every derived romanisation. */
+  userRoman?: string;
+  /** Meaning typed by the user; shown in the Word sheet before (or instead of) dictionary senses. */
+  userGloss?: { text: string; mode: 'replace' | 'prepend' };
+  /** True when a correction changed this token (shows the edited marker). */
+  corrected?: boolean;
+  /** Ids of the corrections that produced or changed this token (so the sheet can edit or revert them). */
+  correctionIds?: string[];
   /** Japanese pronunciation from the tokenizer, used for long vowels at render time. */
   pronunciation?: string;
   particleGloss?: string;

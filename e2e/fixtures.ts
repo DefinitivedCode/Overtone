@@ -16,7 +16,16 @@ export type PageWithAllow = Page & {
 
 /** Fails any test that logs console.error or throws a page error (AUTONOMOUS_AGENT §5). */
 export const test = base.extend({
-  page: async ({ page }, run) => {
+  page: async ({ page }, run, testInfo) => {
+    // The iPhone "Add to Home Screen" tip shifts the Library layout; only its own test wants to see it.
+    if (!testInfo.title.includes('Add to Home Screen'))
+      await page.addInitScript(() => {
+        try {
+          localStorage.setItem('overtone:installTipDismissed', '1');
+        } catch {
+          // storage unavailable: the tip simply shows
+        }
+      });
     const errors: string[] = [];
     const allowed: RegExp[] = [];
     const ok = (s: string) => BENIGN.test(s) || allowed.some((re) => re.test(s));

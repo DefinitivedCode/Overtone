@@ -196,7 +196,7 @@ test.describe('language packs (Mandarin, Cantonese)', () => {
       await page.setViewportSize({ width: 375, height: 812 });
       await setTheme(page, theme);
       const settings = page.getByRole('region', { name: 'Offline language downloads' });
-      await expect(settings.getByRole('button', { name: /Download ·/ })).toHaveCount(3);
+      await expect(settings.getByRole('button', { name: /Download ·/ })).toHaveCount(4);
       await expectAxeClean(page, `pack settings before install, ${theme}`);
       for (const language of ['Mandarin', 'Cantonese'] as const) {
         const row = settings.getByRole('listitem').filter({ hasText: language });

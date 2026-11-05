@@ -5,11 +5,16 @@ import { ErrorBoundary } from '@/app/ErrorBoundary';
 import { useAppearance } from '@/app/theme';
 import { LibraryScreen } from '@/features/library/LibraryScreen';
 import { SongScreen } from '@/features/song/SongScreen';
+import { UpdateNotifier } from '@/app/UpdateNotifier';
 import { ToastProvider } from '@/ui';
 
 // Settings (backup/zod, pack UI) is rarely opened first, so it loads on demand to keep the initial bundle small.
 const SettingsScreen = lazy(() =>
   import('@/features/settings/SettingsScreen').then((m) => ({ default: m.SettingsScreen })),
+);
+
+const LicencesScreen = lazy(() =>
+  import('@/features/about/LicencesScreen').then((m) => ({ default: m.LicencesScreen })),
 );
 
 export function AppRoutes() {
@@ -26,6 +31,14 @@ export function AppRoutes() {
           </Suspense>
         }
       />
+      <Route
+        path="/licences"
+        element={
+          <Suspense fallback={null}>
+            <LicencesScreen />
+          </Suspense>
+        }
+      />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
@@ -37,6 +50,7 @@ export function App() {
   return (
     <ErrorBoundary>
       <ToastProvider>
+        <UpdateNotifier />
         <BootGate>
           <BrowserRouter basename={basename}>
             <AppRoutes />

@@ -1,0 +1,40 @@
+# iOS verification checklist
+
+Playwright WebKit is desktop WebKit with mobile emulation, **not iOS**. Everything below needs a human with a real iPhone (latest iOS, and one older supported version if available), with Overtone installed through Share → Add to Home Screen. The implementer does not change these statuses: testers record the device, iOS version, date, tester and result.
+
+What the automated suite _does_ cover (and so is not a substitute for these rows): WebKit at iPhone 15 and iPhone SE viewports for layout, overflow at 320–768 px, axe accessibility, offline reload with a service worker, pack installation, update prompting (mocked worker), and IndexedDB persistence across reloads.
+
+| #   | Area            | Check                                                                                                             | Status           | Device / iOS / date / tester | Notes |
+| --- | --------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------- | ---------------------------- | ----- |
+| 1   | Install         | Add to Home Screen shows "Overtone" and the correct icon (no white border, correct corners)                       | Not yet verified |                              |       |
+| 2   | Install         | Launch shows the splash in light and dark mode; no white flash into the app                                       | Not yet verified |                              |       |
+| 3   | Install         | Opens standalone (no Safari UI); status bar legible in both themes                                                | Not yet verified |                              |       |
+| 4   | Offline         | Airplane mode → cold launch → Library appears with songs                                                          | Not yet verified |                              |       |
+| 5   | Layout          | Notch / Dynamic Island: nothing under the status bar; home-indicator area clear on toasts and sheets              | Not yet verified |                              |       |
+| 6   | Layout          | Landscape: side safe areas respected; no horizontal scroll                                                        | Not yet verified |                              |       |
+| 7   | Layout          | Rotate on Song screen: scroll position roughly preserved                                                          | Not yet verified |                              |       |
+| 8   | Scrolling       | Status-bar tap scrolls Library and Song to the top                                                                | Not yet verified |                              |       |
+| 9   | Scrolling       | Rubber-band shows the matching background colour (no white)                                                       | Not yet verified |                              |       |
+| 10  | Sheets          | Sheet scrolling never scrolls the page behind; drag-to-dismiss works and does not fight inner scroll              | Not yet verified |                              |       |
+| 11  | Touch           | Word taps are accurate on dense Chinese text at default and smallest text size; no accidental line toggles        | Not yet verified |                              |       |
+| 12  | Touch           | Long-press on a word shows no iOS callout/magnifier in Learn; Clean-mode text is selectable                       | Not yet verified |                              |       |
+| 13  | Touch           | No double-tap zoom on buttons; pinch zoom still works                                                             | Not yet verified |                              |       |
+| 14  | Keyboard        | Add Song: caret stays visible above the keyboard when typing at the end of long text                              | Not yet verified |                              |       |
+| 15  | Keyboard        | Title/Artist fields do not zoom the page on focus                                                                 | Not yet verified |                              |       |
+| 16  | Keyboard        | Dismissing the keyboard restores layout without a gap                                                             | Not yet verified |                              |       |
+| 17  | Keyboard        | Correction sheet: Japanese kana keyboard and pinyin with numbers are accepted                                     | Not yet verified |                              |       |
+| 18  | Data safety     | Settings shows storage protection after adding a song (record what iOS granted)                                   | Not yet verified |                              |       |
+| 19  | Data safety     | Export via share sheet → Save to Files works; the file opens as JSON                                              | Not yet verified |                              |       |
+| 20  | Data safety     | Import from Files works; merge preview is correct                                                                 | Not yet verified |                              |       |
+| 21  | Data safety     | Force-quit during Add Song with a long paste → relaunch → draft restored                                          | Not yet verified |                              |       |
+| 22  | Updates         | After deploying a new build, the "new version is ready" toast appears; Reload works; data intact                  | Not yet verified |                              |       |
+| 23  | Accessibility   | VoiceOver: Library rows, mode switcher, Learn words (reading announced once), learned toggle, sheets (focus trap) | Not yet verified |                              |       |
+| 24  | Accessibility   | Largest in-app text size: no clipping                                                                             | Not yet verified |                              |       |
+| 25  | Accessibility   | Reduce Motion on: no slide animations                                                                             | Not yet verified |                              |       |
+| 26  | Accessibility   | Increase Contrast / Smart Invert remain usable (note results)                                                     | Not yet verified |                              |       |
+| 27  | Languages       | Each language renders with the right system font (no Chinese-style glyphs in Japanese; HK forms for Cantonese)    | Not yet verified |                              |       |
+| 28  | Languages       | Downloading the Japanese pack over cellular shows the size first; completes; works offline after                  | Not yet verified |                              |       |
+| 29  | Install tip     | In Safari (not installed) the Library shows the "Install Overtone" tip once there is a song; it stays dismissed   | Not yet verified |                              |       |
+| 30  | Learn / Karaoke | Learn layout (reading first) is comfortable on a real screen; Karaoke "Split into syllables" wraps cleanly        | Not yet verified |                              |       |
+| 31  | Memory          | Open a Japanese song (tokenizer ≈ 100 MB WASM memory) and switch apps and back several times: no reload/crash     | Not yet verified |                              |       |
+| 32  | Storage         | After 7+ days unused as a Home Screen app, the library is still present                                           | Not yet verified |                              |       |

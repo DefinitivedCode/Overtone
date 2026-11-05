@@ -25,7 +25,7 @@ Run `npm run packs` followed by `npm run test:ling`. The suites write `reports/l
 | Mandarin  |   162 | 455/463 (98.3 %, target 98 %) | 139/141 (98.6 %, target 92 %) |
 | Cantonese |   172 |  369/369 (100 %, target 95 %) |    28/28 (100 %, target 88 %) |
 
-Both suites use the real pack rows and include the starter probes. The Mandarin comparator normalizes marked and numbered fixture readings to the same numeric representation. Expectations remain unchanged. All fixtures are self-authored with zero fluent-speaker reviews. Coverage and meaning relevance are scheduled for M9.
+Both suites use the real pack rows and include the starter probes. The Mandarin comparator normalizes marked and numbered fixture readings to the same numeric representation. Expectations remain unchanged. All fixtures are self-authored with zero fluent-speaker reviews. Dictionary coverage and meaning relevance are reported in the Dictionaries section below.
 
 Mandarin differences include 得 read `de2` where fixtures expect `dei3` or `de5`, 地 read `di4` where the fixture expects `de5`, and neutral-tone differences for 还是 and 朋友们. The generated report lists each affected line. The Cantonese suite reported no differences.
 
@@ -34,3 +34,16 @@ Mandarin differences include 得 read `de2` where fixtures expect `dei3` or `de5
 - The production Lindera/IPADIC WASM, trimmed JMdict and complete analyser scored **364/365 kanji-containing spans (99.73%)** and **156/157 exact romaji lines (99.36%)**, against thresholds of 95% and 85%. The span comparator uses UTF-16 surface ranges to allow different token boundaries.
 - The 157 scored cases include inflection, jukujikun, particles, long vowels, loans, iteration marks, counters, English mixed text and pasted readings. Forty-two paired clauses exercise punctuation and spacing with separately authored references. The original starter file scored **49/50** on whole-line kana readings. All three separate poetic probes missed their artist-selected reading without supplied ruby.
 - The scored differences were the `idaku`/`daku` choice in `運命を抱く` and `kun`/`kimi` after `一日中` in the starter probes. Fixture expectations were retained. The generated `reports/linguistic-ja.md` lists per-category results and differences.
+
+## Dictionaries (M9)
+
+`tests/linguistic/dictionary.test.ts` analyses every fixture line, then runs the real Word-sheet lookup (`lookupWord`) over the real packs and counts content-word tokens (Korean particles and jamo-only interjections excluded) that get at least one entry.
+
+| Language  | Content tokens | With an entry | Target |
+| --------- | -------------: | ------------: | -----: |
+| Korean    |            140 |        95.0 % |   90 % |
+| Japanese  |            590 |        93.9 % |   90 % |
+| Mandarin  |  see `reports` |         100 % |   90 % |
+| Cantonese |  see `reports` |         100 % |   90 % |
+
+Meaning relevance is a **20-word hand-written probe** (not an independent study): 20/20 expected glosses appear in the top three senses (target 85 %). Korean misses that remain are names and rare compounds (광한루, 꽃내음, 솜이불) and the ㄹ-dropping verb 분다 (불다). A first run scored Korean 87.4 % because the heuristic lemmatiser does not undo irregular conjugations; the Word sheet now tries ㅂ-irregular, 르-irregular, formal -ㅂ니다 and 여-contraction citation forms (`koIrregularForms`) and checks each against the dictionary. Fixtures remain self-authored; Korean coverage is measured on vocabulary the same author chose, so it likely overstates coverage of real lyrics. Per-language details: `reports/dictionary.json` (generated).

@@ -63,6 +63,7 @@ export function tokenRoman(
 ): string {
   if (t.kind === 'space') return ' ';
   if (t.kind === 'punct') return toAscii(t.surface);
+  if (t.userRoman !== undefined && t.kind === 'word') return t.userRoman;
   if (t.kind === 'word' && t.lang === 'ko' && t.roman !== null)
     return opts.syllables
       ? romaniseEojeolSyllables(t.surface, prefs.ko.mode).join(SYLLABLE_SEPARATOR)
@@ -134,7 +135,7 @@ export function japaneseRomanRuns(
         (prior.kind === 'punct' && /[,.;:!?]$/u.test(toAscii(prior.surface))))
     )
       runs.push({ text: ' ' });
-    if (isJapanese && token.reading !== null) {
+    if (isJapanese && token.reading !== null && token.userRoman === undefined) {
       const group = [token];
       while (
         tokens[i + 1]?.lang === 'ja' &&
