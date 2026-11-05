@@ -86,7 +86,7 @@ export class EngineClient {
   }
 
   private keyOf(lang: LangCode, l: LineInput): string {
-    return `${lang}|${l.key}|${l.text}`;
+    return `${lang}|${l.packVersion === undefined ? 'active' : (l.packVersion ?? 'none')}|${l.key}|${l.text}`;
   }
 
   private async run(req: AnalyseRequest): Promise<LineAnalysis[]> {
@@ -103,7 +103,7 @@ export class EngineClient {
         }
       }
       try {
-        return analyseBatch(req);
+        return await analyseBatch(req);
       } catch (e) {
         this.diagnostics.push(`analysis failed: ${e instanceof Error ? e.message : String(e)}`);
         return req.lines.map((l) =>

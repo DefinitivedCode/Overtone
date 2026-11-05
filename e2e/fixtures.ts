@@ -1,3 +1,4 @@
+import type { Page } from '@playwright/test';
 import { expect, test as base } from '@playwright/test';
 
 /**
@@ -8,16 +9,24 @@ import { expect, test as base } from '@playwright/test';
  */
 const BENIGN = /assets\/worker-[\w-]+\.js due to access control checks/;
 
+export type PageWithAllow = Page & {
+  /** Declares that a console error matching `pattern` is expected in this test (e.g. a deliberately failed request). */
+  allowConsoleError: (pattern: RegExp) => void;
+};
+
 /** Fails any test that logs console.error or throws a page error (AUTONOMOUS_AGENT §5). */
 export const test = base.extend({
   page: async ({ page }, run) => {
     const errors: string[] = [];
+    const allowed: RegExp[] = [];
+    const ok = (s: string) => BENIGN.test(s) || allowed.some((re) => re.test(s));
     page.on('console', (msg) => {
-      if (msg.type() === 'error' && !BENIGN.test(msg.text())) errors.push(msg.text());
+      if (msg.type() === 'error' && !ok(msg.text())) errors.push(msg.text());
     });
     page.on('pageerror', (err) => {
-      if (!BENIGN.test(err.message)) errors.push(err.message);
+      if (!ok(err.message)) errors.push(err.message);
     });
+    (page as PageWithAllow).allowConsoleError = (re) => void allowed.push(re);
     await run(page);
     expect(errors, 'console errors during test').toEqual([]);
   },

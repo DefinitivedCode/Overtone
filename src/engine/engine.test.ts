@@ -155,8 +155,10 @@ describe('romanised line and render-time projection', () => {
   });
   it('switches Korean mode at render time without re-analysis', () => {
     const toks = analyseLine(line('꽃이 좋아'), 'ko').tokens;
-    expect(romaniseLine(toks, { ko: { mode: 'pronunciation' } })).toBe('kkochi joa');
-    expect(romaniseLine(toks, { ko: { mode: 'letters' } })).toBe(
+    expect(romaniseLine(toks, { ...DEFAULT_ROMAN_PREFS, ko: { mode: 'pronunciation' } })).toBe(
+      'kkochi joa',
+    );
+    expect(romaniseLine(toks, { ...DEFAULT_ROMAN_PREFS, ko: { mode: 'letters' } })).toBe(
       'kkochi joa'.replace('kkochi', 'kkochi').replace('joa', 'joha'),
     );
   });
@@ -302,8 +304,8 @@ describe('EngineClient', () => {
     expect(b!.tokens[0]!.roman).toBe('norae');
   });
 
-  it('an analyser exception on one line yields a failed, original-text analysis for that line only', () => {
-    const out = analyseBatch({
+  it('an analyser exception on one line yields a failed, original-text analysis for that line only', async () => {
+    const out = await analyseBatch({
       lang: 'ko',
       lines: [
         { key: 'a', text: '사랑' },

@@ -41,6 +41,8 @@ Against the budgets: zh-core ≈ 4.0 MB (≤ 6 ✓); yue-core ≈ 1.7 MB (+ the 
 
 Use the sources above in the packs, pinned by URL + SHA-256, with the licence strings recorded in `manifest.json` `sources[]` and shown in About & licences (M9). Packs inherit CC BY-SA (ShareAlike applies to the data files, not to app code).
 
+M7 retains these pins. The production packs contain the full trimmed Mandarin and Cantonese rows used by the engine. See [ADR 0009](0009-dictionary-blocks.md) for the revised IndexedDB format and `docs/PROGRESS.md` for production pack sizes.
+
 ## Open items
 
 - Wiktionary's exact licence wording (CC BY-SA 4.0 vs 3.0 / GFDL) must be copied from the Wiktionary reuse page when the pack manifest is written (M9); kaikki's request for a link back and citation will be satisfied in About.

@@ -123,6 +123,7 @@ test.describe('library', () => {
     await page.getByRole('menuitem', { name: 'Delete' }).click();
     await page.getByRole('dialog').getByRole('button', { name: 'Delete' }).click();
     await expect(page.getByRole('button', { name: 'Undo' })).toBeVisible();
+    await page.mouse.move(0, 0); // Toasts pause while the pointer is over them.
     await page.clock.fastForward(9_000);
     await expect(page.getByRole('button', { name: 'Undo' })).toBeHidden();
     await page.reload();

@@ -1,0 +1,1680 @@
+[
+  {
+    "id": "zh-lines-001",
+    "lang": "zh",
+    "text": "银行很大",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yin2 hang2 hen3 da4"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-002",
+    "lang": "zh",
+    "text": "行走江湖",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "xing2 zou3 jiang1 hu2"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-003",
+    "lang": "zh",
+    "text": "我行你也行",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wo3 xing2 ni3 ye3 xing2"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-004",
+    "lang": "zh",
+    "text": "长大成人",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "zhang3 da4 cheng2 ren2"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-005",
+    "lang": "zh",
+    "text": "这条路很长",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "zhe4 tiao2 lu4 hen3 chang2"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-006",
+    "lang": "zh",
+    "text": "长长的夜",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "chang2 chang2 de5 ye4"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-007",
+    "lang": "zh",
+    "text": "重要的事",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "zhong4 yao4 de5 shi4"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-008",
+    "lang": "zh",
+    "text": "重新开始",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "chong2 xin1 kai1 shi3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-009",
+    "lang": "zh",
+    "text": "你好重啊",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "ni3 hao3 zhong4 a5"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-010",
+    "lang": "zh",
+    "text": "还是你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "hai2 shi4 ni3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false,
+    "acceptable": {
+      "reading": [
+        "hai2 shi5 ni3"
+      ]
+    }
+  },
+  {
+    "id": "zh-lines-011",
+    "lang": "zh",
+    "text": "还钱给我",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "huan2 qian2 gei3 wo3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-012",
+    "lang": "zh",
+    "text": "我还爱你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wo3 hai2 ai4 ni3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-013",
+    "lang": "zh",
+    "text": "得到幸福",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "de2 dao4 xing4 fu2"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-014",
+    "lang": "zh",
+    "text": "跑得很快",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "pao3 de5 hen3 kuai4"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-015",
+    "lang": "zh",
+    "text": "我得走了",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wo3 dei3 zou3 le5"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-016",
+    "lang": "zh",
+    "text": "了解你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "liao3 jie3 ni3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-017",
+    "lang": "zh",
+    "text": "走了",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "zou3 le5"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-018",
+    "lang": "zh",
+    "text": "我爱上了你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wo3 ai4 shang4 le5 ni3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-019",
+    "lang": "zh",
+    "text": "太好了",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "tai4 hao3 le5"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-020",
+    "lang": "zh",
+    "text": "睡觉了",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "shui4 jiao4 le5"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-021",
+    "lang": "zh",
+    "text": "觉得冷",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "jue2 de5 leng3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-022",
+    "lang": "zh",
+    "text": "音乐响起",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yin1 yue4 xiang3 qi3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-023",
+    "lang": "zh",
+    "text": "快乐的歌",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "kuai4 le4 de5 ge1"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-024",
+    "lang": "zh",
+    "text": "看着我",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "kan4 zhe5 wo3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-025",
+    "lang": "zh",
+    "text": "别着急",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "bie2 zhao2 ji2"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-026",
+    "lang": "zh",
+    "text": "睡着了",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "shui4 zhao2 le5"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-027",
+    "lang": "zh",
+    "text": "想着你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "xiang3 zhe5 ni3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-028",
+    "lang": "zh",
+    "text": "一只鸟",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yi1 zhi1 niao3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-029",
+    "lang": "zh",
+    "text": "只有你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "zhi3 you3 ni3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-030",
+    "lang": "zh",
+    "text": "地方很美",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "di4 fang1 hen3 mei3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-031",
+    "lang": "zh",
+    "text": "慢慢地走",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "man4 man4 de5 zou3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-032",
+    "lang": "zh",
+    "text": "为了你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wei4 le5 ni3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-033",
+    "lang": "zh",
+    "text": "作为朋友",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "zuo4 wei2 peng2 you5"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-034",
+    "lang": "zh",
+    "text": "好看",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "hao3 kan4"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-035",
+    "lang": "zh",
+    "text": "爱好音乐",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "ai4 hao4 yin1 yue4"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-036",
+    "lang": "zh",
+    "text": "都是你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "dou1 shi4 ni3"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-037",
+    "lang": "zh",
+    "text": "首都",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "shou3 du1"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-038",
+    "lang": "zh",
+    "text": "差不多",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "cha4 bu4 duo1"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false,
+    "acceptable": {
+      "reading": [
+        "cha4 bu5 duo1"
+      ]
+    }
+  },
+  {
+    "id": "zh-lines-039",
+    "lang": "zh",
+    "text": "出差",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "chu1 chai1"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-040",
+    "lang": "zh",
+    "text": "假的",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "jia3 de5"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-041",
+    "lang": "zh",
+    "text": "放假",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "fang4 jia4"
+    },
+    "tags": [
+      "polyphone"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-042",
+    "lang": "zh",
+    "text": "你好吗",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "ni3 hao3 ma5"
+    },
+    "tags": [
+      "neutral"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-043",
+    "lang": "zh",
+    "text": "走吧",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "zou3 ba5"
+    },
+    "tags": [
+      "neutral"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-044",
+    "lang": "zh",
+    "text": "我们",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wo3 men5"
+    },
+    "tags": [
+      "neutral"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-045",
+    "lang": "zh",
+    "text": "孩子",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "hai2 zi5"
+    },
+    "tags": [
+      "neutral"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-046",
+    "lang": "zh",
+    "text": "妈妈",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "ma1 ma5"
+    },
+    "tags": [
+      "neutral"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-047",
+    "lang": "zh",
+    "text": "爸爸",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "ba4 ba5"
+    },
+    "tags": [
+      "neutral"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-048",
+    "lang": "zh",
+    "text": "一个人",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yi1 ge4 ren2"
+    },
+    "tags": [
+      "yi-bu"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-049",
+    "lang": "zh",
+    "text": "不是",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "bu4 shi4"
+    },
+    "tags": [
+      "yi-bu"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-050",
+    "lang": "zh",
+    "text": "不要",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "bu4 yao4"
+    },
+    "tags": [
+      "yi-bu"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-051",
+    "lang": "zh",
+    "text": "一起",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yi1 qi3"
+    },
+    "tags": [
+      "yi-bu"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-052",
+    "lang": "zh",
+    "text": "不知道",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "bu4 zhi1 dao4"
+    },
+    "tags": [
+      "yi-bu"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-053",
+    "lang": "zh",
+    "text": "爱你一万年",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "ai4 ni3 yi1 wan4 nian2"
+    },
+    "tags": [
+      "yi-bu"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-054",
+    "lang": "zh",
+    "text": "静夜思",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "jing4 ye4 si1"
+    },
+    "tags": [
+      "poem"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-055",
+    "lang": "zh",
+    "text": "床前明月光",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "chuang2 qian2 ming2 yue4 guang1"
+    },
+    "tags": [
+      "poem"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-056",
+    "lang": "zh",
+    "text": "疑是地上霜",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yi2 shi4 di4 shang4 shuang1"
+    },
+    "tags": [
+      "poem"
+    ],
+    "reviewed": false,
+    "acceptable": {
+      "reading": [
+        "yi2 shi4 di4 shang5 shuang1"
+      ]
+    }
+  },
+  {
+    "id": "zh-lines-057",
+    "lang": "zh",
+    "text": "举头望明月",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "ju3 tou2 wang4 ming2 yue4"
+    },
+    "tags": [
+      "poem"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-058",
+    "lang": "zh",
+    "text": "低头思故乡",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "di1 tou2 si1 gu4 xiang1"
+    },
+    "tags": [
+      "poem"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-059",
+    "lang": "zh",
+    "text": "春眠不觉晓",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "chun1 mian2 bu4 jue2 xiao3"
+    },
+    "tags": [
+      "poem"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-060",
+    "lang": "zh",
+    "text": "处处闻啼鸟",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "chu4 chu4 wen2 ti2 niao3"
+    },
+    "tags": [
+      "poem"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-061",
+    "lang": "zh",
+    "text": "夜来风雨声",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "ye4 lai2 feng1 yu3 sheng1"
+    },
+    "tags": [
+      "poem"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-062",
+    "lang": "zh",
+    "text": "花落知多少",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "hua1 luo4 zhi1 duo1 shao3"
+    },
+    "tags": [
+      "poem"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-063",
+    "lang": "zh",
+    "text": "茉莉花",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "mo4 li4 hua1"
+    },
+    "tags": [
+      "folk"
+    ],
+    "reviewed": false,
+    "acceptable": {
+      "reading": [
+        "mo4 li5 hua1"
+      ]
+    }
+  },
+  {
+    "id": "zh-lines-064",
+    "lang": "zh",
+    "text": "月亮代表我的心",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yue4 liang5 dai4 biao3 wo3 de5 xin1"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-065",
+    "lang": "zh",
+    "text": "我爱你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wo3 ai4 ni3"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-066",
+    "lang": "zh",
+    "text": "你好",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "ni3 hao3"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-067",
+    "lang": "zh",
+    "text": "谢谢你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "xie4 xie5 ni3"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-068",
+    "lang": "zh",
+    "text": "我想你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wo3 xiang3 ni3"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-069",
+    "lang": "zh",
+    "text": "想你的夜",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "xiang3 ni3 de5 ye4"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-070",
+    "lang": "zh",
+    "text": "天空很蓝",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "tian1 kong1 hen3 lan2"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-071",
+    "lang": "zh",
+    "text": "阳光",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yang2 guang1"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-072",
+    "lang": "zh",
+    "text": "微风",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wei1 feng1"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-073",
+    "lang": "zh",
+    "text": "海边",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "hai3 bian1"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-074",
+    "lang": "zh",
+    "text": "回家",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "hui2 jia1"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-075",
+    "lang": "zh",
+    "text": "明天会更好",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "ming2 tian1 hui4 geng4 hao3"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-076",
+    "lang": "zh",
+    "text": "我的梦",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wo3 de5 meng4"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-077",
+    "lang": "zh",
+    "text": "请你告诉我",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "qing3 ni3 gao4 su4 wo3"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false,
+    "acceptable": {
+      "reading": [
+        "qing3 ni3 gao4 su5 wo3"
+      ]
+    }
+  },
+  {
+    "id": "zh-lines-078",
+    "lang": "zh",
+    "text": "为什么",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wei4 shen2 me5"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-079",
+    "lang": "zh",
+    "text": "没关系",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "mei2 guan1 xi5"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-080",
+    "lang": "zh",
+    "text": "再见",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "zai4 jian4"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-081",
+    "lang": "zh",
+    "text": "晚安",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wan3 an1"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-082",
+    "lang": "zh",
+    "text": "想念",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "xiang3 nian4"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-083",
+    "lang": "zh",
+    "text": "眼睛",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yan3 jing5"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-084",
+    "lang": "zh",
+    "text": "喜欢你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "xi3 huan5 ni3"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-085",
+    "lang": "zh",
+    "text": "漂亮",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "piao4 liang5"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-086",
+    "lang": "zh",
+    "text": "时候",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "shi2 hou5"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-087",
+    "lang": "zh",
+    "text": "东西",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "dong1 xi1"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false,
+    "acceptable": {
+      "reading": [
+        "dong1 xi5"
+      ]
+    }
+  },
+  {
+    "id": "zh-lines-088",
+    "lang": "zh",
+    "text": "朋友",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "peng2 you5"
+    },
+    "tags": [
+      "plain"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-089",
+    "lang": "zh",
+    "text": "我愛你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wo3 ai4 ni3"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-090",
+    "lang": "zh",
+    "text": "對不起",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "dui4 bu5 qi3"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-091",
+    "lang": "zh",
+    "text": "銀行裡面",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yin2 hang2 li3 mian4"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-092",
+    "lang": "zh",
+    "text": "長大了",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "zhang3 da4 le5"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-093",
+    "lang": "zh",
+    "text": "音樂會",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yin1 yue4 hui4"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-094",
+    "lang": "zh",
+    "text": "覺得",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "jue2 de5"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-095",
+    "lang": "zh",
+    "text": "還是",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "hai2 shi4"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false,
+    "acceptable": {
+      "reading": [
+        "hai2 shi5"
+      ]
+    }
+  },
+  {
+    "id": "zh-lines-096",
+    "lang": "zh",
+    "text": "聽見你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "ting1 jian4 ni3"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-097",
+    "lang": "zh",
+    "text": "愛情",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "ai4 qing2"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-098",
+    "lang": "zh",
+    "text": "夢想",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "meng4 xiang3"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-099",
+    "lang": "zh",
+    "text": "時間",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "shi2 jian1"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-100",
+    "lang": "zh",
+    "text": "說話",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "shuo1 hua4"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-101",
+    "lang": "zh",
+    "text": "開心",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "kai1 xin1"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-102",
+    "lang": "zh",
+    "text": "學習",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "xue2 xi2"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-103",
+    "lang": "zh",
+    "text": "國家",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "guo2 jia1"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-104",
+    "lang": "zh",
+    "text": "這裡",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "zhe4 li3"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-105",
+    "lang": "zh",
+    "text": "沒有",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "mei2 you3"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-106",
+    "lang": "zh",
+    "text": "為什麼",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wei4 shen2 me5"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-107",
+    "lang": "zh",
+    "text": "讓我",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "rang4 wo3"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-108",
+    "lang": "zh",
+    "text": "後來",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "hou4 lai2"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-109",
+    "lang": "zh",
+    "text": "還記得",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "hai2 ji4 de5"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-110",
+    "lang": "zh",
+    "text": "孤單",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "gu1 dan1"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-111",
+    "lang": "zh",
+    "text": "寂寞",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "ji4 mo4"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-112",
+    "lang": "zh",
+    "text": "擁抱",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yong1 bao4"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-113",
+    "lang": "zh",
+    "text": "微笑",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wei1 xiao4"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-114",
+    "lang": "zh",
+    "text": "眼淚",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yan3 lei4"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-115",
+    "lang": "zh",
+    "text": "回憶",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "hui2 yi4"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-116",
+    "lang": "zh",
+    "text": "永遠",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yong3 yuan3"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-117",
+    "lang": "zh",
+    "text": "遠方",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yuan3 fang1"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-118",
+    "lang": "zh",
+    "text": "重要的事",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "zhong4 yao4 de5 shi4"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-119",
+    "lang": "zh",
+    "text": "我想你",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "wo3 xiang3 ni3"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-120",
+    "lang": "zh",
+    "text": "快樂的歌",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "kuai4 le4 de5 ge1"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-121",
+    "lang": "zh",
+    "text": "太陽",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "tai4 yang2"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false,
+    "acceptable": {
+      "reading": [
+        "tai4 yang5"
+      ]
+    }
+  },
+  {
+    "id": "zh-lines-122",
+    "lang": "zh",
+    "text": "月光",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yue4 guang1"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-123",
+    "lang": "zh",
+    "text": "風雨",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "feng1 yu3"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-124",
+    "lang": "zh",
+    "text": "歲月",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "sui4 yue4"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-125",
+    "lang": "zh",
+    "text": "故鄉",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "gu4 xiang1"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  },
+  {
+    "id": "zh-lines-126",
+    "lang": "zh",
+    "text": "一起走",
+    "source": "original probe phrases, public-domain poems and traditional rhymes (静夜思, 春晓, 茉莉花, 月光光, 氹氹轉); readings written by the implementer from general knowledge, unreviewed by a fluent speaker",
+    "expected": {
+      "reading": "yi1 qi3 zou3"
+    },
+    "tags": [
+      "traditional"
+    ],
+    "reviewed": false
+  }
+]

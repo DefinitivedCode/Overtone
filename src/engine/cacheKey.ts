@@ -19,6 +19,13 @@ export function hashText(str: string, seed = 0): string {
  * `${lang}|${engineVersion}|${settingsHash}|${lineKey}|${hash(text)}` (ARCHITECTURE §3.2). The text hash
  * (not only the content key) is included because the key ignores case/punctuation but analysis does not.
  */
-export function analysisCacheKey(lang: LangCode, lineKey: string, text: string): string {
-  return `${lang}|${ENGINE_VERSION[lang]}|${SETTINGS_HASH}|${lineKey}|${hashText(text)}`;
+export function analysisCacheKey(
+  lang: LangCode,
+  lineKey: string,
+  text: string,
+  packVersion: string | null = null,
+): string {
+  // The installed language-pack version is part of the key: results made without data (or with an older
+  // pack) are ignored once a pack is installed or updated, so lines are re-analysed.
+  return `${lang}|${ENGINE_VERSION[lang]}|${SETTINGS_HASH}|${packVersion ?? 'none'}|${lineKey}|${hashText(text)}`;
 }

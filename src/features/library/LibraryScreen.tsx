@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowUpDown, Plus, Settings as SettingsIcon } from 'lucide-react';
 import { TopBar } from '@/app/TopBar';
@@ -37,28 +37,22 @@ export function LibraryScreen() {
   const navigate = useNavigate();
   const songs = useSongs();
   const settings = useSettings();
-  const [query, setQuery] = useState('');
-  const queryLoaded = useRef(false);
+  const [queryOverride, setQuery] = useState<string | null>(null);
+  const query = queryOverride ?? settings?.library.query ?? '';
   const [adding, setAdding] = useState(false);
   const [editing, setEditing] = useState<Song | null>(null);
   const { requestDelete, dialog } = useDeleteSong();
 
-  // Restore the persisted query once settings arrive (J10.4), then persist changes.
-  useEffect(() => {
-    if (settings && !queryLoaded.current) {
-      queryLoaded.current = true;
-      setQuery(settings.library.query);
-    }
-  }, [settings]);
+  // A user edit takes precedence if settings are still loading (J10.4).
   const filterQuery = useDebounced(query, 150);
   useEffect(() => {
-    if (!queryLoaded.current) return;
+    if (queryOverride === null) return;
     const t = window.setTimeout(
-      () => void updateSettings((x) => ({ ...x, library: { ...x.library, query } })),
+      () => void updateSettings((x) => ({ ...x, library: { ...x.library, query: queryOverride } })),
       300,
     );
     return () => window.clearTimeout(t);
-  }, [query]);
+  }, [queryOverride]);
 
   const filter: LibraryFilter = settings?.library.filter ?? 'all';
   const sort: LibrarySort = settings?.library.sort ?? 'opened';

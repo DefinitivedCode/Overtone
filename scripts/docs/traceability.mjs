@@ -9,7 +9,7 @@ const rows = [...spec.matchAll(/^- (J\d+\.\d+) (MUST|SHOULD|MAY):? ?(.*)$/gm)].m
   id: m[1],
   lvl: m[2],
 }));
-const LAST = 'end of M6';
+const LAST = 'end of M7';
 
 const covered = {
   'J1.2': 'e2e/library.spec, e2e/screens.spec (Chromium; WebKit skipped)',
@@ -20,13 +20,14 @@ const covered = {
   'J2.6': 'e2e/add-song.spec',
   'J2.7': 'MANUAL iOS #14–16 (Not yet verified on device)',
   'J4.4': 'e2e/modes.spec, e2e/progress.spec',
-  'J5.1': 'e2e/modes.spec (≥ 28 px; scales with text size)',
+  'J5.1':
+    'e2e/modes.spec (≥ 28 px; scales with text size), e2e/packs.spec (Mandarin and Cantonese)',
   'J5.2': 'e2e/modes.spec (zero interactive elements)',
   'J5.3': 'e2e/modes.spec, tests/linguistic (routing 43/43)',
   'J5.4': 'e2e/modes.spec, src/engine/engine.test.ts',
   'J5.5': 'e2e/screens.spec (axe, dark)',
-  'J6.1': 'e2e/modes.spec',
-  'J6.2': 'e2e/modes.spec',
+  'J6.1': 'e2e/modes.spec, e2e/packs.spec',
+  'J6.2': 'e2e/modes.spec, e2e/packs.spec',
   'J6.3': 'e2e/modes.spec (user-select: text)',
   'J7.2': 'e2e/progress.spec, repositories.test',
   'J7.3': 'e2e/progress.spec, repositories.test',
@@ -49,15 +50,20 @@ const covered = {
   'J11.6': 'backup.test, e2e/backup.spec',
   'J12.4': 'e2e/add-song.spec (API stubbed; real iOS grant → MANUAL #18)',
   'J12.5': 'e2e/recovery.spec, repositories.test',
+  'J12.2':
+    'e2e/packs.spec (download with progress, remove with confirmation, sizes shown), src/engine/dict/dict.test.ts (atomic replacement, cancellation, legacy migration)',
+  'J12.3':
+    'e2e/packs.spec (notice with size, original text meanwhile, processing resumes, offline notice)',
   'J13.1': 'e2e/shell.spec',
   'J13.2': 'e2e/shell.spec, e2e/modes.spec (all three modes)',
 };
 const partial = {
-  'J1.1': 'Empty state done; offline after first load needs the service worker → M11',
+  'J1.1':
+    'Empty state done; service worker precaches the shell (e2e/packs.spec offline flow); dedicated offline.spec → M11',
   'J2.4':
     'Saving is independent of processing (engine runs after save, in a worker with main-thread fallback: engine.test); quota path e2e → M11',
   'J4.1':
-    'Learn/Karaoke/Clean verified at 5 widths with long Korean/Latin/URL fixtures (e2e/screens.spec); other languages → M7/M8',
+    'Learn/Karaoke/Clean at 5 widths with Korean/Latin/URL fixtures (e2e/screens.spec) and annotated Mandarin/Cantonese (e2e/packs.spec); Japanese annotations → M8',
   'J4.2':
     'Ruby alignment measured in ADR 0007; per-width rt-vs-base bounding-box test not yet written',
   'J4.5':
@@ -72,9 +78,11 @@ const partial = {
     'Edit details/language + corrections inactive/reactivated done (e2e/edit.spec, repositories.test); reprocessing is automatic via the cache key (not separately tested)',
   'J10.6': 'Node budget (fold.test: 1,000 songs < 50 ms); throttled CI measurement → M13',
   'J11.7': 'Rule + counters (libraryModel.test, repositories.test); banner e2e → later',
+  'J12.1':
+    'e2e/packs.spec reopens and analyses songs offline with both installed packs; full offline matrix → M11',
   'J12.6': 'Typed errors + no partial writes (repositories.test); e2e of the quota banner → M11',
   'J13.3':
-    'Korean mode done (e2e/modes.spec); Japanese/Mandarin options arrive with their languages (M7/M8)',
+    'Korean mode (e2e/modes.spec), Mandarin tone style and sandhi and fixed Cantonese tone numbers (e2e/packs.spec); Japanese options → M8',
 };
 const milestone = (id) =>
   ({

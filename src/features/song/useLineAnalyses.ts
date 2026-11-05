@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useAnalysisRows } from '@/db/hooks';
+import { useInstalledPacks } from '@/features/packs/packs';
 import { pruneAnalyses, putAnalyses } from '@/db/repositories/analysis';
 import { setRomanisedSearchText } from '@/db/repositories/songs';
 import type { Line, Song } from '@/db/types';
@@ -22,6 +23,9 @@ export interface AnalysisState {
 export function useLineAnalyses(song: Song, lines: readonly Line[]): AnalysisState {
   const lyric = useMemo(() => lines.filter((l) => (l.kindOverride ?? l.kind) === 'lyric'), [lines]);
   const cached = useAnalysisRows(song.id);
+  const packs = useInstalledPacks();
+  const needsPack = song.language === 'zh' || song.language === 'yue';
+  const packVersion = packs?.find((p) => p.lang === song.language)?.version ?? null;
   const [running, setRunning] = useState(false);
   const started = useRef(new Set<string>());
 
@@ -32,10 +36,10 @@ export function useLineAnalyses(song: Song, lines: readonly Line[]): AnalysisSta
         m.set(l.key, {
           key: l.key,
           text: l.text,
-          cacheKey: analysisCacheKey(song.language, l.key, l.text),
+          cacheKey: analysisCacheKey(song.language, l.key, l.text, packVersion),
         });
     return m;
-  }, [lyric, song.language]);
+  }, [lyric, song.language, packVersion]);
 
   const fresh = useMemo(() => {
     const byCache = new Map((cached ?? []).map((r) => [r.cacheKey, r.analysis as LineAnalysis]));
@@ -48,8 +52,11 @@ export function useLineAnalyses(song: Song, lines: readonly Line[]): AnalysisSta
   }, [cached, wanted]);
 
   const missing = useMemo(
-    () => (cached === undefined ? [] : [...wanted.values()].filter((w) => !fresh.has(w.key))),
-    [cached, wanted, fresh],
+    () =>
+      cached === undefined || (needsPack && packs === undefined)
+        ? []
+        : [...wanted.values()].filter((w) => !fresh.has(w.key)),
+    [cached, needsPack, packs, wanted, fresh],
   );
   const missingId = missing.map((m) => m.cacheKey).join(',');
   // The effect below depends only on the stable id, so a re-emitted live query cannot abort a run.
@@ -69,9 +76,10 @@ export function useLineAnalyses(song: Song, lines: readonly Line[]): AnalysisSta
       try {
         const results = await getEngineClient().analyse(
           song.language,
-          todo.map((m) => ({ key: m.key, text: m.text })),
+          todo.map((m) => ({ key: m.key, text: m.text, packVersion })),
           { signal: ctl.signal },
         );
+        if (ctl.signal.aborted) return;
         await putAnalyses(
           results.map((analysis, i) => ({
             cacheKey: todo[i]!.cacheKey,
@@ -90,7 +98,7 @@ export function useLineAnalyses(song: Song, lines: readonly Line[]): AnalysisSta
       ctl.abort(); // leaving the song (or the line set changing) cancels pending batches
       startedIds.delete(missingId);
     };
-  }, [missingId, song.id, song.language]);
+  }, [missingId, packVersion, song.id, song.language]);
 
   // Once everything is analysed: drop obsolete cache rows, and make romanised text searchable (J10.1).
   const complete = cached !== undefined && wanted.size > 0 && missing.length === 0;

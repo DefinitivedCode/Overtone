@@ -10,8 +10,8 @@ import { DEFAULT_ROMAN_PREFS } from '@/engine/romanLine';
 import type { RomanPrefs } from '@/engine/romanLine';
 import { langAttr } from '@/engine/segment/detect';
 import { LANG_CODE, LANG_NAME } from '@/features/language';
+import { LanguageDataBanner } from '@/features/packs/PackUi';
 import {
-  Banner,
   Button,
   Chip,
   ConfirmDialog,
@@ -64,7 +64,10 @@ export function SongScreen() {
   }, [songId]);
 
   const prefs: RomanPrefs = useMemo(
-    () => (settings ? { ko: { mode: settings.romanisation.ko.mode } } : DEFAULT_ROMAN_PREFS),
+    () =>
+      settings
+        ? { ko: settings.romanisation.ko, zh: settings.romanisation.zh }
+        : DEFAULT_ROMAN_PREFS,
     [settings],
   );
 
@@ -181,10 +184,7 @@ export function SongScreen() {
 
         {song.language !== 'ko' ? (
           <div className={s['banner']}>
-            <Banner>
-              Pronunciation for {LANG_NAME[song.language]} isn&rsquo;t available yet, so the
-              original text is shown. Marking lines as learned still works.
-            </Banner>
+            <LanguageDataBanner language={song.language} />
           </div>
         ) : null}
 

@@ -12,9 +12,12 @@
     "dexie": "4.4.7",
     "dexie-react-hooks": "4.4.0",
     "lucide-react": "1.69.0",
+    "opencc-js": "1.4.2",
+    "pinyin-pro": "3.29.5",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-router-dom": "7.18.5",
+    "to-jyutping": "3.1.1",
     "zod": "4.6.7"
   },
   "devDependencies": {
@@ -61,7 +64,8 @@
     "test": "vitest run --project unit --project engine --project tooling",
     "test:ling": "vitest run --project linguistic --passWithNoTests",
     "e2e": "playwright test",
-    "verify": "npm run lint && npm run typecheck && npm test && npm run build && npm run e2e",
-    "brand": "tsx scripts/brand/generate-assets.ts"
+    "verify": "npm run packs && npm run lint && npm run typecheck && npm test && npm run build && npm run e2e",
+    "brand": "tsx scripts/brand/generate-assets.ts",
+    "packs": "tsx scripts/packs/build.ts"
   }
 }

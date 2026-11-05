@@ -4,7 +4,8 @@ import { TEXT_SIZE_LABELS, setTextSize, setTheme, useTextSize, useTheme } from '
 import type { TextSize, ThemePref } from '@/app/preferences';
 import { useSettings } from '@/db/hooks';
 import { updateSettings } from '@/db/repositories/settings';
-import { SegmentedControl } from '@/ui';
+import { SegmentedControl, Switch } from '@/ui';
+import { PackSettingsRows } from '@/features/packs/PackUi';
 import { BackupSection } from './BackupSection';
 import s from './SettingsScreen.module.css';
 
@@ -19,6 +20,23 @@ export function SettingsScreen() {
   const size = useTextSize();
   const settings = useSettings();
   const [optKo, setOptKo] = useState<'pronunciation' | 'letters' | null>(null);
+  // Optimistic Mandarin options (reflect the click at once; the stored value catches up).
+  const [optZh, setOptZh] = useState<Partial<{ tones: 'marks' | 'numbers'; sandhi: boolean }>>({});
+  const zhStored = settings?.romanisation.zh;
+  const zh = { tones: zhStored?.tones ?? 'marks', sandhi: zhStored?.sandhi ?? false, ...optZh };
+  if (
+    Object.keys(optZh).length > 0 &&
+    zhStored &&
+    Object.entries(optZh).every(([k, v]) => zhStored[k as 'tones' | 'sandhi'] === v)
+  )
+    setOptZh({});
+  const setZh = (patch: Partial<{ tones: 'marks' | 'numbers'; sandhi: boolean }>) => {
+    setOptZh((o) => ({ ...o, ...patch }));
+    void updateSettings((x) => ({
+      ...x,
+      romanisation: { ...x.romanisation, zh: { ...x.romanisation.zh, ...patch } },
+    }));
+  };
   const koMode = optKo ?? settings?.romanisation.ko.mode ?? 'pronunciation';
   if (optKo !== null && settings?.romanisation.ko.mode === optKo) setOptKo(null);
   return (
@@ -92,12 +110,40 @@ export function SettingsScreen() {
                 }));
               }}
             />
+            <SegmentedControl
+              label="Mandarin tones"
+              value={zh.tones}
+              options={[
+                { value: 'marks', label: 'Tone marks (nǐ)' },
+                { value: 'numbers', label: 'Numbers (ni3)' },
+              ]}
+              onChange={(tones) => setZh({ tones })}
+            />
+            <Switch
+              label="Apply 一 / 不 tone changes"
+              hint="Off shows dictionary tones (yī ge); on shows yí ge and bú shì."
+              checked={zh.sandhi}
+              onChange={(sandhi) => setZh({ sandhi })}
+            />
             <p className={s['row']}>
               Korean: <strong>Pronunciation</strong> shows how words sound (
               <span lang="ko">좋다</span> → jota); <strong>Letter by letter</strong> spells each
               syllable (johda).
             </p>
           </div>
+        </section>
+
+        <section className={s['group']} aria-labelledby="packs-h">
+          <h2 id="packs-h" className={s['groupTitle']}>
+            Offline language data
+          </h2>
+          <div className={s['card']}>
+            <PackSettingsRows />
+          </div>
+          <p className={s['note']}>
+            Downloaded once, then works offline. Sources: CC-CEDICT (CC BY-SA 4.0); CC-Canto and the
+            CC-CEDICT Cantonese readings (CC BY-SA 3.0, © Pleco).
+          </p>
         </section>
 
         <BackupSection />

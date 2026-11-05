@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { clearLibraryMarker } from '@/db/repositories/meta';
-import { ImportFlow } from '@/features/settings/ImportFlow';
+// The import flow pulls in the backup validator (zod); it is only needed on this rare screen.
+const ImportFlow = lazy(() =>
+  import('@/features/settings/ImportFlow').then((m) => ({ default: m.ImportFlow })),
+);
 import { Button, ConfirmDialog, EmptyState } from '@/ui';
 
 /**
@@ -15,7 +18,9 @@ export function RecoveryScreen({ onResolved }: { onResolved: () => void }) {
         title="Your library looks empty"
         action={
           <div style={{ display: 'grid', gap: 'var(--space-8)', width: '100%', maxWidth: 320 }}>
-            <ImportFlow label="Import a backup" variant="primary" onImported={onResolved} />
+            <Suspense fallback={null}>
+              <ImportFlow label="Import a backup" variant="primary" onImported={onResolved} />
+            </Suspense>
             <Button variant="plain" onClick={() => setConfirm(true)}>
               Start fresh
             </Button>

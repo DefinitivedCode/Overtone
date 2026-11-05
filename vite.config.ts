@@ -2,12 +2,14 @@ import { fileURLToPath, URL } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 import { overtoneHtml } from './scripts/vite/overtone-html';
+import { overtoneServiceWorker } from './scripts/vite/overtone-sw';
 
 const alias = { '@': fileURLToPath(new URL('./src', import.meta.url)) };
 
 export default defineConfig({
   base: process.env['VITE_BASE'] ?? '/',
-  plugins: [react(), overtoneHtml()],
+  plugins: [react(), overtoneHtml(), overtoneServiceWorker()],
+  worker: { format: 'es' },
   resolve: { alias },
   build: { target: 'es2022', sourcemap: false },
   test: {
@@ -46,6 +48,7 @@ export default defineConfig({
           name: 'linguistic',
           environment: 'node',
           include: ['tests/linguistic/**/*.test.ts'],
+          setupFiles: ['src/test/setup-node.ts'],
           testTimeout: 120_000,
         },
       },

@@ -1,4 +1,5 @@
 /** The analysis pipeline: script runs → language routing → per-language analyser (LANGUAGE_ENGINE §4). */
+import { analyseHan } from './han';
 import { lemmaCandidates, splitParticle } from './ko/lemma';
 import { romaniseEojeol } from './ko/romanise';
 import { ENGINE_VERSION } from './version';
@@ -10,6 +11,8 @@ import type { Run } from './segment/segment';
 export interface LineInput {
   key: string;
   text: string;
+  /** An explicit null requests analysis without a pack. Undefined uses the currently installed pack. */
+  packVersion?: string | null;
 }
 
 export interface AnalyseRequest {
@@ -57,9 +60,7 @@ function tokenFor(run: Run, lang: LangCode): Token {
   return plainToken({ ...base, roman: run.text, confidence: 'high' }); // latin, number, punct, symbol: shown as written
 }
 
-/** Analyses one line. Pure and deterministic. */
-export function analyseLine(input: LineInput, lang: LangCode): LineAnalysis {
-  const tokens = mergeJapanese(splitRuns(input.text)).map((run) => tokenFor(run, lang));
+function finish(input: LineInput, lang: LangCode, tokens: Token[]): LineAnalysis {
   const unread = tokens.some((t) => t.kind === 'word' && t.confidence === 'none');
   return {
     lineKey: input.key,
@@ -70,13 +71,35 @@ export function analyseLine(input: LineInput, lang: LangCode): LineAnalysis {
   };
 }
 
+/** Analyses one line synchronously. Han text in Mandarin/Cantonese songs is left unread (it needs the async data path). */
+export function analyseLine(input: LineInput, lang: LangCode): LineAnalysis {
+  return finish(
+    input,
+    lang,
+    mergeJapanese(splitRuns(input.text)).map((run) => tokenFor(run, lang)),
+  );
+}
+
+/** Full pipeline, including dictionary-backed Mandarin/Cantonese analysis when the language pack is installed. */
+export async function analyseLineAsync(input: LineInput, lang: LangCode): Promise<LineAnalysis> {
+  const tokens: Token[] = [];
+  for (const run of mergeJapanese(splitRuns(input.text))) {
+    if (run.cls === 'han' && (lang === 'zh' || lang === 'yue'))
+      tokens.push(...(await analyseHan(run.text, run.start, lang, input.packVersion)));
+    else tokens.push(tokenFor(run, lang));
+  }
+  return finish(input, lang, tokens);
+}
+
 /** Analyses a batch; an exception on one line yields a failed (original-text) analysis for that line only. */
-export function analyseBatch(req: AnalyseRequest): LineAnalysis[] {
-  return req.lines.map((line) => {
+export async function analyseBatch(req: AnalyseRequest): Promise<LineAnalysis[]> {
+  const out: LineAnalysis[] = [];
+  for (const line of req.lines) {
     try {
-      return analyseLine(line, req.lang);
+      out.push(await analyseLineAsync(line, req.lang));
     } catch {
-      return failedAnalysis(line.key, req.lang, ENGINE_VERSION[req.lang], line.text);
+      out.push(failedAnalysis(line.key, req.lang, ENGINE_VERSION[req.lang], line.text));
     }
-  });
+  }
+  return out;
 }

@@ -4,7 +4,7 @@ import { Check } from 'lucide-react';
 import { setLearned } from '@/db/repositories/progress';
 import type { LangCode } from '@/db/types';
 import type { LineAnalysis, Token } from '@/engine/model';
-import { romaniseLine, tokenRoman } from '@/engine/romanLine';
+import { romaniseLine, tokenRoman, tokenUnits } from '@/engine/romanLine';
 import type { RomanPrefs } from '@/engine/romanLine';
 import { langAttr } from '@/engine/segment/detect';
 import { SegmentedControl, useToast } from '@/ui';
@@ -29,14 +29,36 @@ const ROMAN_LANG = {
 /** Renders one analysed token for Learn mode: ruby over the word, markers for uncertainty. */
 function LearnToken({
   t,
+  units,
   prefs,
   language,
 }: {
   t: Token;
+  /** Per-character display syllables (Mandarin/Cantonese), or null. */
+  units: string[] | null;
   prefs: RomanPrefs;
   language: LangCode;
 }): ReactNode {
   if (t.kind === 'space') return t.surface;
+  if (units && t.ruby.length > 0 && t.lang === language) {
+    const low = t.confidence === 'low' || t.confidence === 'medium';
+    return (
+      <span className={low ? s['uncertain'] : undefined}>
+        {t.ruby.map((u, i) => (
+          <ruby key={i}>
+            {u.base}
+            <rt
+              aria-hidden="true"
+              lang={ROMAN_LANG[language]}
+              className={u.reading === null ? s['unknown'] : undefined}
+            >
+              {u.reading === null ? '?' : units[i]}
+            </rt>
+          </ruby>
+        ))}
+      </span>
+    );
+  }
   const annotated = t.kind === 'word' && t.lang === language && t.roman !== null;
   if (annotated) {
     const low = t.confidence === 'low' || t.confidence === 'medium';
@@ -140,9 +162,18 @@ export function LearnView({ items, language, analyses, prefs, songId, learned }:
             </button>
             <p className={s['learnText']} lang={langAttr(language, line.text)}>
               {analysis && analysis.status !== 'failed'
-                ? analysis.tokens.map((t, i) => (
-                    <LearnToken key={i} t={t} prefs={prefs} language={language} />
-                  ))
+                ? (() => {
+                    const units = tokenUnits(analysis.tokens, prefs);
+                    return analysis.tokens.map((t, i) => (
+                      <LearnToken
+                        key={i}
+                        t={t}
+                        units={units[i] ?? null}
+                        prefs={prefs}
+                        language={language}
+                      />
+                    ));
+                  })()
                 : line.text}
             </p>
           </li>

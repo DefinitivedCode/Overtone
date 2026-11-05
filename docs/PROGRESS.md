@@ -277,3 +277,46 @@ J4 (except dictionary parts and the line menu), J5, J6, J7 pass for Korean; see 
 ### Follow-ups
 
 - M7: packs infrastructure, service worker, Mandarin and Cantonese. The main bundle is at 171.6 KB gzip, so pinyin-pro (140 KB), to-jyutping (273 KB) and opencc t2cn (54 KB) must be lazy chunks loaded by the worker.
+
+---
+
+## M7 — Language packs, Mandarin and Cantonese — done
+
+- [x] Benchmark install in Chromium and WebKit and verify bounded shard lookup and atomic replacement (J12.2–3).
+- [x] Verify both languages in Learn, Karaoke and Clean, including offline processing and Mandarin preferences (J4–6, J12.1, J13.3).
+- [x] Run the linguistic suites, production browser matrix, accessibility and layout checks, and document the results.
+
+Date: 2026-11-05
+
+### Delivered
+
+- Mandarin and Cantonese pack build, checksummed streaming install, progress, cancellation, update and removal. IndexedDB v2 reads legacy packs offline and publishes staged generations atomically. See ADR 0009.
+- Mandarin pinyin and Cantonese Jyutping in Learn, Karaoke and both Clean variants. Mandarin tone numbers and 一/不 sandhi project from cached readings. The E2E expectation now follows CC-CEDICT's neutral `ge5` in 一个 while checking that 一 and 不 both change tone.
+- Production offline shell, versioned pack caching, offline manifest fallback, and Settings showing installed packs and available updates. See ADR 0010.
+
+### Install benchmark
+
+Local Windows production preview, with a fresh browser context per run. Times measure the Settings click through the installed state, including download, SHA-256, decode, IndexedDB and UI. The original build was run once per browser and pack with a 180-second cutoff. The final numbers are medians of three runs.
+
+| Engine       | Pack      | Original |     M7 | Final data records |
+| ------------ | --------- | -------: | -----: | -----------------: |
+| Chromium 156 | Mandarin  |   5.94 s | 0.83 s |                130 |
+| Chromium 156 | Cantonese |   5.95 s | 0.82 s |                116 |
+| WebKit 27.2  | Mandarin  |   >180 s | 4.03 s |                130 |
+| WebKit 27.2  | Cantonese |   >180 s | 3.48 s |                116 |
+
+- Mandarin pack: 203,358 rows, 5.36 MiB gzip (6 MiB budget). Cantonese: 215,170 rows, 3.02 MiB gzip (4 MiB budget, also below it with the reader chunk).
+- Warm production worker, 60 distinct fixture lines in batches of 20: Mandarin/Cantonese 279/125 ms in Chromium with the page CPU throttling rate set to 4× and 346/241 ms in WebKit. Worker-specific throttling and device heap were not independently measured.
+
+### Verification
+
+- `npm run verify` passed pack generation, lint, typecheck, 424 unit/engine/tooling tests and the production build. Across WebKit iPhone, WebKit iPhone SE, Chromium mobile and Chromium desktop, 376 browser tests passed and four pre-existing WebKit keyboard-only checks were skipped.
+- `e2e/packs.spec.ts` verified download, progress, remove confirmation, retry, automatic analysis after install, offline reopen and new-song analysis, Mandarin options, and all three modes in both languages. No horizontal overflow at 320/375/393/430/768 CSS px and no serious or critical axe issues in light and dark. Settings and lyric mode screenshots were visually inspected at 375 px in WebKit.
+- Linguistic verification: 10 tests passed. Mandarin 455/463 (98.3 %), Cantonese 369/369 (100 %), Korean 190/190 and mixed routing 99/99. All Chinese probes, including the Mandarin starter file, are included. See `docs/LINGUISTIC_REPORT.md` for the unreviewed-fixture caveat and remaining differences.
+
+### Scope deviations and limits
+
+- ADR 0009 supersedes the per-row IndexedDB layout in ARCHITECTURE §5.3. The release build retains the earlier schema for offline reads during migration.
+- The service worker precaches 2.213 MiB excluding dictionary binaries. ADR 0010 records the M7 exception to the 2 MiB budget. Main JavaScript is 175.95 kB gzip against 180 kB.
+- The first full run surfaced a Library search hydration race and an Undo test that could leave the pointer over the toast. The Library keeps text typed before settings arrive. The expiry test moves the pointer away before advancing the clock, preserving the original assertion.
+- A `/overtone/` production build retained the installed Mandarin pack in offline Settings after reload in both Chromium and WebKit. Actual iOS Home Screen behaviour and heap measurements remain unverified.

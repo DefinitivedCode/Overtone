@@ -2,13 +2,22 @@
 
 *Read it. Say it. Sing it.*
 
-Overtone is a local-first app for learning song lyrics in Korean, Japanese, Mandarin and Cantonese, and it handles English mixed into those lyrics. Paste a song's lyrics and Overtone shows the pronunciation above each word. You can tap a word to see its meaning and mark lines as learned. Two more views help with singing and reading: Karaoke shows large romanised text, and Clean shows the lyrics in a plain layout.
+Overtone is a local-first app for learning song lyrics in Korean, Japanese, Mandarin and Cantonese. Paste lyrics to see pronunciation in Learn mode and mark lines as learned. Karaoke shows large romanised text, and Clean shows the lyrics in a plain layout.
 
 - Designed first for the iOS Home Screen (installed as a PWA), and it works offline.
 - No accounts and no server. Everything stays on your device. You can back up and restore with JSON export/import.
 - Free to run. It has no paid APIs and no hosted AI.
 
-> **Status:** planning complete, implementation not started.
+> **Status** — Korean, Mandarin and Cantonese pronunciation, display modes, progress, and local backups are implemented. Japanese pronunciation and tap-for-meaning are planned.
+
+## Local development
+
+Use Node 22 or newer. Run `npm ci`, `npm run packs`, then `npm run dev`. Mandarin and Cantonese packs are downloaded on demand from Settings or a song and work offline after installation in the production build.
+
+`npm run packs` verifies the upstream archives against `scripts/packs/sources.json`. Keep the pinned archives in `.cache/dicts` for reproducible rebuilds when a publisher updates its download. The pack manifest records the sources and licences.
+
+Run `npx playwright install chromium webkit`, `npm run verify`, and `npm run test:ling` to check the production app and linguistic fixtures.
+
 ## Planning
 
 The full engineering plan is in [`planning/`](planning/README.md). Start with [`planning/AUTONOMOUS_AGENT.md`](planning/AUTONOMOUS_AGENT.md).

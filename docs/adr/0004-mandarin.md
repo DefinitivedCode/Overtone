@@ -20,3 +20,7 @@ Status: accepted · Date: 2026-11-05
 `pinyin-pro` for readings with `toneSandhi: false` by default, as a lazy-loaded chunk (140 KB gz); the **opencc-js `t2cn` build (54 KB gz)** for the shadow string; CC-CEDICT max-match with entry-by-reading selection (LANGUAGE_ENGINE §6.1) provides word-level corrections for cases like 还钱 / 跑得快 / 我得去 / 慢慢地.
 
 **Risk:** the ≥ 98 % pinyin threshold (TEST_STRATEGY §4.4) is not assured by the library alone (26/36 here). It will be measured on the real ≥ 120-line suite in M7; if it cannot be met the limitation is recorded rather than the threshold changed.
+
+## M7 implementation
+
+Store citation-tone analysis and apply the 一/不 display option to the saved syllables at render time. This preserves dictionary-informed readings and keeps preference changes independent of analysis and its cache. CC-CEDICT gives `yi1 ge5` for 一个. The marks view shows `yī ge`, and the numbers view with sandhi shows `yi2 ge5`. The pinned CC-CEDICT omits 還錢, so the analyser uses a narrow phrase fallback based on its Ministry of Education dictionary reading. See [the dictionary entry](https://dict.concised.moe.edu.tw/dictView.jsp?ID=20767&la=1&powerMode=0).
