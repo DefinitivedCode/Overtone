@@ -1,12 +1,84 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Overtone" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#F6F2EC" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121014" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta
+      name="description"
+      content="Learn to read, understand and sing lyrics in Korean, Japanese, Mandarin and Cantonese."
+    />
+    <meta property="og:title" content="Overtone" />
+    <meta property="og:description" content="Read it. Say it. Sing it." />
+    <meta property="og:image" content="/og.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icons/favicon-32.png" type="image/png" sizes="32x32" />
     <title>Overtone</title>
+    <!-- Critical CSS: first paint matches the splash screen (no flash). -->
+    <style>
+      html {
+        background: #f6f2ec;
+      }
+      html[data-theme='dark'] {
+        background: #121014;
+      }
+      body {
+        margin: 0;
+      }
+      .boot {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+      }
+      .boot svg {
+        width: 22vmin;
+        height: auto;
+      }
+      .boot .l {
+        fill: #1b181e;
+      }
+      html[data-theme='dark'] .boot .l {
+        fill: #f4efe7;
+      }
+    </style>
+    <script id="theme-init">
+      (function () {
+        var r = document.documentElement;
+        try {
+          var t = localStorage.getItem('overtone:theme') || 'system';
+          var dark =
+            t === 'dark' || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+          r.dataset.theme = dark ? 'dark' : 'light';
+          var s = localStorage.getItem('overtone:textSize');
+          if (s) r.dataset.textSize = s;
+        } catch (e) {
+          r.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        if (navigator.standalone === true || matchMedia('(display-mode: standalone)').matches) {
+          r.dataset.standalone = 'true';
+        }
+      })();
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="boot" aria-hidden="true">
+        <svg viewBox="232 312 560 400" xmlns="http://www.w3.org/2000/svg">
+          <rect x="232" y="312" width="248" height="64" rx="32" fill="#e5533a" />
+          <rect class="l" x="232" y="420" width="560" height="120" rx="60" />
+          <rect class="l" x="232" y="592" width="400" height="120" rx="60" fill-opacity="0.26" />
+        </svg>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

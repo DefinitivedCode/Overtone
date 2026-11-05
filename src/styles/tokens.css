@@ -1,0 +1,107 @@
+/* Design tokens (DESIGN_SYSTEM §3–5). Light is the default; dark is applied via
+   [data-theme='dark'], which is always resolved (System → matchMedia) by the inline
+   script in index.html and src/app/theme.ts. src/styles/tokens.test.ts parses this file. */
+:root {
+  --bg: #f6f2ec;
+  --bg-elevated: #fffdf9;
+  --bg-sunken: #eee8e0;
+  --text: #1b181e;
+  --text-secondary: #5e5763;
+  --text-tertiary: #8a8290;
+  --annotation: #b23a26;
+  --accent: #c2412b;
+  --accent-contrast: #ffffff;
+  --separator: rgba(27, 24, 30, 0.1);
+  --learned: var(--text-secondary);
+  --danger: #b3261e;
+  --warning: #8a5a00;
+  --success: #2f6b3a;
+  --scrim: rgba(0, 0, 0, 0.35);
+  --sheet-shadow: 0 -1px 0 var(--separator), 0 -12px 40px rgba(0, 0, 0, 0.12);
+
+  /* spacing */
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-56: 56px;
+  --gutter: 20px;
+
+  /* radii */
+  --radius-control: 10px;
+  --radius-row: 14px;
+  --radius-sheet: 20px;
+  --radius-pill: 999px;
+
+  /* type */
+  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-ui:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --type-large-title: 34px/41px var(--font-display);
+  --type-title: 28px/34px var(--font-display);
+  --type-headline: 600 17px/22px var(--font-ui);
+  --type-body: 400 17px/24px var(--font-ui);
+  --type-subhead: 400 15px/20px var(--font-ui);
+  --type-footnote: 400 13px/18px var(--font-ui);
+  --type-caption: 500 12px/16px var(--font-ui);
+
+  /* lyrics scale (Text size setting) */
+  --lyric-scale: 1;
+
+  /* motion: 0 under reduced motion (DESIGN_SYSTEM §7) */
+  --motion-scale: 1;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --keyboard-inset: 0px;
+}
+
+:root[data-theme='dark'] {
+  --bg: #121014;
+  --bg-elevated: #1c1920;
+  --bg-sunken: #0c0a0e;
+  --text: #eee8e0;
+  --text-secondary: #a79fab;
+  --text-tertiary: #756e7a;
+  --annotation: #f0846c;
+  --accent: #f0674a;
+  --accent-contrast: #17141a;
+  --separator: rgba(238, 232, 224, 0.1);
+  --danger: #ff8a80;
+  --warning: #e8b04a;
+  --success: #7ccb8a;
+  --scrim: rgba(0, 0, 0, 0.55);
+  --sheet-shadow: 0 -1px 0 var(--separator), 0 -12px 40px rgba(0, 0, 0, 0.5);
+}
+
+:root[data-text-size='0'] {
+  --lyric-scale: 0.85;
+}
+:root[data-text-size='1'] {
+  --lyric-scale: 0.92;
+}
+:root[data-text-size='3'] {
+  --lyric-scale: 1.12;
+}
+:root[data-text-size='4'] {
+  --lyric-scale: 1.25;
+}
+
+@media (max-width: 340px) {
+  :root {
+    --gutter: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-scale: 0;
+  }
+}

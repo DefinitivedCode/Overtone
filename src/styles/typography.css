@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/instrument-serif-latin-400.woff2') format('woff2');
+}
+
+/* Per-language lyric fonts. `lang` attributes are functional (Han unification). */
+:lang(ko) {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', var(--font-ui);
+}
+:lang(ja) {
+  font-family:
+    'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', var(--font-ui);
+}
+:lang(zh-Hans),
+:lang(zh-CN) {
+  font-family: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', var(--font-ui);
+}
+:lang(zh-Hant),
+:lang(zh-TW) {
+  font-family: 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', var(--font-ui);
+}
+:lang(zh-HK) {
+  font-family: 'PingFang HK', 'Noto Sans HK', 'Microsoft JhengHei', var(--font-ui);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+.large-title {
+  font: var(--type-large-title);
+  letter-spacing: -0.005em;
+}
+.title {
+  font: var(--type-title);
+}
+.headline {
+  font: var(--type-headline);
+}
+.subhead {
+  font: var(--type-subhead);
+  color: var(--text-secondary);
+}
+.footnote {
+  font: var(--type-footnote);
+  color: var(--text-secondary);
+}
+.caption {
+  font: var(--type-caption);
+  letter-spacing: 0.02em;
+}
+
+/* Romanisation and Latin runs may wrap anywhere rather than overflow (J4.1). */
+.roman,
+.latin {
+  overflow-wrap: anywhere;
+  font-feature-settings: 'case';
+}

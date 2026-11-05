@@ -1,0 +1,125 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  overflow: hidden;
+}
+.dialog::backdrop {
+  background: var(--scrim);
+  opacity: 0;
+  transition: opacity calc(320ms * var(--motion-scale));
+}
+.dialog[data-state='open']::backdrop {
+  opacity: 1;
+}
+
+.panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 720px;
+  margin-inline: auto;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  box-shadow: var(--sheet-shadow);
+  transform: translateY(100%);
+  transition: transform calc(320ms * var(--motion-scale)) cubic-bezier(0.32, 0.72, 0, 1);
+  will-change: transform;
+}
+.dialog[data-state='open'] .panel {
+  transform: translateY(var(--drag, 0px));
+}
+.panel[data-dragging='true'] {
+  transition: none;
+}
+.full {
+  height: calc(100dvh - var(--safe-top) - 8px);
+}
+.half {
+  max-height: 60dvh;
+  min-height: 38dvh;
+}
+
+.header {
+  flex: none;
+  display: grid;
+  grid-template-columns: minmax(44px, auto) 1fr minmax(44px, auto);
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-8) var(--space-4);
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.grabber {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: 36px;
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: var(--separator);
+  margin-bottom: var(--space-4);
+}
+.title {
+  margin: 0;
+  font: var(--type-headline);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.title:focus {
+  outline: none;
+}
+.lead {
+  justify-self: start;
+}
+.trail {
+  justify-self: end;
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--space-8) var(--gutter)
+    calc(max(var(--space-16), var(--safe-bottom)) + var(--keyboard-inset));
+}
+
+/* ---------- Confirm dialog ---------- */
+.confirm {
+  width: min(340px, calc(100vw - 2 * var(--space-24)));
+  padding: var(--space-20);
+  border: 0;
+  border-radius: var(--radius-sheet);
+  background: var(--bg-elevated);
+  color: var(--text);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+}
+.confirm::backdrop {
+  background: var(--scrim);
+}
+.confirmTitle {
+  font: var(--type-headline);
+  margin-bottom: var(--space-8);
+}
+.confirmMessage {
+  color: var(--text-secondary);
+  font: var(--type-subhead);
+  margin-bottom: var(--space-20);
+}
+.confirmActions {
+  display: grid;
+  gap: var(--space-8);
+}
