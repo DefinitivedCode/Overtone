@@ -85,6 +85,12 @@
   font-feature-settings: 'case';
   overflow-wrap: anywhere;
 }
+.romaji {
+  display: block;
+  margin-top: 0.25em;
+  font-size: 0.68em;
+  color: var(--text-secondary);
+}
 .learnLine[data-learned='true'] .learnText,
 .learnLine[data-learned='true'] .learnText rt {
   color: var(--learned);

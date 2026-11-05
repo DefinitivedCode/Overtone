@@ -1,0 +1,4718 @@
+[
+  {
+    "lang": "ja",
+    "text": "歩いて帰る",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "歩",
+          "reading": "ある",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "帰",
+          "reading": "かえ",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "aruite kaeru"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-001"
+  },
+  {
+    "lang": "ja",
+    "text": "走って帰った",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "走",
+          "reading": "はし",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "帰",
+          "reading": "かえ",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "hashitte kaetta"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-002"
+  },
+  {
+    "lang": "ja",
+    "text": "追いかけて来た",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "追",
+          "reading": "お",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "来",
+          "reading": "き",
+          "start": 5,
+          "end": 6
+        }
+      ],
+      "romanLine": "oikakete kita"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-003"
+  },
+  {
+    "lang": "ja",
+    "text": "風が吹いている",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "風",
+          "reading": "かぜ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "吹",
+          "reading": "ふ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "kaze ga fuiteiru"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-004"
+  },
+  {
+    "lang": "ja",
+    "text": "花が咲いていた",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "花",
+          "reading": "はな",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "咲",
+          "reading": "さ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "hana ga saiteita"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-005"
+  },
+  {
+    "lang": "ja",
+    "text": "星が光っている",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "星",
+          "reading": "ほし",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "光",
+          "reading": "ひか",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "hoshi ga hikatteiru"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-006"
+  },
+  {
+    "lang": "ja",
+    "text": "読んで待つ",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "読",
+          "reading": "よ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "待",
+          "reading": "ま",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "yonde matsu"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-007"
+  },
+  {
+    "lang": "ja",
+    "text": "書いておく",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "書",
+          "reading": "か",
+          "start": 0,
+          "end": 1
+        }
+      ],
+      "romanLine": "kaiteoku"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-008"
+  },
+  {
+    "lang": "ja",
+    "text": "持って行く",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "持",
+          "reading": "も",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "行",
+          "reading": "い",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "motte iku"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-009"
+  },
+  {
+    "lang": "ja",
+    "text": "立ち止まる",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "立",
+          "reading": "た",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "止",
+          "reading": "ど",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "tachidomaru"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-010"
+  },
+  {
+    "lang": "ja",
+    "text": "取り戻した",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "取",
+          "reading": "と",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "戻",
+          "reading": "もど",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "torimodoshita"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-011"
+  },
+  {
+    "lang": "ja",
+    "text": "振り返らない",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "振",
+          "reading": "ふ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "返",
+          "reading": "かえ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "furikaeranai"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-012"
+  },
+  {
+    "lang": "ja",
+    "text": "食べてしまった",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "食",
+          "reading": "た",
+          "start": 0,
+          "end": 1
+        }
+      ],
+      "romanLine": "tabete shimatta"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-013"
+  },
+  {
+    "lang": "ja",
+    "text": "閉じておいた",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "閉",
+          "reading": "と",
+          "start": 0,
+          "end": 1
+        }
+      ],
+      "romanLine": "tojiteoita"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-014"
+  },
+  {
+    "lang": "ja",
+    "text": "扉を開けた",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "扉",
+          "reading": "とびら",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "開",
+          "reading": "あ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "tobira o aketa"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-015"
+  },
+  {
+    "lang": "ja",
+    "text": "雲を見上げる",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "雲",
+          "reading": "くも",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "見上",
+          "reading": "みあ",
+          "start": 2,
+          "end": 4
+        }
+      ],
+      "romanLine": "kumo o miageru"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-016"
+  },
+  {
+    "lang": "ja",
+    "text": "通り過ぎる",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "通",
+          "reading": "とお",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "過",
+          "reading": "す",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "tōrisugiru"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-017"
+  },
+  {
+    "lang": "ja",
+    "text": "飛び出した",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "飛",
+          "reading": "と",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "出",
+          "reading": "だ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "tobidashita"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-018"
+  },
+  {
+    "lang": "ja",
+    "text": "思い出した",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "思",
+          "reading": "おも",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "出",
+          "reading": "だ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "omoidashita"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-019"
+  },
+  {
+    "lang": "ja",
+    "text": "笑い合う",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "笑",
+          "reading": "わら",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "合",
+          "reading": "あ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "waraiau"
+    },
+    "tags": [
+      "okurigana"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-020"
+  },
+  {
+    "lang": "ja",
+    "text": "海へ行きます",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "海",
+          "reading": "うみ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "行",
+          "reading": "い",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "umi e ikimasu"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-021"
+  },
+  {
+    "lang": "ja",
+    "text": "春は暖かい",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "春",
+          "reading": "はる",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "暖",
+          "reading": "あたた",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "haru wa atatakai"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-022"
+  },
+  {
+    "lang": "ja",
+    "text": "橋を渡る",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "橋",
+          "reading": "はし",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "渡",
+          "reading": "わた",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "hashi o wataru"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-023"
+  },
+  {
+    "lang": "ja",
+    "text": "山へ向かう",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "山",
+          "reading": "やま",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "向",
+          "reading": "む",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "yama e mukau"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-024"
+  },
+  {
+    "lang": "ja",
+    "text": "本を読みます",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "本",
+          "reading": "ほん",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "読",
+          "reading": "よ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "hon o yomimasu"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-025"
+  },
+  {
+    "lang": "ja",
+    "text": "空は青い",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "空",
+          "reading": "そら",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "青",
+          "reading": "あお",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "sora wa aoi"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-026"
+  },
+  {
+    "lang": "ja",
+    "text": "庭で遊ぶ",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "庭",
+          "reading": "にわ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "遊",
+          "reading": "あそ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "niwa de asobu"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-027"
+  },
+  {
+    "lang": "ja",
+    "text": "手を洗う",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "手",
+          "reading": "て",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "洗",
+          "reading": "あら",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "te o arau"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-028"
+  },
+  {
+    "lang": "ja",
+    "text": "駅へ急ぐ",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "駅",
+          "reading": "えき",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "急",
+          "reading": "いそ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "eki e isogu"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-029"
+  },
+  {
+    "lang": "ja",
+    "text": "昼は静かです",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "昼",
+          "reading": "ひる",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "静",
+          "reading": "しず",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "hiru wa shizukadesu"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-030"
+  },
+  {
+    "lang": "ja",
+    "text": "猫と眠る",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "猫",
+          "reading": "ねこ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "眠",
+          "reading": "ねむ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "neko to nemuru"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-031"
+  },
+  {
+    "lang": "ja",
+    "text": "犬が待つ",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "犬",
+          "reading": "いぬ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "待",
+          "reading": "ま",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "inu ga matsu"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-032"
+  },
+  {
+    "lang": "ja",
+    "text": "雲の影",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "雲",
+          "reading": "くも",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "影",
+          "reading": "かげ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "kumo no kage"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-033"
+  },
+  {
+    "lang": "ja",
+    "text": "雪も溶ける",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "雪",
+          "reading": "ゆき",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "溶",
+          "reading": "と",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "yuki mo tokeru"
+    },
+    "tags": [
+      "particles"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-034"
+  },
+  {
+    "lang": "ja",
+    "text": "今日も晴れる",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "今日",
+          "reading": "きょう",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "晴",
+          "reading": "は",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "kyō mo hareru"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-035"
+  },
+  {
+    "lang": "ja",
+    "text": "今日は休む",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "今日",
+          "reading": "きょう",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "休",
+          "reading": "やす",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "kyō wa yasumu"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-036"
+  },
+  {
+    "lang": "ja",
+    "text": "明日は雨です",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "明日",
+          "reading": "あした",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "雨",
+          "reading": "あめ",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "ashita wa amedesu"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-037"
+  },
+  {
+    "lang": "ja",
+    "text": "明日へ続く",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "明日",
+          "reading": "あした",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "続",
+          "reading": "つづ",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "ashita e tsuzuku"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-038"
+  },
+  {
+    "lang": "ja",
+    "text": "昨日の夕日",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "昨日",
+          "reading": "きのう",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "夕日",
+          "reading": "ゆうひ",
+          "start": 3,
+          "end": 5
+        }
+      ],
+      "romanLine": "kinō no yūhi"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-039"
+  },
+  {
+    "lang": "ja",
+    "text": "昨日は寒かった",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "昨日",
+          "reading": "きのう",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "寒",
+          "reading": "さむ",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "kinō wa samukatta"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-040"
+  },
+  {
+    "lang": "ja",
+    "text": "今年の桜",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "今年",
+          "reading": "ことし",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "桜",
+          "reading": "さくら",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "kotoshi no sakura"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-041"
+  },
+  {
+    "lang": "ja",
+    "text": "今年も会える",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "今年",
+          "reading": "ことし",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "会",
+          "reading": "あ",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "kotoshi mo aeru"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-042"
+  },
+  {
+    "lang": "ja",
+    "text": "大人に聞く",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "大人",
+          "reading": "おとな",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "聞",
+          "reading": "き",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "otona ni kiku"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-043"
+  },
+  {
+    "lang": "ja",
+    "text": "大人の声",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "大人",
+          "reading": "おとな",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "声",
+          "reading": "こえ",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "otona no koe"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-044"
+  },
+  {
+    "lang": "ja",
+    "text": "一人で歌う",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "一人",
+          "reading": "ひとり",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "歌",
+          "reading": "うた",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "hitori de utau"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-045"
+  },
+  {
+    "lang": "ja",
+    "text": "二人で踊る",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "二人",
+          "reading": "ふたり",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "踊",
+          "reading": "おど",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "futari de odoru"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-046"
+  },
+  {
+    "lang": "ja",
+    "text": "一人の時間",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "一人",
+          "reading": "ひとり",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "時間",
+          "reading": "じかん",
+          "start": 3,
+          "end": 5
+        }
+      ],
+      "romanLine": "hitori no jikan"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-047"
+  },
+  {
+    "lang": "ja",
+    "text": "二人の部屋",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "二人",
+          "reading": "ふたり",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "部屋",
+          "reading": "へや",
+          "start": 3,
+          "end": 5
+        }
+      ],
+      "romanLine": "futari no heya"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-048"
+  },
+  {
+    "lang": "ja",
+    "text": "七夕の夜",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "七夕",
+          "reading": "たなばた",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "夜",
+          "reading": "よる",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "tanabata no yoru"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-049"
+  },
+  {
+    "lang": "ja",
+    "text": "五月雨が降る",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "五月雨",
+          "reading": "さみだれ",
+          "start": 0,
+          "end": 3
+        },
+        {
+          "surface": "降",
+          "reading": "ふ",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "samidare ga furu"
+    },
+    "tags": [
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-050"
+  },
+  {
+    "lang": "ja",
+    "text": "東京の夜",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "東京",
+          "reading": "とうきょう",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "夜",
+          "reading": "よる",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "tōkyō no yoru"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-051"
+  },
+  {
+    "lang": "ja",
+    "text": "京都の朝",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "京都",
+          "reading": "きょうと",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "朝",
+          "reading": "あさ",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "kyōto no asa"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-052"
+  },
+  {
+    "lang": "ja",
+    "text": "大阪へ行く",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "大阪",
+          "reading": "おおさか",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "行",
+          "reading": "い",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "ōsaka e iku"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-053"
+  },
+  {
+    "lang": "ja",
+    "text": "遠い町",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "遠",
+          "reading": "とお",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "町",
+          "reading": "まち",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "tōi machi"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-054"
+  },
+  {
+    "lang": "ja",
+    "text": "大きい窓",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "大",
+          "reading": "おお",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "窓",
+          "reading": "まど",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "ōkii mado"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-055"
+  },
+  {
+    "lang": "ja",
+    "text": "先生が笑う",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "先生",
+          "reading": "せんせい",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "笑",
+          "reading": "わら",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "sensei ga warau"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-056"
+  },
+  {
+    "lang": "ja",
+    "text": "映画を見る",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "映画",
+          "reading": "えいが",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "見",
+          "reading": "み",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "eiga o miru"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-057"
+  },
+  {
+    "lang": "ja",
+    "text": "コーヒーを飲む",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "飲",
+          "reading": "の",
+          "start": 5,
+          "end": 6
+        }
+      ],
+      "romanLine": "kōhī o nomu"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-058"
+  },
+  {
+    "lang": "ja",
+    "text": "故郷を思う",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "故郷",
+          "reading": "こきょう",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "思",
+          "reading": "おも",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "kokyō o omou"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-059"
+  },
+  {
+    "lang": "ja",
+    "text": "友情を信じる",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "友情",
+          "reading": "ゆうじょう",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "信",
+          "reading": "しん",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "yūjō o shinjiru"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-060"
+  },
+  {
+    "lang": "ja",
+    "text": "空港へ向かう",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "空港",
+          "reading": "くうこう",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "向",
+          "reading": "む",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "kūkō e mukau"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-061"
+  },
+  {
+    "lang": "ja",
+    "text": "風船を飛ばす",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "風船",
+          "reading": "ふうせん",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "飛",
+          "reading": "と",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "fūsen o tobasu"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-062"
+  },
+  {
+    "lang": "ja",
+    "text": "夕方まで待つ",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "夕方",
+          "reading": "ゆうがた",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "待",
+          "reading": "ま",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "yūgata made matsu"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-063"
+  },
+  {
+    "lang": "ja",
+    "text": "体育の時間",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "体育",
+          "reading": "たいいく",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "時間",
+          "reading": "じかん",
+          "start": 3,
+          "end": 5
+        }
+      ],
+      "romanLine": "taiiku no jikan"
+    },
+    "tags": [
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-064"
+  },
+  {
+    "lang": "ja",
+    "text": "抹茶を点てる",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "抹茶",
+          "reading": "まっちゃ",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "点",
+          "reading": "た",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "matcha o tateru"
+    },
+    "tags": [
+      "mora"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-065"
+  },
+  {
+    "lang": "ja",
+    "text": "切手を買う",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "切手",
+          "reading": "きって",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "買",
+          "reading": "か",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "kitte o kau"
+    },
+    "tags": [
+      "mora"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-066"
+  },
+  {
+    "lang": "ja",
+    "text": "葉っぱが落ちる",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "葉",
+          "reading": "は",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "落",
+          "reading": "お",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "happa ga ochiru"
+    },
+    "tags": [
+      "mora"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-067"
+  },
+  {
+    "lang": "ja",
+    "text": "あっ、鳥だ",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "鳥",
+          "reading": "とり",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "a, torida"
+    },
+    "tags": [
+      "mora"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-068"
+  },
+  {
+    "lang": "ja",
+    "text": "えっ、本当",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "本当",
+          "reading": "ほんとう",
+          "start": 3,
+          "end": 5
+        }
+      ],
+      "romanLine": "e, hontō"
+    },
+    "tags": [
+      "mora"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-069"
+  },
+  {
+    "lang": "ja",
+    "text": "金曜日に会う",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "金曜日",
+          "reading": "きんようび",
+          "start": 0,
+          "end": 3
+        },
+        {
+          "surface": "会",
+          "reading": "あ",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "kin'yōbi ni au"
+    },
+    "tags": [
+      "mora"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-070"
+  },
+  {
+    "lang": "ja",
+    "text": "恋愛の話",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "恋愛",
+          "reading": "れんあい",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "話",
+          "reading": "はなし",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "ren'ai no hanashi"
+    },
+    "tags": [
+      "mora"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-071"
+  },
+  {
+    "lang": "ja",
+    "text": "新年の朝",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "新年",
+          "reading": "しんねん",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "朝",
+          "reading": "あさ",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "shinnen no asa"
+    },
+    "tags": [
+      "mora"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-072"
+  },
+  {
+    "lang": "ja",
+    "text": "案内を聞く",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "案内",
+          "reading": "あんない",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "聞",
+          "reading": "き",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "annai o kiku"
+    },
+    "tags": [
+      "mora"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-073"
+  },
+  {
+    "lang": "ja",
+    "text": "雨がやっと止む",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "雨",
+          "reading": "あめ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "止",
+          "reading": "や",
+          "start": 5,
+          "end": 6
+        }
+      ],
+      "romanLine": "ame ga yatto yamu"
+    },
+    "tags": [
+      "mora"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-074"
+  },
+  {
+    "lang": "ja",
+    "text": "速く走った",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "速",
+          "reading": "はや",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "走",
+          "reading": "はし",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "hayaku hashitta"
+    },
+    "tags": [
+      "mora"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-075"
+  },
+  {
+    "lang": "ja",
+    "text": "列車を待つ",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "列車",
+          "reading": "れっしゃ",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "待",
+          "reading": "ま",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "ressha o matsu"
+    },
+    "tags": [
+      "mora"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-076"
+  },
+  {
+    "lang": "ja",
+    "text": "バスに乗る",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "乗",
+          "reading": "の",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "basu ni noru"
+    },
+    "tags": [
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-077"
+  },
+  {
+    "lang": "ja",
+    "text": "タクシーを呼ぶ",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "呼",
+          "reading": "よ",
+          "start": 5,
+          "end": 6
+        }
+      ],
+      "romanLine": "takushī o yobu"
+    },
+    "tags": [
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-078"
+  },
+  {
+    "lang": "ja",
+    "text": "テレビを消す",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "消",
+          "reading": "け",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "terebi o kesu"
+    },
+    "tags": [
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-079"
+  },
+  {
+    "lang": "ja",
+    "text": "ピアノを弾く",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "弾",
+          "reading": "ひ",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "piano o hiku"
+    },
+    "tags": [
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-080"
+  },
+  {
+    "lang": "ja",
+    "text": "チョコを分ける",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "分",
+          "reading": "わ",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "choko o wakeru"
+    },
+    "tags": [
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-081"
+  },
+  {
+    "lang": "ja",
+    "text": "ケーキを切る",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "切",
+          "reading": "き",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "kēki o kiru"
+    },
+    "tags": [
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-082"
+  },
+  {
+    "lang": "ja",
+    "text": "シャツを洗う",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "洗",
+          "reading": "あら",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "shatsu o arau"
+    },
+    "tags": [
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-083"
+  },
+  {
+    "lang": "ja",
+    "text": "パンを焼く",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "焼",
+          "reading": "や",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "pan o yaku"
+    },
+    "tags": [
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-084"
+  },
+  {
+    "lang": "ja",
+    "text": "カメラを持つ",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "持",
+          "reading": "も",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "kamera o motsu"
+    },
+    "tags": [
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-085"
+  },
+  {
+    "lang": "ja",
+    "text": "パーティーに行く",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "行",
+          "reading": "い",
+          "start": 6,
+          "end": 7
+        }
+      ],
+      "romanLine": "pātī ni iku"
+    },
+    "tags": [
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-086"
+  },
+  {
+    "lang": "ja",
+    "text": "ラジオを聞く",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "聞",
+          "reading": "き",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "rajio o kiku"
+    },
+    "tags": [
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-087"
+  },
+  {
+    "lang": "ja",
+    "text": "ミルクを温める",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "温",
+          "reading": "あたた",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "miruku o atatameru"
+    },
+    "tags": [
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-088"
+  },
+  {
+    "lang": "ja",
+    "text": "一つ残す",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "一",
+          "reading": "ひと",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "残",
+          "reading": "のこ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "hitotsu nokosu"
+    },
+    "tags": [
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-089"
+  },
+  {
+    "lang": "ja",
+    "text": "三人で待つ",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "三人",
+          "reading": "さんにん",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "待",
+          "reading": "ま",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "sannin de matsu"
+    },
+    "tags": [
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-090"
+  },
+  {
+    "lang": "ja",
+    "text": "三人の友達",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "三人",
+          "reading": "さんにん",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "友達",
+          "reading": "ともだち",
+          "start": 3,
+          "end": 5
+        }
+      ],
+      "romanLine": "sannin no tomodachi"
+    },
+    "tags": [
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-091"
+  },
+  {
+    "lang": "ja",
+    "text": "人々が集まる",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "人々",
+          "reading": "ひとびと",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "集",
+          "reading": "あつ",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "hitobito ga atsumaru"
+    },
+    "tags": [
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-092"
+  },
+  {
+    "lang": "ja",
+    "text": "時々思い出す",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "時々",
+          "reading": "ときどき",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "思",
+          "reading": "おも",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "出",
+          "reading": "だ",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "tokidoki omoidasu"
+    },
+    "tags": [
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-093"
+  },
+  {
+    "lang": "ja",
+    "text": "山々が見える",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "山々",
+          "reading": "やまやま",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "見",
+          "reading": "み",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "yamayama ga mieru"
+    },
+    "tags": [
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-094"
+  },
+  {
+    "lang": "ja",
+    "text": "色々な形",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "色々",
+          "reading": "いろいろ",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "形",
+          "reading": "かたち",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "iroiro na katachi"
+    },
+    "tags": [
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-095"
+  },
+  {
+    "lang": "ja",
+    "text": "日々の暮らし",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "日々",
+          "reading": "ひび",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "暮",
+          "reading": "く",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "hibi no kurashi"
+    },
+    "tags": [
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-096"
+  },
+  {
+    "lang": "ja",
+    "text": "何を見る",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "何",
+          "reading": "なに",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "見",
+          "reading": "み",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "nani o miru"
+    },
+    "tags": [
+      "ambiguous"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-097"
+  },
+  {
+    "lang": "ja",
+    "text": "何も言わない",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "何",
+          "reading": "なに",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "言",
+          "reading": "い",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "nani mo iwanai"
+    },
+    "tags": [
+      "ambiguous"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-098"
+  },
+  {
+    "lang": "ja",
+    "text": "何時に帰る",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "何時",
+          "reading": "なんじ",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "帰",
+          "reading": "かえ",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "nanji ni kaeru"
+    },
+    "tags": [
+      "ambiguous"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-099"
+  },
+  {
+    "lang": "ja",
+    "text": "一日だけ休む",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "一日",
+          "reading": "いちにち",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "休",
+          "reading": "やす",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "ichinichi dake yasumu"
+    },
+    "tags": [
+      "ambiguous"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-100"
+  },
+  {
+    "lang": "ja",
+    "text": "一日中遊んだ",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "一日中",
+          "reading": "いちにちじゅう",
+          "start": 0,
+          "end": 3
+        },
+        {
+          "surface": "遊",
+          "reading": "あそ",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "ichinichijū asonda"
+    },
+    "tags": [
+      "ambiguous"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-101"
+  },
+  {
+    "lang": "ja",
+    "text": "人気の映画",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "人気",
+          "reading": "にんき",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "映画",
+          "reading": "えいが",
+          "start": 3,
+          "end": 5
+        }
+      ],
+      "romanLine": "ninki no eiga"
+    },
+    "tags": [
+      "ambiguous"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-102"
+  },
+  {
+    "lang": "ja",
+    "text": "右の方へ曲がる",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "右",
+          "reading": "みぎ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "方",
+          "reading": "ほう",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "曲",
+          "reading": "ま",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "romanLine": "migi no hō e magaru"
+    },
+    "tags": [
+      "ambiguous"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-103"
+  },
+  {
+    "lang": "ja",
+    "text": "宝物を探す",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "宝物",
+          "reading": "たからもの",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "探",
+          "reading": "さが",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "takaramono o sagasu"
+    },
+    "tags": [
+      "ambiguous"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-104"
+  },
+  {
+    "lang": "ja",
+    "text": "I love you 君が好き",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "君",
+          "reading": "きみ",
+          "start": 11,
+          "end": 12
+        },
+        {
+          "surface": "好",
+          "reading": "す",
+          "start": 13,
+          "end": 14
+        }
+      ],
+      "romanLine": "I love you kimi ga suki"
+    },
+    "tags": [
+      "mixed"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-105"
+  },
+  {
+    "lang": "ja",
+    "text": "Hello 明日も会おう",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "明日",
+          "reading": "あした",
+          "start": 6,
+          "end": 8
+        },
+        {
+          "surface": "会",
+          "reading": "あ",
+          "start": 9,
+          "end": 10
+        }
+      ],
+      "romanLine": "Hello ashita mo aō"
+    },
+    "tags": [
+      "mixed"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-106"
+  },
+  {
+    "lang": "ja",
+    "text": "春の風 hello",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "春",
+          "reading": "はる",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "風",
+          "reading": "かぜ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "haru no kaze hello"
+    },
+    "tags": [
+      "mixed"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-107"
+  },
+  {
+    "lang": "ja",
+    "text": "Don't go 待っていて",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "待",
+          "reading": "ま",
+          "start": 9,
+          "end": 10
+        }
+      ],
+      "romanLine": "Don't go matteite"
+    },
+    "tags": [
+      "mixed"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-108"
+  },
+  {
+    "lang": "ja",
+    "text": "今は goodbye",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "今",
+          "reading": "いま",
+          "start": 0,
+          "end": 1
+        }
+      ],
+      "romanLine": "ima wa goodbye"
+    },
+    "tags": [
+      "mixed"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-109"
+  },
+  {
+    "lang": "ja",
+    "text": "Baby 海へ行こう",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "海",
+          "reading": "うみ",
+          "start": 5,
+          "end": 6
+        },
+        {
+          "surface": "行",
+          "reading": "い",
+          "start": 7,
+          "end": 8
+        }
+      ],
+      "romanLine": "Baby umi e ikō"
+    },
+    "tags": [
+      "mixed"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-110"
+  },
+  {
+    "lang": "ja",
+    "text": "花が咲く 🌸",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "花",
+          "reading": "はな",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "咲",
+          "reading": "さ",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "romanLine": "hana ga saku 🌸"
+    },
+    "tags": [
+      "mixed"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-111"
+  },
+  {
+    "lang": "ja",
+    "text": "Café 雨の朝",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "雨",
+          "reading": "あめ",
+          "start": 5,
+          "end": 6
+        },
+        {
+          "surface": "朝",
+          "reading": "あさ",
+          "start": 7,
+          "end": 8
+        }
+      ],
+      "romanLine": "Café ame no asa"
+    },
+    "tags": [
+      "mixed"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-112"
+  },
+  {
+    "lang": "ja",
+    "text": "運命を抱く",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "運命",
+          "reading": "さだめ",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "抱",
+          "reading": "だ",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "sadame o daku"
+    },
+    "tags": [
+      "aozora"
+    ],
+    "reviewed": false,
+    "pasted": "|運命《さだめ》を抱く",
+    "id": "ja-m8-113"
+  },
+  {
+    "lang": "ja",
+    "text": "宇宙を見る",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "宇宙",
+          "reading": "そら",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "見",
+          "reading": "み",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "sora o miru"
+    },
+    "tags": [
+      "aozora"
+    ],
+    "reviewed": false,
+    "pasted": "宇宙《そら》を見る",
+    "id": "ja-m8-114"
+  },
+  {
+    "lang": "ja",
+    "text": "本気で走る",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "本気",
+          "reading": "まじ",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "走",
+          "reading": "はし",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "maji de hashiru"
+    },
+    "tags": [
+      "aozora"
+    ],
+    "reviewed": false,
+    "pasted": "本気《まじ》で走る",
+    "id": "ja-m8-115"
+  },
+  {
+    "lang": "ja",
+    "text": "運命の糸",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "運命",
+          "reading": "さだめ",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "糸",
+          "reading": "いと",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "sadame no ito"
+    },
+    "tags": [
+      "poetic"
+    ],
+    "reviewed": false,
+    "expectEngineMiss": true,
+    "id": "ja-m8-116"
+  },
+  {
+    "lang": "ja",
+    "text": "宇宙の音",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "宇宙",
+          "reading": "そら",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "音",
+          "reading": "おと",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "sora no oto"
+    },
+    "tags": [
+      "poetic"
+    ],
+    "reviewed": false,
+    "expectEngineMiss": true,
+    "id": "ja-m8-117"
+  },
+  {
+    "lang": "ja",
+    "text": "本気で話す",
+    "source": "Original text and reference readings authored for Overtone. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "本気",
+          "reading": "まじ",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "話",
+          "reading": "はな",
+          "start": 3,
+          "end": 4
+        }
+      ],
+      "romanLine": "maji de hanasu"
+    },
+    "tags": [
+      "poetic"
+    ],
+    "reviewed": false,
+    "expectEngineMiss": true,
+    "id": "ja-m8-118"
+  },
+  {
+    "lang": "ja",
+    "text": "歩いて帰る。 二人で踊る",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "歩",
+          "reading": "ある",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "帰",
+          "reading": "かえ",
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "二人",
+          "reading": "ふたり",
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "踊",
+          "reading": "おど",
+          "start": 10,
+          "end": 11
+        }
+      ],
+      "romanLine": "aruite kaeru. futari de odoru"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-119"
+  },
+  {
+    "lang": "ja",
+    "text": "走って帰った。 一人の時間",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "走",
+          "reading": "はし",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "帰",
+          "reading": "かえ",
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "一人",
+          "reading": "ひとり",
+          "start": 8,
+          "end": 10
+        },
+        {
+          "surface": "時間",
+          "reading": "じかん",
+          "start": 11,
+          "end": 13
+        }
+      ],
+      "romanLine": "hashitte kaetta. hitori no jikan"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-120"
+  },
+  {
+    "lang": "ja",
+    "text": "追いかけて来た。 二人の部屋",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "追",
+          "reading": "お",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "来",
+          "reading": "き",
+          "start": 5,
+          "end": 6
+        },
+        {
+          "surface": "二人",
+          "reading": "ふたり",
+          "start": 9,
+          "end": 11
+        },
+        {
+          "surface": "部屋",
+          "reading": "へや",
+          "start": 12,
+          "end": 14
+        }
+      ],
+      "romanLine": "oikakete kita. futari no heya"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-121"
+  },
+  {
+    "lang": "ja",
+    "text": "風が吹いている。 七夕の夜",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "風",
+          "reading": "かぜ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "吹",
+          "reading": "ふ",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "七夕",
+          "reading": "たなばた",
+          "start": 9,
+          "end": 11
+        },
+        {
+          "surface": "夜",
+          "reading": "よる",
+          "start": 12,
+          "end": 13
+        }
+      ],
+      "romanLine": "kaze ga fuiteiru. tanabata no yoru"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-122"
+  },
+  {
+    "lang": "ja",
+    "text": "花が咲いていた。 五月雨が降る",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "花",
+          "reading": "はな",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "咲",
+          "reading": "さ",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "五月雨",
+          "reading": "さみだれ",
+          "start": 9,
+          "end": 12
+        },
+        {
+          "surface": "降",
+          "reading": "ふ",
+          "start": 13,
+          "end": 14
+        }
+      ],
+      "romanLine": "hana ga saiteita. samidare ga furu"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "jukujikun"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-123"
+  },
+  {
+    "lang": "ja",
+    "text": "星が光っている。 東京の夜",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "星",
+          "reading": "ほし",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "光",
+          "reading": "ひか",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "東京",
+          "reading": "とうきょう",
+          "start": 9,
+          "end": 11
+        },
+        {
+          "surface": "夜",
+          "reading": "よる",
+          "start": 12,
+          "end": 13
+        }
+      ],
+      "romanLine": "hoshi ga hikatteiru. tōkyō no yoru"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-124"
+  },
+  {
+    "lang": "ja",
+    "text": "読んで待つ。 京都の朝",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "読",
+          "reading": "よ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "待",
+          "reading": "ま",
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "京都",
+          "reading": "きょうと",
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "朝",
+          "reading": "あさ",
+          "start": 10,
+          "end": 11
+        }
+      ],
+      "romanLine": "yonde matsu. kyōto no asa"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-125"
+  },
+  {
+    "lang": "ja",
+    "text": "書いておく。 大阪へ行く",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "書",
+          "reading": "か",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "大阪",
+          "reading": "おおさか",
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "行",
+          "reading": "い",
+          "start": 10,
+          "end": 11
+        }
+      ],
+      "romanLine": "kaiteoku. ōsaka e iku"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-126"
+  },
+  {
+    "lang": "ja",
+    "text": "持って行く。 遠い町",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "持",
+          "reading": "も",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "行",
+          "reading": "い",
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "遠",
+          "reading": "とお",
+          "start": 7,
+          "end": 8
+        },
+        {
+          "surface": "町",
+          "reading": "まち",
+          "start": 9,
+          "end": 10
+        }
+      ],
+      "romanLine": "motte iku. tōi machi"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-127"
+  },
+  {
+    "lang": "ja",
+    "text": "立ち止まる。 大きい窓",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "立",
+          "reading": "た",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "止",
+          "reading": "ど",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "大",
+          "reading": "おお",
+          "start": 7,
+          "end": 8
+        },
+        {
+          "surface": "窓",
+          "reading": "まど",
+          "start": 10,
+          "end": 11
+        }
+      ],
+      "romanLine": "tachidomaru. ōkii mado"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-128"
+  },
+  {
+    "lang": "ja",
+    "text": "取り戻した。 先生が笑う",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "取",
+          "reading": "と",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "戻",
+          "reading": "もど",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "先生",
+          "reading": "せんせい",
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "笑",
+          "reading": "わら",
+          "start": 10,
+          "end": 11
+        }
+      ],
+      "romanLine": "torimodoshita. sensei ga warau"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-129"
+  },
+  {
+    "lang": "ja",
+    "text": "振り返らない。 映画を見る",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "振",
+          "reading": "ふ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "返",
+          "reading": "かえ",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "映画",
+          "reading": "えいが",
+          "start": 8,
+          "end": 10
+        },
+        {
+          "surface": "見",
+          "reading": "み",
+          "start": 11,
+          "end": 12
+        }
+      ],
+      "romanLine": "furikaeranai. eiga o miru"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-130"
+  },
+  {
+    "lang": "ja",
+    "text": "食べてしまった。 コーヒーを飲む",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "食",
+          "reading": "た",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "飲",
+          "reading": "の",
+          "start": 14,
+          "end": 15
+        }
+      ],
+      "romanLine": "tabete shimatta. kōhī o nomu"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-131"
+  },
+  {
+    "lang": "ja",
+    "text": "閉じておいた。 故郷を思う",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "閉",
+          "reading": "と",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "故郷",
+          "reading": "こきょう",
+          "start": 8,
+          "end": 10
+        },
+        {
+          "surface": "思",
+          "reading": "おも",
+          "start": 11,
+          "end": 12
+        }
+      ],
+      "romanLine": "tojiteoita. kokyō o omou"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-132"
+  },
+  {
+    "lang": "ja",
+    "text": "扉を開けた。 友情を信じる",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "扉",
+          "reading": "とびら",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "開",
+          "reading": "あ",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "友情",
+          "reading": "ゆうじょう",
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "信",
+          "reading": "しん",
+          "start": 10,
+          "end": 11
+        }
+      ],
+      "romanLine": "tobira o aketa. yūjō o shinjiru"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-133"
+  },
+  {
+    "lang": "ja",
+    "text": "雲を見上げる。 空港へ向かう",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "雲",
+          "reading": "くも",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "見上",
+          "reading": "みあ",
+          "start": 2,
+          "end": 4
+        },
+        {
+          "surface": "空港",
+          "reading": "くうこう",
+          "start": 8,
+          "end": 10
+        },
+        {
+          "surface": "向",
+          "reading": "む",
+          "start": 11,
+          "end": 12
+        }
+      ],
+      "romanLine": "kumo o miageru. kūkō e mukau"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-134"
+  },
+  {
+    "lang": "ja",
+    "text": "通り過ぎる。 風船を飛ばす",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "通",
+          "reading": "とお",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "過",
+          "reading": "す",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "風船",
+          "reading": "ふうせん",
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "飛",
+          "reading": "と",
+          "start": 10,
+          "end": 11
+        }
+      ],
+      "romanLine": "tōrisugiru. fūsen o tobasu"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-135"
+  },
+  {
+    "lang": "ja",
+    "text": "飛び出した。 夕方まで待つ",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "飛",
+          "reading": "と",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "出",
+          "reading": "だ",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "夕方",
+          "reading": "ゆうがた",
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "待",
+          "reading": "ま",
+          "start": 11,
+          "end": 12
+        }
+      ],
+      "romanLine": "tobidashita. yūgata made matsu"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-136"
+  },
+  {
+    "lang": "ja",
+    "text": "思い出した。 体育の時間",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "思",
+          "reading": "おも",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "出",
+          "reading": "だ",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "体育",
+          "reading": "たいいく",
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "時間",
+          "reading": "じかん",
+          "start": 10,
+          "end": 12
+        }
+      ],
+      "romanLine": "omoidashita. taiiku no jikan"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "long-vowels"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-137"
+  },
+  {
+    "lang": "ja",
+    "text": "笑い合う。 バスに乗る",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "笑",
+          "reading": "わら",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "合",
+          "reading": "あ",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "乗",
+          "reading": "の",
+          "start": 9,
+          "end": 10
+        }
+      ],
+      "romanLine": "waraiau. basu ni noru"
+    },
+    "tags": [
+      "paired-clauses",
+      "okurigana",
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-138"
+  },
+  {
+    "lang": "ja",
+    "text": "海へ行きます。 タクシーを呼ぶ",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "海",
+          "reading": "うみ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "行",
+          "reading": "い",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "呼",
+          "reading": "よ",
+          "start": 13,
+          "end": 14
+        }
+      ],
+      "romanLine": "umi e ikimasu. takushī o yobu"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-139"
+  },
+  {
+    "lang": "ja",
+    "text": "春は暖かい。 テレビを消す",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "春",
+          "reading": "はる",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "暖",
+          "reading": "あたた",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "消",
+          "reading": "け",
+          "start": 11,
+          "end": 12
+        }
+      ],
+      "romanLine": "haru wa atatakai. terebi o kesu"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-140"
+  },
+  {
+    "lang": "ja",
+    "text": "橋を渡る。 ピアノを弾く",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "橋",
+          "reading": "はし",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "渡",
+          "reading": "わた",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "弾",
+          "reading": "ひ",
+          "start": 10,
+          "end": 11
+        }
+      ],
+      "romanLine": "hashi o wataru. piano o hiku"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-141"
+  },
+  {
+    "lang": "ja",
+    "text": "山へ向かう。 チョコを分ける",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "山",
+          "reading": "やま",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "向",
+          "reading": "む",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "分",
+          "reading": "わ",
+          "start": 11,
+          "end": 12
+        }
+      ],
+      "romanLine": "yama e mukau. choko o wakeru"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-142"
+  },
+  {
+    "lang": "ja",
+    "text": "本を読みます。 ケーキを切る",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "本",
+          "reading": "ほん",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "読",
+          "reading": "よ",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "切",
+          "reading": "き",
+          "start": 12,
+          "end": 13
+        }
+      ],
+      "romanLine": "hon o yomimasu. kēki o kiru"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-143"
+  },
+  {
+    "lang": "ja",
+    "text": "空は青い。 シャツを洗う",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "空",
+          "reading": "そら",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "青",
+          "reading": "あお",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "洗",
+          "reading": "あら",
+          "start": 10,
+          "end": 11
+        }
+      ],
+      "romanLine": "sora wa aoi. shatsu o arau"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-144"
+  },
+  {
+    "lang": "ja",
+    "text": "庭で遊ぶ。 パンを焼く",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "庭",
+          "reading": "にわ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "遊",
+          "reading": "あそ",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "焼",
+          "reading": "や",
+          "start": 9,
+          "end": 10
+        }
+      ],
+      "romanLine": "niwa de asobu. pan o yaku"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-145"
+  },
+  {
+    "lang": "ja",
+    "text": "手を洗う。 カメラを持つ",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "手",
+          "reading": "て",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "洗",
+          "reading": "あら",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "持",
+          "reading": "も",
+          "start": 10,
+          "end": 11
+        }
+      ],
+      "romanLine": "te o arau. kamera o motsu"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-146"
+  },
+  {
+    "lang": "ja",
+    "text": "駅へ急ぐ。 パーティーに行く",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "駅",
+          "reading": "えき",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "急",
+          "reading": "いそ",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "行",
+          "reading": "い",
+          "start": 12,
+          "end": 13
+        }
+      ],
+      "romanLine": "eki e isogu. pātī ni iku"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-147"
+  },
+  {
+    "lang": "ja",
+    "text": "昼は静かです。 ラジオを聞く",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "昼",
+          "reading": "ひる",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "静",
+          "reading": "しず",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "聞",
+          "reading": "き",
+          "start": 12,
+          "end": 13
+        }
+      ],
+      "romanLine": "hiru wa shizukadesu. rajio o kiku"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-148"
+  },
+  {
+    "lang": "ja",
+    "text": "猫と眠る。 ミルクを温める",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "猫",
+          "reading": "ねこ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "眠",
+          "reading": "ねむ",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "温",
+          "reading": "あたた",
+          "start": 10,
+          "end": 11
+        }
+      ],
+      "romanLine": "neko to nemuru. miruku o atatameru"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "loans"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-149"
+  },
+  {
+    "lang": "ja",
+    "text": "犬が待つ。 一つ残す",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "犬",
+          "reading": "いぬ",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "待",
+          "reading": "ま",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "一",
+          "reading": "ひと",
+          "start": 6,
+          "end": 7
+        },
+        {
+          "surface": "残",
+          "reading": "のこ",
+          "start": 8,
+          "end": 9
+        }
+      ],
+      "romanLine": "inu ga matsu. hitotsu nokosu"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-150"
+  },
+  {
+    "lang": "ja",
+    "text": "雲の影。 三人で待つ",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "雲",
+          "reading": "くも",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "影",
+          "reading": "かげ",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "三人",
+          "reading": "さんにん",
+          "start": 5,
+          "end": 7
+        },
+        {
+          "surface": "待",
+          "reading": "ま",
+          "start": 8,
+          "end": 9
+        }
+      ],
+      "romanLine": "kumo no kage. sannin de matsu"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-151"
+  },
+  {
+    "lang": "ja",
+    "text": "雪も溶ける。 三人の友達",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "雪",
+          "reading": "ゆき",
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "溶",
+          "reading": "と",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "三人",
+          "reading": "さんにん",
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "友達",
+          "reading": "ともだち",
+          "start": 10,
+          "end": 12
+        }
+      ],
+      "romanLine": "yuki mo tokeru. sannin no tomodachi"
+    },
+    "tags": [
+      "paired-clauses",
+      "particles",
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-152"
+  },
+  {
+    "lang": "ja",
+    "text": "今日も晴れる。 人々が集まる",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "今日",
+          "reading": "きょう",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "晴",
+          "reading": "は",
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "人々",
+          "reading": "ひとびと",
+          "start": 8,
+          "end": 10
+        },
+        {
+          "surface": "集",
+          "reading": "あつ",
+          "start": 11,
+          "end": 12
+        }
+      ],
+      "romanLine": "kyō mo hareru. hitobito ga atsumaru"
+    },
+    "tags": [
+      "paired-clauses",
+      "jukujikun",
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-153"
+  },
+  {
+    "lang": "ja",
+    "text": "今日は休む。 時々思い出す",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "今日",
+          "reading": "きょう",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "休",
+          "reading": "やす",
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "時々",
+          "reading": "ときどき",
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "思",
+          "reading": "おも",
+          "start": 9,
+          "end": 10
+        },
+        {
+          "surface": "出",
+          "reading": "だ",
+          "start": 11,
+          "end": 12
+        }
+      ],
+      "romanLine": "kyō wa yasumu. tokidoki omoidasu"
+    },
+    "tags": [
+      "paired-clauses",
+      "jukujikun",
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-154"
+  },
+  {
+    "lang": "ja",
+    "text": "明日は雨です。 山々が見える",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "明日",
+          "reading": "あした",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "雨",
+          "reading": "あめ",
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "山々",
+          "reading": "やまやま",
+          "start": 8,
+          "end": 10
+        },
+        {
+          "surface": "見",
+          "reading": "み",
+          "start": 11,
+          "end": 12
+        }
+      ],
+      "romanLine": "ashita wa amedesu. yamayama ga mieru"
+    },
+    "tags": [
+      "paired-clauses",
+      "jukujikun",
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-155"
+  },
+  {
+    "lang": "ja",
+    "text": "明日へ続く。 色々な形",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "明日",
+          "reading": "あした",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "続",
+          "reading": "つづ",
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "色々",
+          "reading": "いろいろ",
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "形",
+          "reading": "かたち",
+          "start": 10,
+          "end": 11
+        }
+      ],
+      "romanLine": "ashita e tsuzuku. iroiro na katachi"
+    },
+    "tags": [
+      "paired-clauses",
+      "jukujikun",
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-156"
+  },
+  {
+    "lang": "ja",
+    "text": "昨日の夕日。 日々の暮らし",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "昨日",
+          "reading": "きのう",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "夕日",
+          "reading": "ゆうひ",
+          "start": 3,
+          "end": 5
+        },
+        {
+          "surface": "日々",
+          "reading": "ひび",
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "暮",
+          "reading": "く",
+          "start": 10,
+          "end": 11
+        }
+      ],
+      "romanLine": "kinō no yūhi. hibi no kurashi"
+    },
+    "tags": [
+      "paired-clauses",
+      "jukujikun",
+      "counters-iteration"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-157"
+  },
+  {
+    "lang": "ja",
+    "text": "昨日は寒かった。 何を見る",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "昨日",
+          "reading": "きのう",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "寒",
+          "reading": "さむ",
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "何",
+          "reading": "なに",
+          "start": 9,
+          "end": 10
+        },
+        {
+          "surface": "見",
+          "reading": "み",
+          "start": 11,
+          "end": 12
+        }
+      ],
+      "romanLine": "kinō wa samukatta. nani o miru"
+    },
+    "tags": [
+      "paired-clauses",
+      "jukujikun",
+      "ambiguous"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-158"
+  },
+  {
+    "lang": "ja",
+    "text": "今年の桜。 何も言わない",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "今年",
+          "reading": "ことし",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "桜",
+          "reading": "さくら",
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "何",
+          "reading": "なに",
+          "start": 6,
+          "end": 7
+        },
+        {
+          "surface": "言",
+          "reading": "い",
+          "start": 8,
+          "end": 9
+        }
+      ],
+      "romanLine": "kotoshi no sakura. nani mo iwanai"
+    },
+    "tags": [
+      "paired-clauses",
+      "jukujikun",
+      "ambiguous"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-159"
+  },
+  {
+    "lang": "ja",
+    "text": "今年も会える。 何時に帰る",
+    "source": "Original paired clauses with independently authored reference readings. Unreviewed.",
+    "expected": {
+      "tokens": [
+        {
+          "surface": "今年",
+          "reading": "ことし",
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "会",
+          "reading": "あ",
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "何時",
+          "reading": "なんじ",
+          "start": 8,
+          "end": 10
+        },
+        {
+          "surface": "帰",
+          "reading": "かえ",
+          "start": 11,
+          "end": 12
+        }
+      ],
+      "romanLine": "kotoshi mo aeru. nanji ni kaeru"
+    },
+    "tags": [
+      "paired-clauses",
+      "jukujikun",
+      "ambiguous"
+    ],
+    "reviewed": false,
+    "id": "ja-m8-160"
+  }
+]

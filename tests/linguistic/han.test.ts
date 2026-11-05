@@ -37,6 +37,7 @@ beforeAll(() => {
   const tables = new Map<string, Map<string, DictRow[]>>();
   const versions = new Map<string, string>();
   for (const p of manifest.packs) {
+    if (p.lang !== 'zh' && p.lang !== 'yue') continue;
     const text = gunzipSync(
       readFileSync(path.join(root, 'public', 'packs', p.files[0]!.path)),
     ).toString('utf8');

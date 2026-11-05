@@ -6,6 +6,12 @@ import { addSong, expectAxeClean, expectNoOverflow, setTheme, WIDTHS } from './h
 const MANDARIN = '我爱你\n你好吗';
 const CANTONESE = '我哋喺度\n唔該晒';
 
+const packRow = (page: Page, name: string) =>
+  page
+    .getByRole('region', { name: 'Offline language data' })
+    .getByRole('listitem')
+    .filter({ hasText: name });
+
 async function addHan(
   page: Page,
   title: string,
@@ -20,7 +26,7 @@ test.describe('language packs (Mandarin, Cantonese)', () => {
     page,
   }) => {
     await page.goto('/settings');
-    const group = page.getByRole('region', { name: 'Offline language data' });
+    const group = packRow(page, 'Mandarin');
     await expect(group.getByText('Mandarin')).toBeVisible();
     await expect(group.getByText(/Not downloaded · ≈ [\d.]+ MB/).first()).toBeVisible();
     await group
@@ -61,7 +67,7 @@ test.describe('language packs (Mandarin, Cantonese)', () => {
 
   test('Cantonese shows jyutping with tone numbers', async ({ page }) => {
     await page.goto('/settings');
-    const group = page.getByRole('region', { name: 'Offline language data' });
+    const group = packRow(page, 'Cantonese');
     await group
       .getByRole('button', { name: /Download/ })
       .last()
@@ -81,7 +87,7 @@ test.describe('language packs (Mandarin, Cantonese)', () => {
     page,
   }) => {
     await page.goto('/settings');
-    const group = page.getByRole('region', { name: 'Offline language data' });
+    const group = packRow(page, 'Mandarin');
     await group
       .getByRole('button', { name: /Download/ })
       .first()
@@ -149,7 +155,11 @@ test.describe('language packs (Mandarin, Cantonese)', () => {
     await expect(page.getByText(/needs a one-time download/)).toBeVisible();
     await expect(page.getByRole('button', { name: 'Download', exact: true })).toBeEnabled();
     await context.setOffline(true);
-    await page.evaluate(() => window.dispatchEvent(new Event('offline')));
+    // WebKit's offline emulation can leave navigator.onLine true.
+    await page.evaluate(() => {
+      Object.defineProperty(navigator, 'onLine', { configurable: true, value: false });
+      window.dispatchEvent(new Event('offline'));
+    });
     await expect(page.getByRole('button', { name: 'Connect to download' })).toBeDisabled();
     await expect(page.getByRole('list', { name: 'Lyrics' })).toContainText('我爱你');
     await context.setOffline(false);
@@ -162,7 +172,7 @@ test.describe('language packs (Mandarin, Cantonese)', () => {
       fail ? route.abort() : route.continue(),
     );
     await page.goto('/settings');
-    const group = page.getByRole('region', { name: 'Offline language data' });
+    const group = packRow(page, 'Mandarin');
     await group
       .getByRole('button', { name: /Download/ })
       .first()
@@ -178,7 +188,7 @@ test.describe('language packs (Mandarin, Cantonese)', () => {
       await page.setViewportSize({ width: 375, height: 812 });
       await setTheme(page, theme);
       const settings = page.getByRole('region', { name: 'Offline language data' });
-      await expect(settings.getByRole('button', { name: /Download ·/ })).toHaveCount(2);
+      await expect(settings.getByRole('button', { name: /Download ·/ })).toHaveCount(3);
       await expectAxeClean(page, `pack settings before install, ${theme}`);
       for (const language of ['Mandarin', 'Cantonese'] as const) {
         const row = settings.getByRole('listitem').filter({ hasText: language });
@@ -193,11 +203,11 @@ test.describe('language packs (Mandarin, Cantonese)', () => {
           fullPage: true,
         });
       }
+      await page.getByRole('link', { name: /Library/ }).click();
       for (const [language, phrase, roman] of [
         ['Mandarin', '我爱你', 'wǒ ài nǐ'],
         ['Cantonese', '我哋喺度', 'ngo5 dei6 hai2 dou6'],
       ] as const) {
-        await page.getByRole('link', { name: /Library/ }).click();
         await addHan(page, `${language} layout`, `${phrase.repeat(8)}\n${phrase}`, language);
         await expect(page.locator('rt').first()).toHaveText(roman.split(' ')[0]!);
         const layout = async (mode: string) => {
@@ -223,7 +233,6 @@ test.describe('language packs (Mandarin, Cantonese)', () => {
         await expect(clean).toContainText(roman);
         await layout('Clean-romanised');
         await page.getByRole('link', { name: /Library/ }).click();
-        await page.getByRole('link', { name: 'Settings' }).click();
       }
     });
   }

@@ -2,11 +2,24 @@ import { BACKUP_SCHEMA_VERSION } from './format';
 
 /**
  * Forward migrations keyed by the version they upgrade FROM: `migrations[n]` turns a v(n) document
- * into v(n+1). v1 is the first shipped version, so the registry is empty; old key functions used by
+ * into v(n+1). Old key functions used by
  * future migrations that remap line keys must be kept in this folder (ARCHITECTURE §7).
  */
 export type BackupMigration = (doc: Record<string, unknown>) => Record<string, unknown>;
-export const MIGRATIONS: Readonly<Record<number, BackupMigration>> = {};
+export const MIGRATIONS: Readonly<Record<number, BackupMigration>> = {
+  // Legacy lyrics stay literal. Only v2 documents can opt into Aozora interpretation.
+  1: (doc) => ({
+    ...doc,
+    songs: Array.isArray(doc['songs'])
+      ? doc['songs'].map((song: unknown) => {
+          if (!song || typeof song !== 'object' || Array.isArray(song)) return song;
+          const copy = { ...song } as Record<string, unknown>;
+          delete copy['usePastedReadings'];
+          return copy;
+        })
+      : doc['songs'],
+  }),
+};
 
 export class BackupMigrationError extends Error {}
 

@@ -13,6 +13,7 @@ export interface InstalledPack {
   /** Absent on installs made with the previous per-row schema. */
   generation?: string;
   files?: string[];
+  tokenizer?: string;
 }
 
 interface MetaRow {
@@ -35,7 +36,7 @@ export class DictDB extends Dexie {
   entries!: Table<DictRow, number>;
   meta!: Table<MetaRow, string>;
   blocks!: Table<DictBlock, [string, number]>;
-  staging!: Table<{ id: string; generation: string }, string>;
+  staging!: Table<{ id: string; generation: string; tokenizer?: string }, string>;
 
   constructor(name = 'overtone-dict') {
     super(name);

@@ -32,6 +32,7 @@ export function toLines(
     kind: l.kind,
     kindOverride: overrides?.get(l.index) ?? null,
     key: l.key,
+    ...(l.readings ? { readings: l.readings } : {}),
   }));
 }
 
@@ -41,6 +42,7 @@ export interface CreateSongInput {
   language: LangCode;
   languageDetected: boolean;
   rawLyrics: string;
+  usePastedReadings?: boolean;
   source?: SongSource;
   /** Test/import seams. */
   id?: string;
@@ -55,7 +57,8 @@ export async function createSong(input: CreateSongInput): Promise<Song> {
   if (Object.keys(errors).length > 0) throw new ValidationError(errors);
 
   const rawLyrics = normaliseLyrics(input.rawLyrics);
-  const parsed = await parseLyrics(rawLyrics); // keys are computed before the transaction opens
+  const usePastedReadings = input.language === 'ja' && input.usePastedReadings === true;
+  const parsed = await parseLyrics(rawLyrics, usePastedReadings); // keys are computed before the transaction opens
   const now = input.now ?? Date.now();
   const id = input.id ?? crypto.randomUUID();
   const song: Song = {
@@ -65,12 +68,13 @@ export async function createSong(input: CreateSongInput): Promise<Song> {
     language: input.language,
     languageDetected: input.languageDetected,
     rawLyrics,
+    ...(input.usePastedReadings !== undefined ? { usePastedReadings } : {}),
     lineCount: parsed.filter((l) => l.kind === 'lyric').length,
     learnedCount: 0,
     displayMode: 'learn',
     cleanVariant: 'original',
     source: input.source ?? { kind: 'manual' },
-    searchText: buildSearchText(title, artist, rawLyrics),
+    searchText: buildSearchText(title, artist, parsed.map((line) => line.text).join('\n')),
     createdAt: now,
     updatedAt: now,
     openedAt: now,
@@ -133,7 +137,7 @@ export async function updateDetails(
   if (Object.keys(errors).length > 0) throw new ValidationError(errors);
   return guard(() => {
     const db = getDb();
-    return db.transaction('rw', db.songs, async () => {
+    return db.transaction('rw', [db.songs, db.lines], async () => {
       const song = await db.songs.get(songId);
       if (!song || song.deletedAt !== null) throw new Error('Song not found');
       const languageChanged = song.language !== input.language;
@@ -141,13 +145,18 @@ export async function updateDetails(
         !languageChanged && song.searchText.includes(ROMAN_SEP)
           ? ROMAN_SEP + song.searchText.split(ROMAN_SEP)[1]
           : '';
+      const lyrics = song.usePastedReadings
+        ? (await db.lines.where('songId').equals(songId).sortBy('index'))
+            .map((line) => line.text)
+            .join('\n')
+        : song.rawLyrics;
       const next: Song = {
         ...song,
         title,
         artist,
         language: input.language,
         languageDetected: languageChanged ? false : song.languageDetected,
-        searchText: buildSearchText(title, artist, song.rawLyrics) + suffix,
+        searchText: buildSearchText(title, artist, lyrics) + suffix,
         updatedAt: now,
       };
       await db.songs.put(next);
@@ -171,7 +180,7 @@ export interface UpdateLyricsResult {
 export async function updateLyrics(
   songId: string,
   rawNew: string,
-  now = Date.now(),
+  options: { now?: number; usePastedReadings?: boolean } = {},
 ): Promise<UpdateLyricsResult> {
   const song0 = await getSong(songId);
   if (!song0) throw new Error('Song not found');
@@ -179,7 +188,9 @@ export async function updateLyrics(
   if (errors.lyrics) throw new ValidationError({ lyrics: errors.lyrics });
 
   const rawLyrics = normaliseLyrics(rawNew);
-  const parsed = await parseLyrics(rawLyrics);
+  const usePastedReadings = options.usePastedReadings ?? song0.usePastedReadings;
+  const parsed = await parseLyrics(rawLyrics, usePastedReadings);
+  const now = options.now ?? Date.now();
   return guard(() => {
     const db = getDb();
     return db.transaction('rw', [db.songs, db.lines, db.progress, db.settings], async () => {
@@ -215,7 +226,12 @@ export async function updateLyrics(
 
       await db.songs.update(songId, {
         rawLyrics,
-        searchText: buildSearchText(song.title, song.artist, rawLyrics),
+        usePastedReadings,
+        searchText: buildSearchText(
+          song.title,
+          song.artist,
+          parsed.map((line) => line.text).join('\n'),
+        ),
         updatedAt: now,
       });
       await recomputeCounts(db, songId);

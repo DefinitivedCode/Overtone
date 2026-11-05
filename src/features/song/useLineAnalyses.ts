@@ -6,12 +6,13 @@ import { setRomanisedSearchText } from '@/db/repositories/songs';
 import type { Line, Song } from '@/db/types';
 import { analysisCacheKey } from '@/engine/cacheKey';
 import { getEngineClient } from '@/engine/clientDefault';
+import type { LineInput } from '@/engine/analyse';
 import type { LineAnalysis } from '@/engine/model';
 import { romaniseLine } from '@/engine/romanLine';
 
 export interface AnalysisState {
-  /** Analysis by line content key (identical lines share one). Missing while pending. */
-  byKey: ReadonlyMap<string, LineAnalysis>;
+  /** Analysis by line occurrence. Identical text and pasted readings share cached work. */
+  byLine: ReadonlyMap<string, LineAnalysis>;
   /** True while lines are still being analysed (drives the thin progress bar). */
   processing: boolean;
 }
@@ -24,22 +25,28 @@ export function useLineAnalyses(song: Song, lines: readonly Line[]): AnalysisSta
   const lyric = useMemo(() => lines.filter((l) => (l.kindOverride ?? l.kind) === 'lyric'), [lines]);
   const cached = useAnalysisRows(song.id);
   const packs = useInstalledPacks();
-  const needsPack = song.language === 'zh' || song.language === 'yue';
-  const packVersion = packs?.find((p) => p.lang === song.language)?.version ?? null;
+  const needsPack = song.language !== 'ko';
+  const pack = packs?.find((p) => p.lang === song.language);
+  const packVersion = pack?.version ?? null;
+  const packCacheKey =
+    pack?.lang === 'ja' && pack.generation ? `${pack.version}:${pack.generation}` : packVersion;
   const [running, setRunning] = useState(false);
   const started = useRef(new Set<string>());
 
   const wanted = useMemo(() => {
-    const m = new Map<string, { key: string; text: string; cacheKey: string }>();
-    for (const l of lyric)
-      if (!m.has(l.key))
-        m.set(l.key, {
-          key: l.key,
-          text: l.text,
-          cacheKey: analysisCacheKey(song.language, l.key, l.text, packVersion),
-        });
+    const m = new Map<string, LineInput & { cacheKey: string }>();
+    for (const l of lyric) {
+      const readings = song.language === 'ja' ? l.readings : undefined;
+      m.set(l.id, {
+        key: l.key,
+        text: l.text,
+        packVersion,
+        readings,
+        cacheKey: analysisCacheKey(song.language, l.key, l.text, packCacheKey, readings),
+      });
+    }
     return m;
-  }, [lyric, song.language, packVersion]);
+  }, [lyric, song.language, packVersion, packCacheKey]);
 
   const fresh = useMemo(() => {
     const byCache = new Map((cached ?? []).map((r) => [r.cacheKey, r.analysis as LineAnalysis]));
@@ -55,7 +62,11 @@ export function useLineAnalyses(song: Song, lines: readonly Line[]): AnalysisSta
     () =>
       cached === undefined || (needsPack && packs === undefined)
         ? []
-        : [...wanted.values()].filter((w) => !fresh.has(w.key)),
+        : [
+            ...new Map(
+              [...wanted].filter(([id]) => !fresh.has(id)).map(([, w]) => [w.cacheKey, w]),
+            ).values(),
+          ],
     [cached, needsPack, packs, wanted, fresh],
   );
   const missingId = missing.map((m) => m.cacheKey).join(',');
@@ -74,11 +85,9 @@ export function useLineAnalyses(song: Song, lines: readonly Line[]): AnalysisSta
     setRunning(true);
     void (async () => {
       try {
-        const results = await getEngineClient().analyse(
-          song.language,
-          todo.map((m) => ({ key: m.key, text: m.text, packVersion })),
-          { signal: ctl.signal },
-        );
+        const results = await getEngineClient().analyse(song.language, todo, {
+          signal: ctl.signal,
+        });
         if (ctl.signal.aborted) return;
         await putAnalyses(
           results.map((analysis, i) => ({
@@ -109,12 +118,12 @@ export function useLineAnalyses(song: Song, lines: readonly Line[]): AnalysisSta
     );
     if (song.language === 'ko' && !song.searchText.includes('\u0001')) {
       const text = lyric
-        .map((l) => romaniseLine(fresh.get(l.key)?.tokens ?? []))
+        .map((l) => romaniseLine(fresh.get(l.id)?.tokens ?? []))
         .filter(Boolean)
         .join('\n');
       if (text) void setRomanisedSearchText(song.id, text).catch(() => undefined);
     }
   }, [complete, song.id, song.language, song.searchText, wanted, lyric, fresh]);
 
-  return { byKey: fresh, processing: running && missing.length > 0 };
+  return { byLine: fresh, processing: running && missing.length > 0 };
 }

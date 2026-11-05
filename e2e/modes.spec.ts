@@ -70,6 +70,10 @@ test.describe('Korean song: Learn, Karaoke, Clean', () => {
 
     await page.getByRole('radio', { name: 'Romanised' }).check({ force: true });
     await expect(article.getByText('naneun noraehae')).toBeVisible();
+    // Let the asynchronous preference write settle before testing a hard navigation.
+    await page.getByRole('link', { name: 'Library' }).click();
+    await page.getByRole('link', { name: /Clean one/ }).click();
+    await expect(page.getByRole('radio', { name: 'Romanised' })).toBeChecked();
     await page.reload();
     await expect(page.getByRole('radio', { name: 'Clean' })).toBeChecked();
     await expect(page.getByRole('radio', { name: 'Romanised' })).toBeChecked();
@@ -147,12 +151,12 @@ test.describe('Korean song: Learn, Karaoke, Clean', () => {
     await expect(page.getByRole('list', { name: 'Songs' })).toContainText('Findable');
   });
 
-  test('a Japanese song shows its original text with an honest note until Japanese data exists', async ({
-    page,
-  }) => {
+  test('a Japanese song shows its original text until its pack is downloaded', async ({ page }) => {
     await page.goto('/');
     await addSong(page, { title: 'Nihongo', lyrics: JA });
-    await expect(page.getByText(/Pronunciation for Japanese isn.t available yet/)).toBeVisible();
+    await expect(
+      page.getByText(/Pronunciation for Japanese needs a one-time download/),
+    ).toBeVisible();
     await expect(learnList(page)).toContainText('君の名前を呼んでいた');
     await expect(learnList(page).locator('rt')).toHaveCount(0);
     await page.getByRole('radio', { name: 'Karaoke' }).check({ force: true });

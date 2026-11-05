@@ -1,5 +1,3 @@
-import { backupFilename, buildBackup, recordExport, serializeBackup } from '@/db/backup/export';
-
 export type ExportOutcome = 'shared' | 'downloaded' | 'cancelled';
 
 /**
@@ -8,6 +6,8 @@ export type ExportOutcome = 'shared' | 'downloaded' | 'cancelled';
  * back to a download link. The export time is recorded only once the file was really handed over.
  */
 export async function exportBackupFile(now = new Date()): Promise<ExportOutcome> {
+  const { backupFilename, buildBackup, recordExport, serializeBackup } =
+    await import('@/db/backup/export');
   const text = serializeBackup(await buildBackup(now));
   const name = backupFilename(now);
   const file = new File([text], name, { type: 'application/json' });

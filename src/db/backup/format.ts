@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { LIMITS } from '@/lyrics/parse';
 
 /** Current backup schema version. Bump with a migration when the format or the line-key function changes. */
-export const BACKUP_SCHEMA_VERSION = 1;
+export const BACKUP_SCHEMA_VERSION = 2;
 export const BACKUP_FORMAT = 'overtone-backup';
 export const MAX_BACKUP_BYTES = 50 * 1024 * 1024;
 export const MAX_BACKUP_SONGS = 5_000;
@@ -51,6 +51,7 @@ const song = z.object({
   language: lang,
   languageDetected: z.boolean().default(false),
   rawLyrics: z.string().max(LIMITS.lyricsChars),
+  usePastedReadings: z.boolean().optional(),
   lineKindOverrides: z
     .array(z.object({ index: z.number().int().min(0), kind: lineKind }))
     .max(LIMITS.lyricsLines),

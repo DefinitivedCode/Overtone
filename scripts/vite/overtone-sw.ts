@@ -42,6 +42,11 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// WebKit writes Cache Storage from an uncontrolled first page to a transient store.
+self.addEventListener('message', (event) => {
+  if (event.data === 'claim-for-pack-install') event.waitUntil(self.clients.claim());
+});
+
 // Static hosts add 'Vary: Origin'; a CORS font request would otherwise miss its own precached entry.
 const MATCH = { ignoreVary: true };
 const timeout = (ms) => new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms));

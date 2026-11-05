@@ -4,7 +4,9 @@ import { TEXT_SIZE_LABELS, setTextSize, setTheme, useTextSize, useTheme } from '
 import type { TextSize, ThemePref } from '@/app/preferences';
 import { useSettings } from '@/db/hooks';
 import { updateSettings } from '@/db/repositories/settings';
-import { SegmentedControl, Switch } from '@/ui';
+import { SegmentedControl, Switch, useToast } from '@/ui';
+import { DEFAULT_ROMAN_PREFS } from '@/engine/romanLine';
+import type { RomanPrefs } from '@/engine/romanLine';
 import { PackSettingsRows } from '@/features/packs/PackUi';
 import { BackupSection } from './BackupSection';
 import s from './SettingsScreen.module.css';
@@ -19,6 +21,33 @@ export function SettingsScreen() {
   const theme = useTheme();
   const size = useTextSize();
   const settings = useSettings();
+  const toast = useToast();
+  const jaStored = settings?.romanisation.ja;
+  const [optJa, setOptJa] = useState<Partial<RomanPrefs['ja']>>({});
+  const ja = { ...(jaStored ?? DEFAULT_ROMAN_PREFS.ja), ...optJa };
+  const pendingJa = Object.entries(optJa);
+  if (
+    pendingJa.length &&
+    jaStored &&
+    pendingJa.every(([key, value]) => jaStored[key as keyof RomanPrefs['ja']] === value)
+  )
+    setOptJa({});
+  const setJa = (patch: Partial<RomanPrefs['ja']>) => {
+    setOptJa((current) => ({ ...current, ...patch }));
+    void updateSettings((x) => ({
+      ...x,
+      romanisation: { ...x.romanisation, ja: { ...x.romanisation.ja, ...patch } },
+    })).catch(() => {
+      setOptJa((current) =>
+        Object.fromEntries(
+          Object.entries(current).filter(
+            ([key, value]) => patch[key as keyof RomanPrefs['ja']] !== value,
+          ),
+        ),
+      );
+      toast.show({ message: 'Could not save Japanese romanisation preferences.' });
+    });
+  };
   const [optKo, setOptKo] = useState<'pronunciation' | 'letters' | null>(null);
   // Optimistic Mandarin options (reflect the click at once; the stored value catches up).
   const [optZh, setOptZh] = useState<Partial<{ tones: 'marks' | 'numbers'; sandhi: boolean }>>({});
@@ -125,6 +154,25 @@ export function SettingsScreen() {
               checked={zh.sandhi}
               onChange={(sandhi) => setZh({ sandhi })}
             />
+            <SegmentedControl
+              label="Japanese long vowels"
+              value={ja.longVowels}
+              options={[
+                { value: 'macron', label: 'Macrons (tōkyō)' },
+                { value: 'doubled', label: 'Doubled (toukyou)' },
+              ]}
+              onChange={(longVowels) => setJa({ longVowels })}
+            />
+            <Switch
+              label="Show romaji in Learn mode"
+              checked={ja.showRomajiLine}
+              onChange={(showRomajiLine) => setJa({ showRomajiLine })}
+            />
+            <Switch
+              label="Show furigana for kana-only words"
+              checked={ja.furiganaForKanaWords}
+              onChange={(furiganaForKanaWords) => setJa({ furiganaForKanaWords })}
+            />
             <p className={s['row']}>
               Korean: <strong>Pronunciation</strong> shows how words sound (
               <span lang="ko">좋다</span> → jota); <strong>Letter by letter</strong> spells each
@@ -142,7 +190,23 @@ export function SettingsScreen() {
           </div>
           <p className={s['note']}>
             Downloaded once, then works offline. Sources: CC-CEDICT (CC BY-SA 4.0); CC-Canto and the
-            CC-CEDICT Cantonese readings (CC BY-SA 3.0, © Pleco).
+            CC-CEDICT Cantonese readings (CC BY-SA 3.0, © Pleco). Japanese uses JMdict from the{' '}
+            <a
+              href="https://www.edrdg.org/edrdg/newlic.html"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Electronic Dictionary Research and Development Group
+            </a>{' '}
+            (CC BY-SA 4.0) and Lindera/IPADIC.{' '}
+            <a
+              href={`${import.meta.env.BASE_URL}licenses/IPADIC-COPYING.txt`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              IPADIC notice
+            </a>
+            .
           </p>
         </section>
 

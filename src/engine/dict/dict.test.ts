@@ -1,13 +1,14 @@
 import { createHash } from 'node:crypto';
 import { gzipSync } from 'node:zlib';
 import Dexie from 'dexie';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DictDB, getDictDb, packMetaKey, setDictDb } from './db';
 import { installPack, PackInstallError } from './install';
 import type { InstallProgress } from './install';
 import { installedVersion, listInstalled, lookupMany, removePack } from './lookup';
 import { toJsonLines } from '../../../scripts/packs/parse';
 import type { PackInfo, PackRow } from './types';
+import { readTokenizer } from './resources';
 
 let n = 0;
 beforeEach(async () => {
@@ -57,6 +58,68 @@ function mkPack(version: string, data: PackRow[], opts: { badSha?: boolean } = {
 }
 
 describe('installPack', () => {
+  it('publishes verified Japanese tokenizer and dictionary together and keeps the prior generation on failure', async () => {
+    const cache = new Map<string, Response>();
+    vi.stubGlobal('caches', {
+      open: async () => ({
+        put: (key: string, value: Response) => cache.set(key, value),
+        delete: (key: string) => cache.delete(key),
+      }),
+      match: async (key: string) => cache.get(key)?.clone(),
+    });
+    try {
+      const bytes = gzipSync('test wasm');
+      const make = (version: string, badSha = false) => {
+        const p = mkPack(version, [{ f: '東京', e: 1, r: 'とうきょう', s: [], q: 1 }], { badSha });
+        const info: PackInfo = {
+          ...p.info,
+          id: 'ja-core',
+          lang: 'ja',
+          bytes: p.info.bytes + bytes.length,
+          files: [
+            {
+              path: `ja-core/${version}/ipadic.pack`,
+              role: 'tokenizer',
+              bytes: bytes.length,
+              sha256: createHash('sha256').update(bytes).digest('hex'),
+            },
+            ...p.info.files,
+          ],
+        };
+        const fetchImpl: typeof fetch = (url, init) =>
+          String(url).endsWith('ipadic.pack')
+            ? Promise.resolve(new Response(new Uint8Array(bytes)))
+            : p.fetchImpl(url, init);
+        return { info, fetchImpl };
+      };
+      const baseUrl = 'https://overtone.test/packs/';
+      const first = make('1');
+      const events: InstallProgress[] = [];
+      await installPack(first.info, {
+        baseUrl,
+        fetchImpl: first.fetchImpl,
+        onProgress: (p) => events.push(p),
+      });
+      const before = (await listInstalled())[0]!;
+      expect(before.tokenizer).toBeDefined();
+      expect(await (await readTokenizer(before.tokenizer!)).text()).toBe('test wasm');
+      expect(events.filter((p) => p.phase === 'download').at(-1)).toMatchObject({
+        loaded: first.info.bytes,
+        total: first.info.bytes,
+      });
+      const failed = make('2', true);
+      await expect(
+        installPack(failed.info, { baseUrl, fetchImpl: failed.fetchImpl }),
+      ).rejects.toMatchObject({ kind: 'checksum' });
+      expect(await listInstalled()).toEqual([before]);
+      expect([...cache.keys()]).toEqual([before.tokenizer]);
+      expect((await lookupMany('ja', ['東京'])).get('東京')?.[0]?.r).toBe('とうきょう');
+      await removePack('ja-core');
+      expect(cache.size).toBe(0);
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
   it('downloads with progress, verifies, installs rows and publishes the pack', async () => {
     const { info, fetchImpl } = mkPack('1', rows());
     const events: InstallProgress[] = [];

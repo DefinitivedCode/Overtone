@@ -1,6 +1,6 @@
 # Linguistic report
 
-Status: **Korean, Mandarin, Cantonese and mixed-language routing** (M7). The Japanese suite is scheduled for M8.
+Status: **Korean, Japanese, Mandarin, Cantonese and mixed-language routing** (M8).
 
 > **Fixture caveat.** The suites measure agreement with self-authored fixtures. Fluent speakers have reviewed zero lines. The Korean expectations follow the same Revised Romanization rules as the engine, so its score measures internal consistency. ADR 0003 records comparisons against other Korean romanisers on the same starter set.
 
@@ -31,4 +31,6 @@ Mandarin differences include 得 read `de2` where fixtures expect `dei3` or `de5
 
 ## Japanese
 
-The tokenizer spike scored 46/50 starter probes. See ADR 0002 for the spike and its limitations.
+- The production Lindera/IPADIC WASM, trimmed JMdict and complete analyser scored **364/365 kanji-containing spans (99.73%)** and **156/157 exact romaji lines (99.36%)**, against thresholds of 95% and 85%. The span comparator uses UTF-16 surface ranges to allow different token boundaries.
+- The 157 scored cases include inflection, jukujikun, particles, long vowels, loans, iteration marks, counters, English mixed text and pasted readings. Forty-two paired clauses exercise punctuation and spacing with separately authored references. The original starter file scored **49/50** on whole-line kana readings. All three separate poetic probes missed their artist-selected reading without supplied ruby.
+- The scored differences were the `idaku`/`daku` choice in `運命を抱く` and `kun`/`kimi` after `一日中` in the starter probes. Fixture expectations were retained. The generated `reports/linguistic-ja.md` lists per-category results and differences.

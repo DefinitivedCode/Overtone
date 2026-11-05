@@ -165,7 +165,7 @@ async function prepare(backup: Backup): Promise<Prepared[]> {
     out.push({
       song,
       raw,
-      lines: await parseLyrics(raw),
+      lines: await parseLyrics(raw, song.usePastedReadings),
       overrides: new Map(song.lineKindOverrides.map((o) => [o.index, o.kind])),
     });
   }
@@ -231,12 +231,19 @@ export async function applyImport(backup: Backup, mode: ImportMode): Promise<Imp
               language: s.language,
               languageDetected: s.languageDetected,
               rawLyrics: p.raw,
+              ...(s.usePastedReadings !== undefined
+                ? { usePastedReadings: s.usePastedReadings }
+                : {}),
               lineCount: 0,
               learnedCount: 0,
               displayMode: s.displayMode,
               cleanVariant: s.cleanVariant,
               source: s.source,
-              searchText: buildSearchText(s.title, s.artist, p.raw),
+              searchText: buildSearchText(
+                s.title,
+                s.artist,
+                p.lines.map((line) => line.text).join('\n'),
+              ),
               createdAt: localLive ? Math.min(localLive.createdAt, s.createdAt) : s.createdAt,
               updatedAt: s.updatedAt,
               openedAt: Math.max(s.openedAt, localLive?.openedAt ?? 0),

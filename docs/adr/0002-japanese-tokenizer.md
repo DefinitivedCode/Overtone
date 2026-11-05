@@ -27,6 +27,8 @@ Use **lindera-wasm with the IPADIC dictionary** (web build) behind the `Japanese
 
 ## Integration notes / risks
 
+The implementation, production measurements and distribution choices are recorded in [ADR 0011](0011-japanese-pack-and-readings.md) and `docs/PROGRESS.md`.
+
 - ja-core budget: wasm 11.4 MB gz + trimmed JMdict (ADR 0006: ≈ 9.7 MB gz all forms, ≈ 1.0 MB common-only) ≈ 21 MB, under the 25 MB budget.
 - The dictionary is inside the `.wasm`, so it is a pack file (`/packs/ja/<ver>/…`, CacheFirst) initialised with `init(<pack url>)`, not part of the app shell.
 - **Not yet verified:** running under our CSP (`script-src … 'wasm-unsafe-eval'` is already allowed) and through the service-worker pack route — verify in M8. Heap was not measured (`performance.memory` is unavailable in WebKit and was not collected for Chromium). The memory numbers above are Node RSS and indicative only; worker termination on idle (ARCHITECTURE §4.2) remains required.

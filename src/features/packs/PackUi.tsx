@@ -20,16 +20,19 @@ type ManifestState =
   { status: 'loading' } | { status: 'ready'; manifest: PackManifest } | { status: 'error' };
 
 /** Loads packs/manifest.json (cached by the service worker once seen). */
-export function useManifest(): ManifestState {
+export function useManifest(enabled = true): ManifestState {
   const [state, setState] = useState<ManifestState>({ status: 'loading' });
   useEffect(() => {
-    const ctl = new AbortController();
-    fetchManifest(ctl.signal).then(
-      (manifest) => setState({ status: 'ready', manifest }),
-      () => !ctl.signal.aborted && setState({ status: 'error' }),
+    if (!enabled) return;
+    let active = true;
+    fetchManifest().then(
+      (manifest) => active && setState({ status: 'ready', manifest }),
+      () => active && setState({ status: 'error' }),
     );
-    return () => ctl.abort();
-  }, []);
+    return () => {
+      active = false;
+    };
+  }, [enabled]);
   return state;
 }
 
@@ -68,8 +71,15 @@ function Progress({ id }: { id: string }) {
 }
 
 /** Download button with the low-space warning (ARCHITECTURE §5.2). */
-function DownloadButton({ info, label }: { info: PackInfo; label?: string }) {
-  const online = useOnline();
+function DownloadButton({
+  info,
+  label,
+  online,
+}: {
+  info: PackInfo;
+  label?: string;
+  online: boolean;
+}) {
   const [low, setLow] = useState(false);
   const err = useInstallStates().get(info.id)?.error;
   const space = Math.max(info.bytes * 3, (info.unpackedBytes ?? 0) + info.bytes);
@@ -109,6 +119,7 @@ export function PackSettingsRows() {
   const installed = useInstalledPacks();
   const states = useInstallStates();
   const toast = useToast();
+  const online = useOnline();
   const [removing, setRemoving] = useState<string | null>(null);
   if (installed === undefined || (m.status === 'loading' && installed.length === 0))
     return <p className={s['sub']}>Checking…</p>;
@@ -145,6 +156,7 @@ export function PackSettingsRows() {
                   {info && have?.version !== info.version ? (
                     <DownloadButton
                       info={info}
+                      online={online}
                       label={have ? `Update · ${formatBytes(info.bytes)}` : undefined}
                     />
                   ) : null}
@@ -181,10 +193,12 @@ export function PackSettingsRows() {
 
 /** Song-screen notice when a language has no data: offers the one-time download, or says none exists yet. */
 export function LanguageDataBanner({ language }: { language: LangCode }) {
-  const m = useManifest();
   const installed = useInstalledPacks();
   const states = useInstallStates();
   const id = PACK_FOR_LANG[language];
+  const have = installed?.some((p) => p.id === id);
+  const m = useManifest(!!id && installed !== undefined && !have);
+  const online = useOnline();
   const name = LANG_NAME[language];
   if (installed === undefined) return null;
   if (!id)
@@ -194,13 +208,15 @@ export function LanguageDataBanner({ language }: { language: LangCode }) {
         as learned still works.
       </Banner>
     );
-  if (installed.some((p) => p.id === id)) return null;
+  if (have) return null;
   const info = m.status === 'ready' ? m.manifest.packs.find((p) => p.id === id) : undefined;
   const busy = states.get(id)?.progress;
   return (
     <Banner
       tone="warning"
-      action={info && !busy ? <DownloadButton info={info} label="Download" /> : undefined}
+      action={
+        info && !busy ? <DownloadButton info={info} online={online} label="Download" /> : undefined
+      }
     >
       Pronunciation for {name} needs a one-time download
       {info ? ` (≈ ${formatBytes(info.bytes)})` : ''}. Until then the original text is shown.

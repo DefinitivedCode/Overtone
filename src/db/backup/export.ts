@@ -29,6 +29,7 @@ export function buildBackup(now: Date = new Date()): Promise<Backup> {
         language: s.language,
         languageDetected: s.languageDetected,
         rawLyrics: s.rawLyrics,
+        ...(s.usePastedReadings !== undefined ? { usePastedReadings: s.usePastedReadings } : {}),
         lineKindOverrides: lines
           .filter((l) => l.kindOverride !== null)
           .map((l) => ({ index: l.index, kind: l.kindOverride! })),
@@ -62,7 +63,9 @@ export function buildBackup(now: Date = new Date()): Promise<Backup> {
     };
     return {
       format: BACKUP_FORMAT,
-      schemaVersion: BACKUP_SCHEMA_VERSION,
+      schemaVersion: out.some((song) => song.usePastedReadings !== undefined)
+        ? BACKUP_SCHEMA_VERSION
+        : 1,
       exportedAt: now.toISOString(),
       app: { name: APP_NAME, version: APP_VERSION },
       settings: backupSettings,

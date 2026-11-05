@@ -320,3 +320,45 @@ Local Windows production preview, with a fresh browser context per run. Times me
 - The service worker precaches 2.213 MiB excluding dictionary binaries. ADR 0010 records the M7 exception to the 2 MiB budget. Main JavaScript is 175.95 kB gzip against 180 kB.
 - The first full run surfaced a Library search hydration race and an Undo test that could leave the pointer over the toast. The Library keeps text typed before settings arrive. The expiry test moves the pointer away before advancing the clock, preserving the original assertion.
 - A `/overtone/` production build retained the installed Mandarin pack in offline Settings after reload in both Chromium and WebKit. Actual iOS Home Screen behaviour and heap measurements remain unverified.
+
+---
+
+## M8 — Japanese — done
+
+Date: 2026-11-05
+
+- [x] Build and install `ja-core` with Lindera/IPADIC and trimmed JMdict.
+- [x] Deliver Hepburn, ruby alignment, mixed text, Aozora Add/Edit and preferences in all modes (J2.8, J4–6, J13.3).
+- [x] Run the linguistic suites and benchmark production installation, cold offline worker startup and warm analysis.
+- [x] Pass the full browser matrix, including offline worker recreation, layout and accessibility checks.
+
+### Delivered
+
+- `ja-core` includes checksummed Lindera 2.0.0/IPADIC and 499,651 JMdict form rows. The worker loads WASM only for Japanese analysis with the pack installed. The service worker makes the loader available on the first offline analysis. IndexedDB publishes the tokenizer reference and dictionary generation together.
+- Japanese analysis derives contextual kana and Modified Hepburn from IPADIC, with exact JMdict fallback for unreadable forms, uncertainty markers and mixed English spans. Learn aligns ruby above kanji and shows a separate romaji line. Karaoke and Clean use the same render-time preferences.
+- Add and Edit recognise Aozora readings. The stored source and reading preference survive backups and reloads. Identical displayed lines share progress, while distinct pasted readings retain separate analysis. See ADR 0011 for format compatibility and worker behaviour.
+
+### Verification and measurements
+
+- `npm run verify` passed pack generation, lint, typecheck, 446 unit/engine/tooling tests in 19 files and the production build. Playwright passed 392 tests across WebKit iPhone, WebKit iPhone SE, Chromium mobile and Chromium desktop. Four existing WebKit keyboard-only tests were skipped.
+- All 16 Japanese browser cases passed. They cover pack requests only when needed, offline first analysis and worker recreation after 60 seconds of idle, pasted readings and persistence, and all three lyric modes. Ruby alignment and horizontal overflow checks passed at 320/375/393/430/768 CSS px. Axe found no serious or critical violations in light and dark. The 375 px WebKit screenshots were visually inspected in both themes.
+- `npm run test:ling` passed all 11 tests. Japanese scored 364/365 kanji reading spans (99.73%, threshold 95%) and 156/157 exact romaji lines (99.36%, threshold 85%). The unchanged M4 starter scored 49/50. Three separate poetic probes require a supplied reading. These results measure self-authored fixture agreement, with zero fluent-speaker reviews. See `docs/LINGUISTIC_REPORT.md`.
+- Production benchmark on Windows using three fresh profiles per browser, served from loopback. The first worker analysis and all warm batches ran offline after installing in Settings and reloading. Chromium 156.0.8078.4 had page-level 4× CPU throttling during analysis. Worker-specific throttling was not independently verified. WebKit 27.2 ran without throttling. Warm analysis timed three worker requests of 20 lines, excluding the UI and cache writes.
+
+| Median (range), ms                                             |            Chromium |              WebKit |
+| -------------------------------------------------------------- | ------------------: | ------------------: |
+| Pack install                                                   | 1,821 (1,817–1,842) | 8,077 (8,072–8,078) |
+| First offline analysis, including worker and tokenizer startup |       178 (171–190) |       285 (270–310) |
+| WASM load and streaming initialisation                         |          33 (32–38) |          72 (58–75) |
+| Tokenizer construction                                         |       116 (115–133) |       157 (156–165) |
+| Warm analysis, 60 lines                                        |          21 (21–25) |        234 (91–251) |
+
+- WASM linear memory after tokenizer construction was 105,381,888 bytes (100.5 MiB) in both browsers. Chromium CDP sampled about 1.43 MiB of used worker JavaScript heap and 0.68 MiB of embedder heap after analysis. This snapshot proxy is under the 150 MB budget and excludes unmeasured process overhead. WebKit JS heap and native iOS memory were unavailable. Reproduce with `node scripts/spikes/japanese-production.mjs dist 3` after the production build.
+- A production build under `/overtone/` passed cold offline analysis in both Chromium and WebKit after installing in Settings.
+- `ja-core` is 24.87 MiB compressed against 25 MiB. Initial JavaScript is 153.36 kB gzip against 180 kB. The shell precaches 2,374,008 bytes (2.264 MiB), excluding dictionary binaries. See the continuation of the M7 precache exception in ADR 0011.
+
+### Scope deviations and limits
+
+- WebKit lost verified tokenizer entries after reload when installation started in an uncontrolled page. The installer now waits for service-worker control. The manifest request can finish after navigation, which resolved a separate WebKit cancellation error. See ADR 0011.
+- Browser regressions exposed races around hard reload, offline emulation and the Undo clock. The tests now wait for the relevant state, start cold reloads offline and use the app's actual Undo timer. The expiry, reload, layout and accessibility assertions remain in place.
+- Desktop browser timings and the worker memory snapshot are proxies. Native iOS standalone storage, memory and rendering remain unverified. See `docs/KNOWN_LIMITATIONS.md` for Japanese reading ambiguity and resource recovery.

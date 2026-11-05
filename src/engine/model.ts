@@ -3,6 +3,13 @@
 export type LangCode = 'ko' | 'ja' | 'zh' | 'yue';
 export type Confidence = 'high' | 'medium' | 'low' | 'none';
 
+export interface ReadingSpan {
+  /** UTF-16 offsets into the displayed lyric line. */
+  start: number;
+  end: number;
+  reading: string;
+}
+
 export interface RubyUnit {
   base: string;
   reading: string | null;
@@ -32,6 +39,9 @@ export interface Token {
   /** Machine-readable reasons, e.g. 'particle:를', 'needs-language-data'. */
   notes: string[];
   userReading?: boolean;
+  /** Japanese pronunciation from the tokenizer, used for long vowels at render time. */
+  pronunciation?: string;
+  particleGloss?: string;
   /** Candidate dictionary forms for lookup (Korean lemma heuristics; validated against the dictionary in M9). */
   lemmaCandidates?: string[];
 }

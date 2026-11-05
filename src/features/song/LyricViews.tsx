@@ -4,7 +4,7 @@ import { Check } from 'lucide-react';
 import { setLearned } from '@/db/repositories/progress';
 import type { LangCode } from '@/db/types';
 import type { LineAnalysis, Token } from '@/engine/model';
-import { romaniseLine, tokenRoman, tokenUnits } from '@/engine/romanLine';
+import { japaneseRomanRuns, romaniseLine, tokenRoman, tokenUnits } from '@/engine/romanLine';
 import type { RomanPrefs } from '@/engine/romanLine';
 import { langAttr } from '@/engine/segment/detect';
 import { SegmentedControl, useToast } from '@/ui';
@@ -40,6 +40,36 @@ function LearnToken({
   language: LangCode;
 }): ReactNode {
   if (t.kind === 'space') return t.surface;
+  if (language === 'ja') {
+    if (t.lang === 'en') return <span lang="en">{t.surface}</span>;
+    if (t.lang !== 'ja') return t.surface;
+    const low = t.confidence === 'low' || t.confidence === 'medium';
+    const ruby = t.ruby.length
+      ? t.ruby
+      : t.reading && (prefs.ja.furiganaForKanaWords || t.userReading)
+        ? [{ base: t.surface, reading: t.reading }]
+        : [
+            {
+              base: t.surface,
+              reading:
+                t.confidence === 'none' && !t.notes.includes('needs-language-data') ? '?' : null,
+            },
+          ];
+    return (
+      <span className={low ? s['uncertain'] : undefined}>
+        {ruby.map((unit, i) =>
+          unit.reading === null ? (
+            <span key={i}>{unit.base}</span>
+          ) : (
+            <ruby key={i}>
+              <span>{unit.base}</span>
+              <rt lang="ja-Hira">{unit.reading}</rt>
+            </ruby>
+          ),
+        )}
+      </span>
+    );
+  }
   if (units && t.ruby.length > 0 && t.lang === language) {
     const low = t.confidence === 'low' || t.confidence === 'medium';
     return (
@@ -141,7 +171,7 @@ export function LearnView({ items, language, analyses, prefs, songId, learned }:
             </li>
           );
         const isLearned = optimistic.get(line.key) ?? learned.has(line.key);
-        const analysis = analyses.get(line.key);
+        const analysis = analyses.get(line.id);
         return (
           <li
             key={line.id}
@@ -175,6 +205,13 @@ export function LearnView({ items, language, analyses, prefs, songId, learned }:
                     ));
                   })()
                 : line.text}
+              {language === 'ja' &&
+              prefs.ja.showRomajiLine &&
+              analysis?.tokens.some((t) => t.lang === 'ja' && t.reading) ? (
+                <span className={s['romaji']} lang="ja-Latn">
+                  {renderJapaneseRoman(analysis, prefs)}
+                </span>
+              ) : null}
             </p>
           </li>
         );
@@ -211,8 +248,22 @@ function useWakeLock(active: boolean) {
 }
 
 /** The romanised text for a line, or the original when there is no analysis yet (never blank, J5.4). */
-function romanisedOrOriginal(text: string, a: LineAnalysis | undefined, prefs: RomanPrefs): string {
+function renderJapaneseRoman(a: LineAnalysis, prefs: RomanPrefs): ReactNode {
+  return japaneseRomanRuns(a.tokens, prefs).map((r, i) => (
+    <span key={i} lang={r.lang}>
+      {r.text}
+    </span>
+  ));
+}
+
+function romanisedOrOriginal(
+  text: string,
+  a: LineAnalysis | undefined,
+  prefs: RomanPrefs,
+): ReactNode {
   if (!a || a.status === 'failed') return text;
+  if (a.lang === 'ja' && a.tokens.some((t) => t.lang === 'ja' && t.reading))
+    return renderJapaneseRoman(a, prefs);
   return romaniseLine(a.tokens, prefs) || text;
 }
 
@@ -236,7 +287,7 @@ export function KaraokeView({ items, language, analyses, prefs }: ViewProps) {
               {line.text}
             </p>
           );
-        const a = analyses.get(line.key);
+        const a = analyses.get(line.id);
         const romanised =
           a &&
           a.status !== 'failed' &&
@@ -296,7 +347,7 @@ export function CleanView({
                 data-line-index={line.index}
               />
             );
-          const a = analyses.get(line.key);
+          const a = analyses.get(line.id);
           const roman =
             variant === 'romanised' &&
             kind === 'lyric' &&
@@ -312,7 +363,13 @@ export function CleanView({
             >
               {variant === 'romanised' && kind === 'lyric'
                 ? romanisedOrOriginal(line.text, a, prefs)
-                : line.text}
+                : language === 'ja' && a && a.status !== 'failed'
+                  ? a.tokens.map((t, i) => (
+                      <span key={i} lang={t.lang === 'en' ? 'en' : undefined}>
+                        {t.surface}
+                      </span>
+                    ))
+                  : line.text}
             </p>
           );
         })}

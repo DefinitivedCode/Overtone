@@ -4,6 +4,9 @@
  * schemaVersion bump and a migration that remaps keys (ARCHITECTURE §7).
  */
 
+import type { ReadingSpan } from '../engine/model';
+import { parseAozora } from './aozora';
+
 export type LineKind = 'lyric' | 'section' | 'blank';
 
 export interface ParsedLine {
@@ -13,6 +16,7 @@ export interface ParsedLine {
   kind: LineKind;
   /** Stable content key; '' for blank lines. */
   key: string;
+  readings?: ReadingSpan[];
 }
 
 export const LIMITS = {
@@ -87,11 +91,17 @@ export function splitLines(normalised: string): Omit<ParsedLine, 'key'>[] {
 }
 
 /** Normalises then parses raw lyrics into keyed lines. */
-export async function parseLyrics(raw: string): Promise<ParsedLine[]> {
+export async function parseLyrics(raw: string, usePastedReadings = false): Promise<ParsedLine[]> {
   const lines = splitLines(normaliseLyrics(raw));
   const cache = new Map<string, string>();
   return Promise.all(
-    lines.map(async (l) => {
+    lines.map(async (original) => {
+      const { text, readings } = usePastedReadings
+        ? parseAozora(original.text)
+        : { text: original.text, readings: [] };
+      const l = readings.length
+        ? { ...original, text, kind: detectKind(text), readings }
+        : original;
       let key = cache.get(l.text);
       if (key === undefined) {
         key = await lineKey(l.text);

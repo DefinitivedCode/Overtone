@@ -4,15 +4,19 @@ import type { KoMode } from './ko/romanise';
 import type { Token } from './model';
 import { zhDisplay } from './zh/pinyin';
 import type { ZhPrefs } from './zh/pinyin';
+import { hepburn, particleKana } from './ja/hepburn';
+import type { LongVowels } from './ja/hepburn';
 
 export interface RomanPrefs {
   ko: { mode: KoMode };
   zh: ZhPrefs;
+  ja: { longVowels: LongVowels; showRomajiLine: boolean; furiganaForKanaWords: boolean };
 }
 
 export const DEFAULT_ROMAN_PREFS: RomanPrefs = {
   ko: { mode: 'pronunciation' },
   zh: { tones: 'marks', sandhi: false },
+  ja: { longVowels: 'macron', showRomajiLine: true, furiganaForKanaWords: false },
 };
 
 const ASCII_PUNCT: Readonly<Record<string, string>> = {
@@ -75,6 +79,11 @@ export function romaniseLine(
   tokens: readonly Token[],
   prefs: RomanPrefs = DEFAULT_ROMAN_PREFS,
 ): string {
+  if (tokens.some((token) => token.lang === 'ja' && token.reading !== null))
+    return japaneseRomanRuns(tokens, prefs)
+      .map((run) => run.text)
+      .join('')
+      .trim();
   const units = tokenUnits(tokens, prefs);
   let out = '';
   let prevUnits = false;
@@ -88,4 +97,49 @@ export function romaniseLine(
     prevUnits = annotated;
   });
   return out.trim();
+}
+
+/** Japanese reading groups keep conjugation boundaries inside Hepburn, e.g. しまっ + た. */
+export function japaneseRomanRuns(tokens: readonly Token[], prefs: RomanPrefs) {
+  const runs: { text: string; lang?: string }[] = [];
+  let prior: Token | undefined;
+  const word = (token: Token) => !['space', 'punct', 'symbol'].includes(token.kind);
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i]!;
+    const isJapanese = token.lang === 'ja';
+    if (
+      prior &&
+      word(token) &&
+      ((word(prior) && (isJapanese || prior.lang === 'ja')) ||
+        (prior.kind === 'punct' && /[,.;:!?]$/u.test(toAscii(prior.surface))))
+    )
+      runs.push({ text: ' ' });
+    if (isJapanese && token.reading !== null) {
+      const group = [token];
+      while (
+        tokens[i + 1]?.lang === 'ja' &&
+        tokens[i + 1]?.attachToPrev &&
+        tokens[i + 1]?.reading !== null
+      ) {
+        group.push(tokens[++i]!);
+      }
+      const parts = group.map((t) => particleKana(t.surface, t.pos) ?? t.reading!);
+      const pronounced = group.some((t) => t.pronunciation)
+        ? group.map((t, j) => t.pronunciation ?? parts[j]).join('')
+        : undefined;
+      const roman = hepburn(parts.join(''), pronounced, prefs.ja.longVowels);
+      runs.push(
+        roman
+          ? { text: roman, lang: 'ja-Latn' }
+          : { text: group.map((t) => t.surface).join(''), lang: 'ja' },
+      );
+    } else {
+      runs.push({
+        text: tokenRoman(token, prefs),
+        lang: token.lang === 'en' ? 'en' : isJapanese ? 'ja' : undefined,
+      });
+    }
+    prior = token;
+  }
+  return runs;
 }

@@ -1,5 +1,5 @@
 import { ENGINE_VERSION, SETTINGS_HASH } from './version';
-import type { LangCode } from './model';
+import type { LangCode, ReadingSpan } from './model';
 
 /** Fast, synchronous 53-bit string hash (cyrb53). Cache keys only need to differ when the text differs. */
 export function hashText(str: string, seed = 0): string {
@@ -24,8 +24,10 @@ export function analysisCacheKey(
   lineKey: string,
   text: string,
   packVersion: string | null = null,
+  readings?: readonly ReadingSpan[],
 ): string {
   // The installed language-pack version is part of the key: results made without data (or with an older
   // pack) are ignored once a pack is installed or updated, so lines are re-analysed.
-  return `${lang}|${ENGINE_VERSION[lang]}|${SETTINGS_HASH}|${packVersion ?? 'none'}|${lineKey}|${hashText(text)}`;
+  const input = readings?.length ? `${text}\0${JSON.stringify(readings)}` : text;
+  return `${lang}|${ENGINE_VERSION[lang]}|${SETTINGS_HASH}|${packVersion ?? 'none'}|${lineKey}|${hashText(input)}`;
 }

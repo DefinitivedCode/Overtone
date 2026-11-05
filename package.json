@@ -11,6 +11,7 @@
     "comlink": "4.4.2",
     "dexie": "4.4.7",
     "dexie-react-hooks": "4.4.0",
+    "lindera-wasm-web-ipadic": "2.0.0",
     "lucide-react": "1.69.0",
     "opencc-js": "1.4.2",
     "pinyin-pro": "3.29.5",

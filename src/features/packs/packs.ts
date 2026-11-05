@@ -1,21 +1,72 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useSyncExternalStore } from 'react';
-import { evictPackFiles, installPack, PackInstallError } from '@/engine/dict/install';
+import { installPack, PackInstallError } from '@/engine/dict/install';
+import { evictPackFiles } from '@/engine/dict/resources';
 import type { InstallProgress } from '@/engine/dict/install';
 import { listInstalled, removePack } from '@/engine/dict/lookup';
 import type { InstalledPack } from '@/engine/dict/db';
 import type { PackInfo, PackManifest } from '@/engine/dict/types';
 import type { LangCode } from '@/db/types';
 
-/** Which pack serves which language (Japanese and Korean packs arrive in M8/M9). */
-export const PACK_FOR_LANG: Partial<Record<LangCode, string>> = { zh: 'zh-core', yue: 'yue-core' };
+/** Korean pronunciation runs without a pack. */
+export const PACK_FOR_LANG: Partial<Record<LangCode, string>> = {
+  ja: 'ja-core',
+  zh: 'zh-core',
+  yue: 'yue-core',
+};
 
 const base = () => import.meta.env.BASE_URL + 'packs/';
 
-export async function fetchManifest(signal?: AbortSignal): Promise<PackManifest> {
-  const res = await fetch(base() + 'manifest.json', { signal, cache: 'no-cache' });
-  if (!res.ok) throw new Error(`manifest HTTP ${res.status}`);
-  return (await res.json()) as PackManifest;
+let manifest: Promise<PackManifest> | undefined;
+export function fetchManifest(): Promise<PackManifest> {
+  // The small manifest request may outlive a fast navigation out of a song or Settings.
+  return (manifest ??= fetch(base() + 'manifest.json', { cache: 'no-cache', keepalive: true })
+    .then(async (res) => {
+      if (!res.ok) throw new Error(`manifest HTTP ${res.status}`);
+      return (await res.json()) as PackManifest;
+    })
+    .finally(() => {
+      manifest = undefined;
+    }));
+}
+
+/** A controlled document uses the persistent Cache Storage namespace in WebKit. */
+async function controlForTokenizer(signal: AbortSignal): Promise<void> {
+  if (!import.meta.env.PROD || !navigator.serviceWorker || navigator.serviceWorker.controller)
+    return;
+  const sw = navigator.serviceWorker;
+  let changed: (() => void) | undefined;
+  let abort: (() => void) | undefined;
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+  try {
+    await new Promise<void>((resolve, reject) => {
+      changed = () => {
+        if (sw.controller) resolve();
+      };
+      abort = () => reject(new PackInstallError('aborted', 'Download cancelled'));
+      sw.addEventListener('controllerchange', changed);
+      signal.addEventListener('abort', abort, { once: true });
+      timeout = setTimeout(
+        () =>
+          reject(
+            new PackInstallError(
+              'storage',
+              'Could not prepare offline storage. Reload and try again.',
+            ),
+          ),
+        20_000,
+      );
+      void sw.ready.then((registration) => {
+        if (signal.aborted) return;
+        if (sw.controller) resolve();
+        else registration.active?.postMessage('claim-for-pack-install');
+      }, reject);
+    });
+  } finally {
+    clearTimeout(timeout);
+    if (changed) sw.removeEventListener('controllerchange', changed);
+    if (abort) signal.removeEventListener('abort', abort);
+  }
 }
 
 /** Installed packs, live (so UI and analysis react to installs/removals). */
@@ -59,6 +110,7 @@ export async function startInstall(info: PackInfo): Promise<boolean> {
     error: null,
   });
   try {
+    if (info.files.some((file) => file.role === 'tokenizer')) await controlForTokenizer(ctl.signal);
     await installPack(info, {
       signal: ctl.signal,
       onProgress: (progress) => set(info.id, { id: info.id, progress, error: null }),

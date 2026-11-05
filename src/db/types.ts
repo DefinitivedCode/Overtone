@@ -1,4 +1,5 @@
 import type { LineKind } from '@/lyrics/parse';
+import type { ReadingSpan } from '@/engine/model';
 
 export type { LineKind };
 
@@ -28,6 +29,7 @@ export interface Song {
   languageDetected: boolean;
   /** Normalised original text (source of truth). */
   rawLyrics: string;
+  usePastedReadings?: boolean;
   /** Learnable (lyric) lines, counted per occurrence. Cached for the Library. */
   lineCount: number;
   /** Learned learnable lines, per occurrence. Cached; recomputed transactionally. */
@@ -53,6 +55,7 @@ export interface Line {
   kind: LineKind;
   kindOverride: LineKind | null;
   key: string;
+  readings?: ReadingSpan[];
 }
 
 export interface Progress {
@@ -129,6 +132,7 @@ export interface Draft {
   artist: string;
   language: 'auto' | LangCode;
   lyrics: string;
+  usePastedReadings?: boolean;
   updatedAt: number;
 }
 

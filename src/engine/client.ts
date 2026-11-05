@@ -86,23 +86,31 @@ export class EngineClient {
   }
 
   private keyOf(lang: LangCode, l: LineInput): string {
-    return `${lang}|${l.packVersion === undefined ? 'active' : (l.packVersion ?? 'none')}|${l.key}|${l.text}`;
+    return `${lang}|${l.packVersion === undefined ? 'active' : (l.packVersion ?? 'none')}|${l.key}|${l.text}\0${JSON.stringify(l.readings ?? [])}`;
   }
 
   private async run(req: AnalyseRequest): Promise<LineAnalysis[]> {
     this.clearIdle();
     try {
       if (!this.workerBroken) {
+        let handle: WorkerHandle | undefined;
         try {
-          this.worker ??= this.opts.createWorker();
-          return await this.worker.analyse(req);
+          handle = this.worker ??= this.opts.createWorker();
+          return await handle.analyse(req);
         } catch (e) {
+          if (handle && this.worker !== handle) throw e; // deliberate idle/hidden-page release
           this.diagnostics.push(`worker failed: ${e instanceof Error ? e.message : String(e)}`);
           this.terminate();
           this.workerBroken = true; // fall back to the main thread for the rest of the session
         }
       }
       try {
+        // Imported readings remain usable if workers fail. Keep IPADIC out of the page's memory.
+        if (req.lang === 'ja')
+          return await analyseBatch({
+            ...req,
+            lines: req.lines.map((line) => ({ ...line, packVersion: null })),
+          });
         return await analyseBatch(req);
       } catch (e) {
         this.diagnostics.push(`analysis failed: ${e instanceof Error ? e.message : String(e)}`);

@@ -4,10 +4,12 @@ export interface PackRow {
   f: string;
   /** Entry id (stable within the pack). */
   e: number;
-  /** Reading: tone-numbered pinyin (zh) or jyutping (yue), lower case, ü as ü. */
+  /** Kana for Japanese, tone-numbered pinyin or Jyutping for Chinese. */
   r: string;
+  /** Additional readings of this form (JMdict). */
+  a?: string[];
   /** Senses, each with up to 3 glosses ≤ 80 chars. Empty for reading-only rows. */
-  s: { g: string[] }[];
+  s: { g: string[]; p?: string }[];
   /** 1 = ordinary entry, 0 = proper noun (ranked after common entries). */
   q: number;
 }
@@ -19,7 +21,9 @@ export interface DictRow extends PackRow {
 }
 
 /** Pack 256 BMP initials per block, with wider blocks for sparse supplementary characters. */
-export function dictionaryBlock(codePoint: number): number {
+export function dictionaryBlock(codePoint: number, lang?: DictRow['lang']): number {
+  // JMdict concentrates many forms in the kana page. Keep each initial separate there.
+  if (lang === 'ja' && codePoint >>> 8 === 0x30) return 0x10000 + codePoint;
   return codePoint < 0x10000 ? codePoint >>> 8 : 0x100 + (codePoint >>> 12);
 }
 
@@ -27,7 +31,7 @@ export interface PackFile {
   path: string;
   bytes: number;
   sha256: string;
-  role: 'dictionary';
+  role: 'dictionary' | 'tokenizer';
 }
 
 export interface PackSource {

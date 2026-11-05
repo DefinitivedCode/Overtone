@@ -1,6 +1,7 @@
 import { deleteBlocks, getDictDb, packMetaKey, retireLegacyEntries } from './db';
 import type { DictBlock } from './db';
-import { dictionaryBlock, PACK_CACHE } from './types';
+import { evictPackFiles, storeTokenizer } from './resources';
+import { dictionaryBlock } from './types';
 import type { PackInfo, PackRow } from './types';
 
 export interface InstallProgress {
@@ -41,7 +42,7 @@ async function download(
   url: string,
   expectedBytes: number,
   o: InstallOptions,
-): Promise<Uint8Array> {
+): Promise<Uint8Array<ArrayBuffer>> {
   const f = o.fetchImpl ?? fetch;
   let res: Response;
   try {
@@ -90,6 +91,8 @@ function parseRow(line: string): PackRow {
       row.f &&
       Number.isSafeInteger(row.e) &&
       typeof row.r === 'string' &&
+      (row.a === undefined ||
+        (Array.isArray(row.a) && row.a.every((r) => typeof r === 'string'))) &&
       (row.q === 0 || row.q === 1) &&
       Array.isArray(row.s) &&
       row.s.every((s) => s && Array.isArray(s.g) && s.g.every((g) => typeof g === 'string'))
@@ -135,6 +138,12 @@ export async function installPack(info: PackInfo, o: InstallOptions = {}): Promi
   const base = o.baseUrl ?? import.meta.env.BASE_URL + 'packs/';
   const generation = crypto.randomUUID();
   const key = packMetaKey(info.id);
+  const tokenizerFile = info.files.find((file) => file.role === 'tokenizer');
+  if (info.lang === 'ja' && !tokenizerFile)
+    throw new PackInstallError('format', 'The Japanese language pack is missing its tokenizer.');
+  const tokenizer = tokenizerFile
+    ? new URL(`${base}${tokenizerFile.path}?install=${generation}`, globalThis.location?.href).href
+    : undefined;
   const verifyOwner = async () => {
     checkAborted(o.signal);
     if ((await db.staging.get(info.id))?.generation !== generation)
@@ -184,15 +193,23 @@ export async function installPack(info: PackInfo, o: InstallOptions = {}): Promi
   };
 
   try {
-    await db.transaction('rw', [db.staging, db.blocks], async () => {
+    const replaced = await db.transaction('rw', [db.staging, db.blocks], async () => {
       checkAborted(o.signal);
       const previous = await db.staging.get(info.id);
       if (previous) await deleteBlocks(db, previous.generation);
-      await db.staging.put({ id: info.id, generation });
+      await db.staging.put({ id: info.id, generation, tokenizer });
+      return previous;
     });
+    if (replaced?.tokenizer) await evictPackFiles([replaced.tokenizer]);
+    let downloaded = 0;
     for (const file of info.files) {
       const url = base + file.path;
-      const bytes = await download(url, file.bytes, o);
+      const bytes = await download(url, file.bytes, {
+        ...o,
+        onProgress: (p) =>
+          o.onProgress?.({ ...p, loaded: downloaded + p.loaded, total: info.bytes }),
+      });
+      downloaded += bytes.length;
       const digest = hex(await crypto.subtle.digest('SHA-256', bytes as BufferSource));
       if (digest !== file.sha256) {
         await evictPackFiles([url]);
@@ -200,6 +217,11 @@ export async function installPack(info: PackInfo, o: InstallOptions = {}): Promi
           'checksum',
           'The downloaded data did not match its checksum and was discarded.',
         );
+      }
+      if (file.role === 'tokenizer' && tokenizer) {
+        checkAborted(o.signal);
+        await storeTokenizer(tokenizer, bytes);
+        continue;
       }
       for await (const lines of readLines(bytes, o.signal)) {
         for (const line of lines) {
@@ -209,7 +231,7 @@ export async function installPack(info: PackInfo, o: InstallOptions = {}): Promi
             if (nextHead < head)
               throw new PackInstallError('format', 'The language data is out of order.');
             finishHead();
-            const nextBucket = dictionaryBlock(nextHead);
+            const nextBucket = dictionaryBlock(nextHead, info.lang);
             if (nextBucket !== bucket) {
               finishBlock();
               if (batchRows >= BATCH) await flush();
@@ -249,6 +271,7 @@ export async function installPack(info: PackInfo, o: InstallOptions = {}): Promi
             installedAt: Date.now(),
             generation,
             files: info.files.map((file) => file.path),
+            tokenizer,
           },
         });
         await db.staging.delete(info.id);
@@ -257,6 +280,7 @@ export async function installPack(info: PackInfo, o: InstallOptions = {}): Promi
     );
     if (previous?.version !== info.version && previous?.files)
       await evictPackFiles(previous.files.map((file) => base + file));
+    if (previous?.tokenizer) await evictPackFiles([previous.tokenizer]);
   } catch (e) {
     await db
       .transaction('rw', [db.staging, db.blocks], async () => {
@@ -265,21 +289,12 @@ export async function installPack(info: PackInfo, o: InstallOptions = {}): Promi
         await db.staging.delete(info.id);
       })
       .catch(() => undefined); // If storage is unavailable, the next attempt discards the staging record.
+    if (tokenizer) await evictPackFiles([tokenizer]);
     if (e instanceof PackInstallError) throw e;
     throw new PackInstallError(
       'storage',
       'Could not store the language data (is the device out of space?).',
       e,
     );
-  }
-}
-
-/** Cache Storage is optional; the committed dictionary is always read from IndexedDB. */
-export async function evictPackFiles(urls: string[]): Promise<void> {
-  try {
-    const cache = await globalThis.caches?.open(PACK_CACHE);
-    if (cache) await Promise.all(urls.map((url) => cache.delete(url, { ignoreVary: true })));
-  } catch {
-    // IndexedDB state is already authoritative even when Cache Storage is unavailable.
   }
 }

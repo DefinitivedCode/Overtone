@@ -4,7 +4,7 @@ import { lemmaCandidates, splitParticle } from './ko/lemma';
 import { romaniseEojeol } from './ko/romanise';
 import { ENGINE_VERSION } from './version';
 import { failedAnalysis, plainToken } from './model';
-import type { LangCode, LineAnalysis, Token } from './model';
+import type { LangCode, LineAnalysis, ReadingSpan, Token } from './model';
 import { mergeJapanese, routeRun, splitRuns } from './segment/segment';
 import type { Run } from './segment/segment';
 
@@ -13,6 +13,7 @@ export interface LineInput {
   text: string;
   /** An explicit null requests analysis without a pack. Undefined uses the currently installed pack. */
   packVersion?: string | null;
+  readings?: readonly ReadingSpan[];
 }
 
 export interface AnalyseRequest {
@@ -82,6 +83,29 @@ export function analyseLine(input: LineInput, lang: LangCode): LineAnalysis {
 
 /** Full pipeline, including dictionary-backed Mandarin/Cantonese analysis when the language pack is installed. */
 export async function analyseLineAsync(input: LineInput, lang: LangCode): Promise<LineAnalysis> {
+  if (lang === 'ja') {
+    const { analyseJapanese, userReadingToken } = await import('./ja/analyse');
+    const tokens: Token[] = [];
+    const append = async (start: number, end: number) => {
+      for (const run of mergeJapanese(splitRuns(input.text.slice(start, end)))) {
+        const offsetRun = { ...run, start: run.start + start, end: run.end + start };
+        if (run.cls === 'han' || run.cls === 'kana')
+          tokens.push(...(await analyseJapanese(run.text, offsetRun.start, input.packVersion)));
+        else tokens.push(tokenFor(offsetRun, lang));
+      }
+    };
+    let start = 0;
+    for (const span of input.readings ?? []) {
+      if (span.start < start || span.end <= span.start || span.end > input.text.length) continue;
+      await append(start, span.start);
+      tokens.push(
+        userReadingToken(input.text.slice(span.start, span.end), span.start, span.reading),
+      );
+      start = span.end;
+    }
+    await append(start, input.text.length);
+    return finish(input, lang, tokens);
+  }
   const tokens: Token[] = [];
   for (const run of mergeJapanese(splitRuns(input.text))) {
     if (run.cls === 'han' && (lang === 'zh' || lang === 'yue'))

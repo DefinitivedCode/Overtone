@@ -115,17 +115,17 @@ test.describe('library', () => {
   });
 
   test('a deleted song is permanently removed after the Undo window', async ({ page }) => {
-    await page.clock.install();
     await page.goto('/');
     await addSong(page, { title: 'Gone for good', lyrics: KO });
     await page.goto('/');
     await page.getByRole('button', { name: 'More options for Gone for good' }).click();
     await page.getByRole('menuitem', { name: 'Delete' }).click();
-    await page.getByRole('dialog').getByRole('button', { name: 'Delete' }).click();
-    await expect(page.getByRole('button', { name: 'Undo' })).toBeVisible();
-    await page.mouse.move(0, 0); // Toasts pause while the pointer is over them.
-    await page.clock.fastForward(9_000);
-    await expect(page.getByRole('button', { name: 'Undo' })).toBeHidden();
+    // Keep the pointer away from the toast before it mounts so it never pauses.
+    await page.mouse.move(0, 0);
+    await page.getByRole('dialog').getByRole('button', { name: 'Delete' }).press('Enter');
+    const undo = page.getByRole('button', { name: 'Undo' });
+    await expect(undo).toBeVisible();
+    await expect(undo).toBeHidden({ timeout: 12_000 }); // the app's actual 8-second timer
     await page.reload();
     await expect(page.getByRole('heading', { name: 'Your songbook is empty' })).toBeVisible();
   });

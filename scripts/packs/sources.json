@@ -21,6 +21,16 @@
       "licence": "CC BY-SA 3.0",
       "attribution": "CC-Canto © 2015–2017 Pleco Inc. (https://cantonese.org)"
     },
+    "jmdict": {
+      "name": "JMdict (English)",
+      "url": "https://github.com/scriptin/jmdict-simplified/releases/download/3.6.2%2B20261102210542/jmdict-eng-3.6.2%2B20261102210542.json.zip",
+      "file": "jmdict-eng.zip",
+      "bytes": 11540512,
+      "sha256": "851791d3cc98a29ca7e4f65532966cdee637a1bc218cf1c99b4895b780edb101",
+      "version": "3.6.2+20261102210542",
+      "licence": "CC BY-SA 4.0 (EDRDG)",
+      "attribution": "JMdict is the property of the Electronic Dictionary Research and Development Group (https://www.edrdg.org/) and is used in conformance with the Group's licence (https://www.edrdg.org/edrdg/licence.html). Pack data was trimmed from jmdict-simplified."
+    },
     "cccanto-readings": {
       "name": "CC-CEDICT Cantonese Readings",
       "url": "https://cantonese.org/cccedict-canto-readings-150923.zip",
@@ -33,6 +43,7 @@
     }
   },
   "packs": {
+    "ja-core": { "lang": "ja", "version": "2026.11.5", "sources": ["jmdict"] },
     "zh-core": { "lang": "zh", "version": "2026.11.5.3", "sources": ["cedict"] },
     "yue-core": {
       "lang": "yue",

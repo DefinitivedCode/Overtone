@@ -3,9 +3,10 @@ import { StorageError, ValidationError } from '@/db/errors';
 import { updateLyrics } from '@/db/repositories/songs';
 import type { Song } from '@/db/types';
 import { langAttr } from '@/engine/segment/detect';
+import { hasAozora } from '@/lyrics/aozora';
 import { normaliseLyrics, validateSongInput } from '@/lyrics/parse';
 import { scrollFocusedIntoView } from '@/platform/keyboard';
-import { Banner, Button, ConfirmDialog, Sheet, TextArea, useToast } from '@/ui';
+import { Banner, Button, ConfirmDialog, Sheet, Switch, TextArea, useToast } from '@/ui';
 import { summariseEdit } from './editSummary';
 import { useSession } from './useSession';
 
@@ -32,10 +33,15 @@ export function EditLyricsSheet({ song, onClose }: EditLyricsSheetProps) {
 function LyricsEditor({ song, open, onClose }: { song: Song; open: boolean; onClose: () => void }) {
   const toast = useToast();
   const [text, setText] = useState(song.rawLyrics);
+  const [usePastedReadings, setUsePastedReadings] = useState(song.usePastedReadings ?? true);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [confirm, setConfirm] = useState(false);
-  const changed = normaliseLyrics(text) !== song.rawLyrics;
+  const offersReadings =
+    (song.language === 'ja' || song.usePastedReadings === true) && hasAozora(text);
+  const changed =
+    normaliseLyrics(text) !== song.rawLyrics ||
+    (offersReadings && usePastedReadings !== (song.usePastedReadings ?? false));
   const errors = validateSongInput({ title: song.title, artist: null, lyrics: text });
 
   const requestClose = () => (changed ? setConfirm(true) : onClose());
@@ -44,7 +50,9 @@ function LyricsEditor({ song, open, onClose }: { song: Song; open: boolean; onCl
     if (errors.lyrics) return;
     setSaving(true);
     try {
-      const r = await updateLyrics(song.id, text);
+      const r = await updateLyrics(song.id, text, {
+        usePastedReadings: offersReadings ? usePastedReadings : undefined,
+      });
       toast.show({ message: summariseEdit(r.diff) });
       onClose();
     } catch (e) {
@@ -96,6 +104,13 @@ function LyricsEditor({ song, open, onClose }: { song: Song; open: boolean; onCl
             spellCheck={false}
             hint="Lines you don’t change keep their learned state and corrections."
           />
+          {offersReadings ? (
+            <Switch
+              label="Use readings from pasted text"
+              checked={usePastedReadings}
+              onChange={setUsePastedReadings}
+            />
+          ) : null}
         </div>
       </Sheet>
       <ConfirmDialog

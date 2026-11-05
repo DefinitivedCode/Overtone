@@ -173,6 +173,26 @@ const parseOk = async (b: unknown) => {
 };
 
 describe('export', () => {
+  it('round-trips v2 pasted reading choices, offsets and shared progress without derived rows', async () => {
+    const rawLyrics = '運命《さだめ》\n|運命《うんめい》';
+    const song = await makeSong({ language: 'ja', rawLyrics, usePastedReadings: true });
+    const literal = await makeSong({ language: 'ja', rawLyrics, usePastedReadings: false });
+    const key = await lineKey('運命');
+    await setLearned(song.id, key, true);
+    const file = await buildBackup();
+    expect(file.schemaVersion).toBe(2);
+    expect(serializeBackup(file)).not.toContain('"readings"');
+    const parsed = await parseOk(file);
+    expect(parsed.checksumOk).toBe(true);
+    await freshDb();
+    await applyImport(parsed.backup, 'replace');
+    expect((await getSong(song.id))?.learnedCount).toBe(2);
+    expect((await getLines(song.id)).map((l) => [l.key, l.readings?.[0]?.reading])).toEqual([
+      [key, 'さだめ'],
+      [key, 'うんめい'],
+    ]);
+    expect((await getLines(literal.id)).map((l) => l.text)).toEqual(rawLyrics.split('\n'));
+  });
   it('produces a document that validates against the schema, without derived data', async () => {
     await seedRichLibrary();
     const backup = await buildBackup(new Date('2026-11-05T10:00:00Z'));

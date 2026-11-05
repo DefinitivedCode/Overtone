@@ -64,10 +64,7 @@ export function SongScreen() {
   }, [songId]);
 
   const prefs: RomanPrefs = useMemo(
-    () =>
-      settings
-        ? { ko: settings.romanisation.ko, zh: settings.romanisation.zh }
-        : DEFAULT_ROMAN_PREFS,
+    () => (settings ? settings.romanisation : DEFAULT_ROMAN_PREFS),
     [settings],
   );
 
@@ -242,12 +239,12 @@ function SongBody({
   onVariant: (v: 'original' | 'romanised') => void;
 }) {
   const lines = useMemo(() => items.map((i) => i.line), [items]);
-  const { byKey, processing } = useLineAnalyses(song, lines);
+  const { byLine, processing } = useLineAnalyses(song, lines);
   const common = {
     items,
     language: song.language,
     rawLyrics: song.rawLyrics,
-    analyses: byKey,
+    analyses: byLine,
     prefs,
   };
   return (

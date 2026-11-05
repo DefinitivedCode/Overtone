@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDebounced } from '@/app/useDebounced';
+import { hasAozora } from '@/lyrics/aozora';
 import { StorageError, ValidationError } from '@/db/errors';
 import { clearDraft, getDraft, saveDraft } from '@/db/repositories/drafts';
 import { updateSettings } from '@/db/repositories/settings';
@@ -21,6 +22,7 @@ import {
   TextArea,
   TextField,
 } from '@/ui';
+import { Switch } from '@/ui';
 import s from './AddSongSheet.module.css';
 
 type LangChoice = 'auto' | LangCode;
@@ -46,6 +48,7 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
   const [hanUserChose, setHanUserChose] = useState(false);
   const [touched, setTouched] = useState({ title: false, lyrics: false });
   const [draftLoaded, setDraftLoaded] = useState(false);
+  const [usePastedReadings, setUsePastedReadings] = useState(true);
   const [confirmDiscard, setConfirmDiscard] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
@@ -56,6 +59,7 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
     setArtist('');
     setLanguage('auto');
     setLyrics('');
+    setUsePastedReadings(true);
     setHan(null);
     setHanUserChose(false);
     setTouched({ title: false, lyrics: false });
@@ -75,6 +79,7 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
           setArtist(d.artist);
           setLanguage(d.language);
           setLyrics(d.lyrics);
+          setUsePastedReadings(d.usePastedReadings ?? true);
         }
       })
       .catch(() => undefined)
@@ -86,13 +91,21 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
   }, [open]);
 
   const hasContent = title !== '' || artist !== '' || lyrics !== '';
-  const draftKey = JSON.stringify([title, artist, language, lyrics]);
+  const draftKey = JSON.stringify([title, artist, language, lyrics, usePastedReadings]);
   const debouncedDraftKey = useDebounced(draftKey, 400);
   useEffect(() => {
     if (!open || !draftLoaded) return;
-    const [t, a, l, ly] = JSON.parse(debouncedDraftKey) as [string, string, LangChoice, string];
+    const [t, a, l, ly, useRuby] = JSON.parse(debouncedDraftKey) as [
+      string,
+      string,
+      LangChoice,
+      string,
+      boolean,
+    ];
     const op =
-      t || a || ly ? saveDraft({ title: t, artist: a, language: l, lyrics: ly }) : clearDraft();
+      t || a || ly
+        ? saveDraft({ title: t, artist: a, language: l, lyrics: ly, usePastedReadings: useRuby })
+        : clearDraft();
     void op.catch(() => undefined);
   }, [debouncedDraftKey, open, draftLoaded]);
 
@@ -109,6 +122,7 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
 
   const resolved: LangCode | null =
     language !== 'auto' ? language : (detection.language ?? (needsHanChoice ? hanValue : null));
+  const offersReadings = resolved === 'ja' && hasAozora(lyrics);
 
   const errors = validateSongInput({ title, artist: artist || null, lyrics });
   const tooLong = (e: string | undefined) => !!e && /too (long|many)/.test(e);
@@ -143,6 +157,7 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
         language: resolved,
         languageDetected: language === 'auto',
         rawLyrics: lyrics,
+        usePastedReadings: offersReadings ? usePastedReadings : undefined,
       });
       await clearDraft().catch(() => undefined);
       reset();
@@ -274,6 +289,13 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
             spellCheck={false}
             enterKeyHint="enter"
           />
+          {offersReadings ? (
+            <Switch
+              label="Use readings from pasted text"
+              checked={usePastedReadings}
+              onChange={setUsePastedReadings}
+            />
+          ) : null}
         </form>
       </Sheet>
       <ConfirmDialog

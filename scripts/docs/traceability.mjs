@@ -9,7 +9,7 @@ const rows = [...spec.matchAll(/^- (J\d+\.\d+) (MUST|SHOULD|MAY):? ?(.*)$/gm)].m
   id: m[1],
   lvl: m[2],
 }));
-const LAST = 'end of M7';
+const LAST = 'end of M8';
 
 const covered = {
   'J1.2': 'e2e/library.spec, e2e/screens.spec (Chromium; WebKit skipped)',
@@ -19,15 +19,19 @@ const covered = {
   'J2.5': 'e2e/add-song.spec, src/lyrics/lyrics.test.ts',
   'J2.6': 'e2e/add-song.spec',
   'J2.7': 'MANUAL iOS #14–16 (Not yet verified on device)',
+  'J2.8':
+    'e2e/japanese.spec, src/lyrics/aozora.test.ts, backup.test (pasted readings and persistence)',
+  'J4.1':
+    'e2e/screens.spec, e2e/packs.spec, e2e/japanese.spec (five widths across supported languages)',
   'J4.4': 'e2e/modes.spec, e2e/progress.spec',
   'J5.1':
-    'e2e/modes.spec (≥ 28 px; scales with text size), e2e/packs.spec (Mandarin and Cantonese)',
+    'e2e/modes.spec (≥ 28 px and scales with text size), e2e/packs.spec and e2e/japanese.spec',
   'J5.2': 'e2e/modes.spec (zero interactive elements)',
   'J5.3': 'e2e/modes.spec, tests/linguistic (routing 43/43)',
   'J5.4': 'e2e/modes.spec, src/engine/engine.test.ts',
   'J5.5': 'e2e/screens.spec (axe, dark)',
-  'J6.1': 'e2e/modes.spec, e2e/packs.spec',
-  'J6.2': 'e2e/modes.spec, e2e/packs.spec',
+  'J6.1': 'e2e/modes.spec, e2e/packs.spec, e2e/japanese.spec',
+  'J6.2': 'e2e/modes.spec, e2e/packs.spec, e2e/japanese.spec',
   'J6.3': 'e2e/modes.spec (user-select: text)',
   'J7.2': 'e2e/progress.spec, repositories.test',
   'J7.3': 'e2e/progress.spec, repositories.test',
@@ -51,21 +55,21 @@ const covered = {
   'J12.4': 'e2e/add-song.spec (API stubbed; real iOS grant → MANUAL #18)',
   'J12.5': 'e2e/recovery.spec, repositories.test',
   'J12.2':
-    'e2e/packs.spec (download with progress, remove with confirmation, sizes shown), src/engine/dict/dict.test.ts (atomic replacement, cancellation, legacy migration)',
+    'e2e/packs.spec, e2e/japanese.spec, dict.test (verified tokenizer cache and dictionary publication, cancellation, legacy migration)',
   'J12.3':
-    'e2e/packs.spec (notice with size, original text meanwhile, processing resumes, offline notice)',
+    'e2e/packs.spec, e2e/japanese.spec (notice with size, original text meanwhile, processing resumes, offline notice)',
   'J13.1': 'e2e/shell.spec',
   'J13.2': 'e2e/shell.spec, e2e/modes.spec (all three modes)',
+  'J13.3':
+    'e2e/modes.spec (Korean), e2e/packs.spec (Mandarin and Cantonese), e2e/japanese.spec (Japanese)',
 };
 const partial = {
   'J1.1':
     'Empty state done; service worker precaches the shell (e2e/packs.spec offline flow); dedicated offline.spec → M11',
   'J2.4':
     'Saving is independent of processing (engine runs after save, in a worker with main-thread fallback: engine.test); quota path e2e → M11',
-  'J4.1':
-    'Learn/Karaoke/Clean at 5 widths with Korean/Latin/URL fixtures (e2e/screens.spec) and annotated Mandarin/Cantonese (e2e/packs.spec); Japanese annotations → M8',
   'J4.2':
-    'Ruby alignment measured in ADR 0007; per-width rt-vs-base bounding-box test not yet written',
+    'e2e/japanese.spec checks ruby alignment at five widths. ADR 0007 measured other languages.',
   'J4.5':
     '"?" marker for unknown segments done (e2e/modes.spec); "No reading found" Word sheet → M9',
   'J4.6': 'Dotted underline for low-confidence tokens done; explanation in the Word sheet → M9',
@@ -79,10 +83,8 @@ const partial = {
   'J10.6': 'Node budget (fold.test: 1,000 songs < 50 ms); throttled CI measurement → M13',
   'J11.7': 'Rule + counters (libraryModel.test, repositories.test); banner e2e → later',
   'J12.1':
-    'e2e/packs.spec reopens and analyses songs offline with both installed packs; full offline matrix → M11',
+    'e2e/packs.spec and e2e/japanese.spec reopen and analyse songs offline with installed packs. Full offline matrix → M11.',
   'J12.6': 'Typed errors + no partial writes (repositories.test); e2e of the quota banner → M11',
-  'J13.3':
-    'Korean mode (e2e/modes.spec), Mandarin tone style and sandhi and fixed Cantonese tone numbers (e2e/packs.spec); Japanese options → M8',
 };
 const milestone = (id) =>
   ({

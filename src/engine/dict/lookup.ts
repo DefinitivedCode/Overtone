@@ -1,5 +1,6 @@
 import { deleteBlocks, getDictDb, packMetaKey, retireLegacyEntries } from './db';
 import type { InstalledPack } from './db';
+import { evictPackFiles } from './resources';
 import { dictionaryBlock } from './types';
 import type { DictRow, PackRow } from './types';
 
@@ -41,7 +42,7 @@ export async function lookupInstalled(
   for (const form of forms) {
     const head = form.codePointAt(0);
     if (head === undefined) continue;
-    buckets.add(dictionaryBlock(head));
+    buckets.add(dictionaryBlock(head, lang));
     const group = requested.get(head);
     if (group) group.add(form);
     else requested.set(head, new Set([form]));
@@ -94,15 +95,21 @@ export async function lookupMany(
 /** Removes the installed pack and supersedes any unfinished install for that pack. */
 export async function removePack(id: string): Promise<InstalledPack | undefined> {
   const db = getDictDb();
-  return db.transaction('rw', [db.entries, db.blocks, db.meta, db.staging], async () => {
-    const key = packMetaKey(id);
-    const meta = (await db.meta.get(key))?.value;
-    const pending = await db.staging.get(id);
-    if (pending) await deleteBlocks(db, pending.generation);
-    if (meta?.generation) await deleteBlocks(db, meta.generation);
-    else if (meta) await retireLegacyEntries(db, meta.lang);
-    await db.staging.delete(id);
-    await db.meta.delete(key);
-    return meta;
-  });
+  const { meta, pending } = await db.transaction(
+    'rw',
+    [db.entries, db.blocks, db.meta, db.staging],
+    async () => {
+      const key = packMetaKey(id);
+      const meta = (await db.meta.get(key))?.value;
+      const pending = await db.staging.get(id);
+      if (pending) await deleteBlocks(db, pending.generation);
+      if (meta?.generation) await deleteBlocks(db, meta.generation);
+      else if (meta) await retireLegacyEntries(db, meta.lang);
+      await db.staging.delete(id);
+      await db.meta.delete(key);
+      return { meta, pending };
+    },
+  );
+  await evictPackFiles([meta?.tokenizer, pending?.tokenizer].filter((url) => url !== undefined));
+  return meta;
 }
