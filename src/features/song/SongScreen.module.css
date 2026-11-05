@@ -1,0 +1,37 @@
+.header {
+  display: grid;
+  gap: var(--space-4);
+  padding-bottom: var(--space-16);
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8);
+  margin-top: var(--space-4);
+  font: var(--type-subhead);
+  color: var(--text-secondary);
+}
+
+/* Original-text rendering (Clean/original layout, DESIGN_SYSTEM §4.2). */
+.lyrics {
+  font-size: calc(19px * var(--lyric-scale));
+  line-height: 1.6;
+  padding-bottom: var(--space-56);
+}
+.line,
+.section {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.section {
+  margin-top: var(--space-8);
+  font: var(--type-footnote);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  /* DESIGN_SYSTEM names text-tertiary here, but it is < 4.5:1 for 13 px text (WCAG AA wins). */
+  color: var(--text-secondary);
+}
+.gap {
+  height: 1.4em;
+}

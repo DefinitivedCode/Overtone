@@ -17,6 +17,20 @@ export interface SheetProps {
 
 const EXIT_MS = 320;
 
+// Safari does not focus a button when it is clicked, so `document.activeElement` would be <body>
+// when a sheet opens. Remember the last pressed control to return focus to it on close.
+let lastPressed: HTMLElement | null = null;
+if (typeof document !== 'undefined') {
+  document.addEventListener(
+    'pointerdown',
+    (e) => {
+      lastPressed =
+        (e.target as Element | null)?.closest<HTMLElement>('button, a, [tabindex]') ?? null;
+    },
+    true,
+  );
+}
+
 /**
  * Modal bottom sheet built on <dialog>: focus trap, Escape and inert background come from the
  * platform. Adds a history entry (hardware back closes it), scroll lock, and drag-to-dismiss from
@@ -38,6 +52,7 @@ export function Sheet({
   const [mounted, setMounted] = useState(open);
   const [shown, setShown] = useState(false);
   const pushed = useRef(false);
+  const opener = useRef<HTMLElement | null>(null);
   const onCloseRef = useRef(onClose);
   useEffect(() => {
     onCloseRef.current = onClose;
@@ -51,6 +66,9 @@ export function Sheet({
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const t = window.setTimeout(
       () => {
+        // Close the native dialog (releases the inert background) and return focus to the opener.
+        dialogRef.current?.close();
+        opener.current?.focus();
         setMounted(false);
         setShown(false);
       },
@@ -63,7 +81,16 @@ export function Sheet({
   useEffect(() => {
     const dlg = dialogRef.current;
     if (!mounted || !open || !dlg) return;
-    if (!dlg.open) dlg.showModal();
+    if (!dlg.open) {
+      const active = document.activeElement;
+      opener.current =
+        active instanceof HTMLElement && active !== document.body
+          ? active
+          : lastPressed?.isConnected
+            ? lastPressed
+            : null;
+      dlg.showModal();
+    }
     document.documentElement.dataset['scrollLocked'] = 'true';
     const raf = requestAnimationFrame(() => {
       setShown(true);
@@ -84,7 +111,9 @@ export function Sheet({
       delete document.documentElement.dataset['scrollLocked'];
       if (pushed.current) {
         pushed.current = false;
-        history.back();
+        // Pop our own entry only if it is still current; if the app has navigated on (e.g. Save →
+        // Song screen), going back would undo that navigation.
+        if ((history.state as { overtoneSheet?: boolean } | null)?.overtoneSheet) history.back();
       }
     };
   }, [mounted, open]);

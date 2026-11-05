@@ -1,8 +1,10 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BootGate } from '@/app/BootGate';
 import { ErrorBoundary } from '@/app/ErrorBoundary';
 import { useAppearance } from '@/app/theme';
 import { LibraryScreen } from '@/features/library/LibraryScreen';
 import { SettingsScreen } from '@/features/settings/SettingsScreen';
+import { SongScreen } from '@/features/song/SongScreen';
 import { ToastProvider } from '@/ui';
 
 export function AppRoutes() {
@@ -10,6 +12,7 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<LibraryScreen />} />
+      <Route path="/song/:id" element={<SongScreen />} />
       <Route path="/settings" element={<SettingsScreen />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
@@ -22,9 +25,11 @@ export function App() {
   return (
     <ErrorBoundary>
       <ToastProvider>
-        <BrowserRouter basename={basename}>
-          <AppRoutes />
-        </BrowserRouter>
+        <BootGate>
+          <BrowserRouter basename={basename}>
+            <AppRoutes />
+          </BrowserRouter>
+        </BootGate>
       </ToastProvider>
     </ErrorBoundary>
   );

@@ -44,6 +44,22 @@ const subscribe = (l: () => void) => {
   return () => listeners.delete(l);
 };
 
+type Persister = (patch: { theme?: ThemePref; textSize?: TextSize }) => void;
+let persister: Persister | null = null;
+/** Boot registers a writer that saves changes to the Settings record in IndexedDB. */
+export function registerPreferencePersister(fn: Persister | null): void {
+  persister = fn;
+}
+
+/** Applies values loaded from the Settings record (source of truth) and refreshes the localStorage mirror. */
+export function hydratePreferences(next: { theme: ThemePref; textSize: TextSize }): void {
+  theme = next.theme;
+  textSize = next.textSize;
+  write(THEME_KEY, theme);
+  write(SIZE_KEY, String(textSize));
+  emit();
+}
+
 export function getTheme(): ThemePref {
   return theme;
 }
@@ -51,6 +67,7 @@ export function setTheme(next: ThemePref): void {
   theme = next;
   write(THEME_KEY, next);
   emit();
+  persister?.({ theme: next });
 }
 export function getTextSize(): TextSize {
   return textSize;
@@ -59,6 +76,7 @@ export function setTextSize(next: TextSize): void {
   textSize = next;
   write(SIZE_KEY, String(next));
   emit();
+  persister?.({ textSize: next });
 }
 
 export const useTheme = () => useSyncExternalStore(subscribe, getTheme);

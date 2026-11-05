@@ -1,0 +1,13 @@
+.form {
+  display: grid;
+  gap: var(--space-16);
+  padding-bottom: var(--space-24);
+}
+.han {
+  display: grid;
+  gap: var(--space-4);
+}
+.hanHint {
+  font: var(--type-footnote);
+  color: var(--text-secondary);
+}

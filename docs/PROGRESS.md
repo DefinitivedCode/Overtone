@@ -8,7 +8,7 @@ _None at present._
 
 ## Conflicts between planning documents
 
-_None found yet._
+- **DESIGN_SYSTEM §6.3 vs PRODUCT_SPEC §5 (accessibility):** section labels are specified in `--text-tertiary`, which is ≈ 3.3:1 on the paper background for 13 px text (fails WCAG AA 4.5:1). Resolved in favour of PRODUCT_SPEC: section labels use `--text-secondary`. (M3)
 
 ## Scope deviations
 
@@ -134,3 +134,43 @@ lyrics parse/diff · Dexie schema v1 + types · repositories (songs, lines, prog
 
 - M3: wire Settings (theme/text size) to the DB with the localStorage mirror; open DB at startup (openDatabase), run `purgeSoftDeleted`, request persistence after first save, recovery screen.
 - A "frozen v1" Dexie schema test exists; add one per future schema version.
+
+---
+
+## M3 — Library, Add Song, Song (plain) — done
+
+Date: 2026-11-05
+
+### Checklist (planned)
+
+Boot (open DB, purge, recovery, settings hydrate) · detection (`engine/segment/detect.ts`) · Library (list, search, language chips + counts, sort, persisted state, empty/no-results, row menu + long-press, backup reminder) · Add Song (paste tab, validation, limits, detection hint, Han choice, discard confirm, draft autosave) · Song screen (original text with sections/blanks/`lang`, ⋯ menu) · Edit details/lyrics (+ summary toast) · Delete with Undo · Settings → Backup (export share/download, import preview merge/replace, last export, storage status) · Recovery screen · e2e + axe + layout.
+
+### Delivered
+
+- `BootGate`: defensive DB open, purge of soft-deleted songs at launch, recovery routing, Settings record as source of truth for theme/text size (localStorage stays the pre-paint mirror; first run adopts the mirror), cross-tab "updated in another window" banner, persistence retry in standalone mode.
+- Library, Add Song sheet (Paste tab only; Search/Paste control not rendered until M12), Song screen (mode switcher hidden until M6; progress summary hidden — there is no way to toggle lines yet), Edit details/lyrics sheets, delete-with-Undo hook (purge on toast expiry or next launch), Settings backup section, `ImportFlow` (shared with Recovery), Recovery screen.
+- New primitives: `Select` (native), `SearchField`; Toast `onExpire`.
+- `src/db/hooks.ts` (live queries), `libraryModel.ts` (filter/sort/counts/reminder), `editSummary.ts`.
+
+### Acceptance criteria covered
+
+See `docs/TRACEABILITY.md` (generated; 26 covered, 14 partial of 73 ACs at this point). M3 plan ACs: J1, J2 (except J2.8), J9, J10, J11, J12.4–12.6 → covered or partially covered as listed there; romanised search (J10.1 "saranghae"), offline (J1.1/J12.1) and J12.6 e2e quota path are explicitly deferred.
+
+### Verification (actual output)
+
+- `npm run verify`: lint clean, typecheck clean, **235 unit/tooling tests passed (13 files)**, build OK, **272 e2e passed** across webkit-iphone, webkit-iphone-se, chromium-mobile, chromium-desktop (specs: shell, library, add-song, edit, backup, recovery, screens).
+- Bundle: initial JS **161.7 KB gzip** (budget 180; M2/M3 pulled in zod, dexie, router, lucide). CSS 4.8 KB gzip. Watch this: M5+ code must be lazy-loaded (worker/chunks).
+- Visual inspection in WebKit at 375 px (light/dark) of Library, Add sheet, Song screen.
+- Bugs found by tests/inspection and fixed: (1) Sheet's history cleanup undid the post-save navigation (`history.back()` after `navigate`); (2) focus was not returned to the opener when a Sheet closed, and Safari does not focus clicked buttons — now remembers the last pressed control; (3) **Add Song used a debounced language detection, so a fast Save could save a song under the previous song's detected language** — detection is now synchronous; (4) e2e races (navigating before an import finished).
+- Not run / unavailable: keyboard-only tests are skipped in WebKit (WebKit only tabs to form controls by default); real iOS keyboard/safe-area/share sheet; Reset-progress and "Learned" states are exercised via imported backups because lines cannot be toggled until M6.
+- E2E per-test timeout raised from 30 s to 60 s: WebKit specs take ≈ 15 s alone and exceeded 30 s when four projects ran in parallel (the same tests pass in isolation).
+
+### Scope deviations / limitations
+
+- Long-press opens the row menu via a hidden-but-real "More options" button which is also always visible, so deletion/editing is reachable without gestures (accessibility).
+- Backup reminder banner is implemented and unit-tested (rule) but not exercised end-to-end (needs 7 days of clock; could use `page.clock` later).
+- Song header shows line count only; "N of M lines" arrives with Learn mode (M6).
+
+### Follow-ups
+
+- M4 next (spikes). Keep initial bundle ≤ 180 KB gzip: engine work must stay behind dynamic imports.

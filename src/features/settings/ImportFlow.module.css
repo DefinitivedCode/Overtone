@@ -1,0 +1,12 @@
+.wrap {
+  display: grid;
+  gap: var(--space-8);
+}
+.body {
+  display: grid;
+  gap: var(--space-12);
+}
+.hint {
+  font: var(--type-footnote);
+  color: var(--text-secondary);
+}

@@ -14,6 +14,8 @@ export interface ToastOptions {
   message: string;
   actionLabel?: string;
   onAction?: () => void;
+  /** Called when the toast times out without its action being used (e.g. finalise a soft delete). */
+  onExpire?: () => void;
   /** ms before auto-dismiss; defaults to 4000, or 8000 when there is an action (e.g. Undo). */
   duration?: number;
 }
@@ -63,9 +65,12 @@ function ToastView({ item, onDone }: { item: ToastItem; onDone: () => void }) {
   const duration = item.duration ?? (item.actionLabel ? 8000 : 4000);
   useEffect(() => {
     if (paused) return;
-    const t = window.setTimeout(onDone, duration);
+    const t = window.setTimeout(() => {
+      item.onExpire?.();
+      onDone();
+    }, duration);
     return () => window.clearTimeout(t);
-  }, [paused, duration, onDone]);
+  }, [paused, duration, onDone, item]);
   return (
     <div
       className={s['toast']}

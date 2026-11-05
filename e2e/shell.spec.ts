@@ -95,8 +95,9 @@ test.describe('accessibility and layout', () => {
   for (const theme of ['light', 'dark'] as const) {
     for (const route of ['/', '/settings']) {
       test(`axe: ${route} (${theme})`, async ({ page }) => {
-        await page.goto(route);
         await setTheme(page, theme);
+        await page.goto(route);
+        await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
         await expectAxeClean(page, `${route} ${theme}`);
       });
     }

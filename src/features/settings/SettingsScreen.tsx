@@ -2,6 +2,7 @@ import { TopBar } from '@/app/TopBar';
 import { TEXT_SIZE_LABELS, setTextSize, setTheme, useTextSize, useTheme } from '@/app/preferences';
 import type { TextSize, ThemePref } from '@/app/preferences';
 import { SegmentedControl } from '@/ui';
+import { BackupSection } from './BackupSection';
 import s from './SettingsScreen.module.css';
 
 const THEME_OPTIONS: ReadonlyArray<{ value: ThemePref; label: string }> = [
@@ -63,6 +64,8 @@ export function SettingsScreen() {
           </div>
           <p className={s['note']}>Applies to lyrics in every mode. Browser zoom still works.</p>
         </section>
+
+        <BackupSection />
       </main>
     </>
   );

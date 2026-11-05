@@ -7,7 +7,7 @@ import type {
   TextareaHTMLAttributes,
 } from 'react';
 import { useLayoutEffect, useRef } from 'react';
-import { X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import s from './ui.module.css';
 
 const cx = (...parts: (string | false | undefined)[]) => parts.filter(Boolean).join(' ');
@@ -34,7 +34,7 @@ export function Button({
   );
 }
 
-export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IconButtonProps extends ComponentPropsWithRef<'button'> {
   /** Required: icon-only buttons need an accessible name. */
   label: string;
 }
@@ -336,6 +336,75 @@ export function Banner({ tone = 'info', children, action, onDismiss }: BannerPro
           style={{ marginBlock: -8, marginInlineEnd: -8 }}
         >
           <X size={20} strokeWidth={1.75} aria-hidden="true" />
+        </IconButton>
+      ) : null}
+    </div>
+  );
+}
+
+/* ---------- Select (native: gets the iOS picker for free) ---------- */
+export interface SelectProps
+  extends FieldCommon, Omit<ComponentPropsWithRef<'select'>, 'children'> {
+  options: ReadonlyArray<{ value: string; label: string }>;
+}
+export function Select({ label, hint, error, id, className, options, ...rest }: SelectProps) {
+  const auto = useId();
+  const fid = id ?? auto;
+  return (
+    <div className={cx(s['field'], className)}>
+      <label className={s['label']} htmlFor={fid}>
+        {label}
+      </label>
+      <select
+        id={fid}
+        className={cx(s['input'], s['select'])}
+        aria-describedby={error ? `${fid}-err` : hint ? `${fid}-hint` : undefined}
+        {...rest}
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+      {hint && !error ? (
+        <span id={`${fid}-hint`} className={s['hint']}>
+          {hint}
+        </span>
+      ) : null}
+      <span id={`${fid}-err`} className={s['error']} role="alert">
+        {error}
+      </span>
+    </div>
+  );
+}
+
+/* ---------- SearchField ---------- */
+export interface SearchFieldProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+}
+export function SearchField({ label, value, onChange, placeholder }: SearchFieldProps) {
+  return (
+    <div className={s['searchWrap']}>
+      <Search size={18} strokeWidth={1.75} className={s['searchIcon']} aria-hidden="true" />
+      <input
+        type="search"
+        aria-label={label}
+        placeholder={placeholder ?? label}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        enterKeyHint="search"
+        autoCapitalize="off"
+        autoCorrect="off"
+        spellCheck={false}
+        className={cx(s['input'], s['search'])}
+      />
+      {value ? (
+        <IconButton label="Clear search" className={s['searchClear']} onClick={() => onChange('')}>
+          <X size={18} strokeWidth={1.75} aria-hidden="true" />
         </IconButton>
       ) : null}
     </div>

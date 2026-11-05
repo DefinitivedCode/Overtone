@@ -46,3 +46,12 @@
   font: var(--type-footnote);
   color: var(--text-secondary);
 }
+
+.row {
+  font: var(--type-subhead);
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+.row strong {
+  color: var(--text);
+}
