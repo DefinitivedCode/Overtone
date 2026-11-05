@@ -68,7 +68,7 @@
     "verify": "npm run packs && npm run lint && npm run typecheck && npm test && npm run build && npm run e2e",
     "brand": "tsx scripts/brand/generate-assets.ts",
     "packs": "tsx scripts/packs/build.ts",
-    "licences": "node scripts/docs/licences.mjs"
+    "licences": "node scripts/docs/licences.mjs && prettier --write src/features/about/licences.generated.ts"
   },
   "license": "MIT",
   "author": "DefinitivedCode",

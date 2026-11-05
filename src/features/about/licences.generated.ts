@@ -13,107 +13,112 @@ export interface DictionarySource {
 
 export const PACKAGE_LICENCES: readonly PackageLicence[] = [
   {
-    "name": "@fontsource/instrument-serif",
-    "version": "5.3.0",
-    "licence": "OFL-1.1"
+    name: '@fontsource/instrument-serif',
+    version: '5.3.0',
+    licence: 'OFL-1.1',
   },
   {
-    "name": "comlink",
-    "version": "4.4.2",
-    "licence": "Apache-2.0"
+    name: 'comlink',
+    version: '4.4.2',
+    licence: 'Apache-2.0',
   },
   {
-    "name": "dexie",
-    "version": "4.4.7",
-    "licence": "Apache-2.0"
+    name: 'dexie',
+    version: '4.4.7',
+    licence: 'Apache-2.0',
   },
   {
-    "name": "dexie-react-hooks",
-    "version": "4.4.0",
-    "licence": "Apache-2.0"
+    name: 'dexie-react-hooks',
+    version: '4.4.0',
+    licence: 'Apache-2.0',
   },
   {
-    "name": "lindera-wasm-web-ipadic",
-    "version": "2.0.0",
-    "licence": "MIT"
+    name: 'lindera-wasm-web-ipadic',
+    version: '2.0.0',
+    licence: 'MIT',
   },
   {
-    "name": "lucide-react",
-    "version": "1.69.0",
-    "licence": "ISC"
+    name: 'lucide-react',
+    version: '1.69.0',
+    licence: 'ISC',
   },
   {
-    "name": "opencc-js",
-    "version": "1.4.2",
-    "licence": "MIT AND Apache-2.0"
+    name: 'opencc-js',
+    version: '1.4.2',
+    licence: 'MIT AND Apache-2.0',
   },
   {
-    "name": "pinyin-pro",
-    "version": "3.29.5",
-    "licence": "MIT"
+    name: 'pinyin-pro',
+    version: '3.29.5',
+    licence: 'MIT',
   },
   {
-    "name": "react",
-    "version": "19.3.1",
-    "licence": "MIT"
+    name: 'react',
+    version: '19.3.1',
+    licence: 'MIT',
   },
   {
-    "name": "react-dom",
-    "version": "19.3.1",
-    "licence": "MIT"
+    name: 'react-dom',
+    version: '19.3.1',
+    licence: 'MIT',
   },
   {
-    "name": "react-router-dom",
-    "version": "7.18.5",
-    "licence": "MIT"
+    name: 'react-router-dom',
+    version: '7.18.5',
+    licence: 'MIT',
   },
   {
-    "name": "to-jyutping",
-    "version": "3.1.1",
-    "licence": "BSD-2-Clause"
+    name: 'to-jyutping',
+    version: '3.1.1',
+    licence: 'BSD-2-Clause',
   },
   {
-    "name": "zod",
-    "version": "4.6.7",
-    "licence": "MIT"
-  }
+    name: 'zod',
+    version: '4.6.7',
+    licence: 'MIT',
+  },
 ];
 
 export const DICTIONARY_SOURCES: readonly DictionarySource[] = [
   {
-    "name": "CC-CEDICT",
-    "licence": "CC BY-SA 4.0",
-    "attribution": "CC-CEDICT, community maintained, published by MDBG (https://www.mdbg.net/chinese/dictionary?page=cc-cedict). Based on CEDICT © 1997, 1998 Paul Andrew Denisowski.",
-    "url": "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip"
+    name: 'CC-CEDICT',
+    licence: 'CC BY-SA 4.0',
+    attribution:
+      'CC-CEDICT, community maintained, published by MDBG (https://www.mdbg.net/chinese/dictionary?page=cc-cedict). Based on CEDICT © 1997, 1998 Paul Andrew Denisowski.',
+    url: 'https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip',
   },
   {
-    "name": "CC-Canto",
-    "licence": "CC BY-SA 3.0",
-    "attribution": "CC-Canto © 2015–2017 Pleco Inc. (https://cantonese.org)",
-    "url": "https://cantonese.org/cccanto-170202.zip"
+    name: 'CC-Canto',
+    licence: 'CC BY-SA 3.0',
+    attribution: 'CC-Canto © 2015–2017 Pleco Inc. (https://cantonese.org)',
+    url: 'https://cantonese.org/cccanto-170202.zip',
   },
   {
-    "name": "JMdict (English)",
-    "licence": "CC BY-SA 4.0 (EDRDG)",
-    "attribution": "JMdict is the property of the Electronic Dictionary Research and Development Group (https://www.edrdg.org/) and is used in conformance with the Group's licence (https://www.edrdg.org/edrdg/licence.html). Pack data was trimmed from jmdict-simplified.",
-    "url": "https://github.com/scriptin/jmdict-simplified/releases/download/3.6.2%2B20261102210542/jmdict-eng-3.6.2%2B20261102210542.json.zip"
+    name: 'JMdict (English)',
+    licence: 'CC BY-SA 4.0 (EDRDG)',
+    attribution:
+      "JMdict is the property of the Electronic Dictionary Research and Development Group (https://www.edrdg.org/) and is used in conformance with the Group's licence (https://www.edrdg.org/edrdg/licence.html). Pack data was trimmed from jmdict-simplified.",
+    url: 'https://github.com/scriptin/jmdict-simplified/releases/download/3.6.2%2B20261102210542/jmdict-eng-3.6.2%2B20261102210542.json.zip',
   },
   {
-    "name": "Wiktionary (English), Korean entries",
-    "licence": "CC BY-SA 4.0 and GFDL",
-    "attribution": "Definitions from English Wiktionary contributors (https://en.wiktionary.org), extracted by Wiktextract and distributed by kaikki.org. Text is available under the Creative Commons Attribution-ShareAlike License 4.0 (https://creativecommons.org/licenses/by-sa/4.0/); additional terms may apply.",
-    "url": "https://kaikki.org/dictionary/Korean/kaikki.org-dictionary-Korean.jsonl"
+    name: 'Wiktionary (English), Korean entries',
+    licence: 'CC BY-SA 4.0 and GFDL',
+    attribution:
+      'Definitions from English Wiktionary contributors (https://en.wiktionary.org), extracted by Wiktextract and distributed by kaikki.org. Text is available under the Creative Commons Attribution-ShareAlike License 4.0 (https://creativecommons.org/licenses/by-sa/4.0/); additional terms may apply.',
+    url: 'https://kaikki.org/dictionary/Korean/kaikki.org-dictionary-Korean.jsonl',
   },
   {
-    "name": "kengdic",
-    "licence": "CC BY-SA 3.0",
-    "attribution": "kengdic, a Korean-English dictionary by Joe Speigle and contributors, maintained by Nathan Glenn (https://github.com/garfieldnate/kengdic). Used under CC BY-SA 3.0.",
-    "url": "https://raw.githubusercontent.com/garfieldnate/kengdic/master/kengdic.tsv"
+    name: 'kengdic',
+    licence: 'CC BY-SA 3.0',
+    attribution:
+      'kengdic, a Korean-English dictionary by Joe Speigle and contributors, maintained by Nathan Glenn (https://github.com/garfieldnate/kengdic). Used under CC BY-SA 3.0.',
+    url: 'https://raw.githubusercontent.com/garfieldnate/kengdic/master/kengdic.tsv',
   },
   {
-    "name": "CC-CEDICT Cantonese Readings",
-    "licence": "CC BY-SA 3.0",
-    "attribution": "CC-CEDICT Cantonese Readings © 2015 Pleco Software Incorporated (https://cantonese.org)",
-    "url": "https://cantonese.org/cccedict-canto-readings-150923.zip"
-  }
+    name: 'CC-CEDICT Cantonese Readings',
+    licence: 'CC BY-SA 3.0',
+    attribution:
+      'CC-CEDICT Cantonese Readings © 2015 Pleco Software Incorporated (https://cantonese.org)',
+    url: 'https://cantonese.org/cccedict-canto-readings-150923.zip',
+  },
 ];
