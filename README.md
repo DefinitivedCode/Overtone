@@ -120,7 +120,7 @@ Architecture decisions, with measurements, are in [`docs/adr`](docs/adr). The or
 
 - Every linguistic test fixture was written by the project author, **not reviewed by a fluent speaker**, so scores are consistency checks, not proof of native-level accuracy. Details in [`docs/LINGUISTIC_REPORT.md`](docs/LINGUISTIC_REPORT.md).
 - Japanese gives one contextual reading per word; rare names and poetic readings may need correcting.
-- It has not yet been tested on a physical iPhone. The checklist is [`docs/IOS_VERIFICATION.md`](docs/IOS_VERIFICATION.md).
+- **Manual testing on a physical iPhone has begun** using the deployed PWA. The Library, Add Song, Learn, Karaoke and word-definition interfaces have been exercised; this testing revealed sheet presentation and scroll-position issues ([#1](https://github.com/DefinitivedCode/Overtone/issues/1), [#2](https://github.com/DefinitivedCode/Overtone/issues/2)). Full iOS verification, including installation, offline operation and updates, is not yet confirmed. See [`docs/IOS_VERIFICATION.md`](docs/IOS_VERIFICATION.md).
 - Full list: [`docs/KNOWN_LIMITATIONS.md`](docs/KNOWN_LIMITATIONS.md).
 
 ## Documentation
