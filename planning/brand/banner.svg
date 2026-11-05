@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <!-- Overtone banner — concept v1 (README header / Open Graph / social preview).
+       Text uses font stacks for preview only. The production pipeline must
+       render this with explicitly bundled fonts (see DESIGN_SYSTEM.md §12). -->
+  <style>
+    .word { font-family: "Instrument Serif", "Times New Roman", serif; font-size: 112px; fill: #17141A; letter-spacing: -1px; }
+    .tag  { font-family: -apple-system, "SF Pro Text", "Segoe UI", "Helvetica Neue", sans-serif; font-size: 26px; fill: #6B6470; letter-spacing: 0.5px; }
+    .rt   { font-family: -apple-system, "SF Pro Text", "Segoe UI", "Helvetica Neue", sans-serif; font-size: 22px; fill: #C2412B; }
+    .base { font-size: 46px; fill: #17141A; }
+    .ko { font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif; }
+    .ja { font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif; }
+    .sc { font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .hk { font-family: "PingFang HK", "Noto Sans HK", "Microsoft JhengHei", sans-serif; }
+    .lang { font-family: -apple-system, "SF Pro Text", "Segoe UI", sans-serif; font-size: 15px; fill: #8A8290; letter-spacing: 2px; }
+  </style>
+  <rect width="1280" height="640" fill="#F6F2EC"/>
+
+  <!-- mark -->
+  <g transform="translate(96 150) scale(0.22)">
+    <rect width="1024" height="1024" rx="228" fill="#17141A"/>
+    <rect x="232" y="312" width="248" height="64" rx="32" fill="#E5533A"/>
+    <rect x="232" y="420" width="560" height="120" rx="60" fill="#F4EFE7"/>
+    <rect x="232" y="592" width="400" height="120" rx="60" fill="#F4EFE7" fill-opacity="0.26"/>
+  </g>
+  <text x="352" y="262" class="word">overtone</text>
+  <text x="356" y="312" class="tag">Read it. Say it. Sing it.</text>
+
+  <!-- four-language specimen: the same phrase, annotated -->
+  <line x1="96" y1="404" x2="1184" y2="404" stroke="#17141A" stroke-opacity="0.08" stroke-width="2"/>
+  <g transform="translate(96 0)">
+    <text x="0"   y="458" class="rt">saranghae</text>
+    <text x="0"   y="514" class="base ko" lang="ko">사랑해</text>
+    <text x="0"   y="560" class="lang">KOREAN</text>
+
+    <text x="280" y="458" class="rt">aishiteru</text>
+    <text x="280" y="514" class="base ja" lang="ja">愛してる</text>
+    <text x="280" y="560" class="lang">JAPANESE</text>
+
+    <text x="560" y="458" class="rt">wǒ ài nǐ</text>
+    <text x="560" y="514" class="base sc" lang="zh-Hans">我爱你</text>
+    <text x="560" y="560" class="lang">MANDARIN</text>
+
+    <text x="840" y="458" class="rt">ngo5 oi3 nei5</text>
+    <text x="840" y="514" class="base hk" lang="zh-HK">我愛你</text>
+    <text x="840" y="560" class="lang">CANTONESE</text>
+  </g>
+</svg>
