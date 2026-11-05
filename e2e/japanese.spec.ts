@@ -1,5 +1,12 @@
 import { expect, test } from './fixtures';
-import { addSong, expectAxeClean, expectNoOverflow, setTheme, WIDTHS } from './helpers';
+import {
+  addSong,
+  expectAxeClean,
+  expectNoOverflow,
+  setTheme,
+  WIDTHS,
+  openPronunciation,
+} from './helpers';
 
 test('Japanese resources load on demand, resume analysis, and survive offline reload and worker idle', async ({
   page,
@@ -144,6 +151,7 @@ for (const theme of ['light', 'dark'] as const) {
 
     await page.getByRole('link', { name: 'Library' }).click();
     await page.getByRole('link', { name: 'Settings' }).click();
+    await openPronunciation(page, 'Japanese');
     await page.getByRole('radio', { name: /Doubled/ }).check({ force: true });
     await page.getByRole('switch', { name: 'Show romaji in Learn mode' }).uncheck({ force: true });
     await page

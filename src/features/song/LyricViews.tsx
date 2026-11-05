@@ -2,10 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Check } from 'lucide-react';
 import { setLearned } from '@/db/repositories/progress';
-import type { LangCode } from '@/db/types';
+import type { DisplaySettings, LangCode } from '@/db/types';
 import type { LineAnalysis, Token } from '@/engine/model';
 import { japaneseRomanRuns, romaniseLine, tokenRoman, tokenUnits } from '@/engine/romanLine';
-import type { RomanPrefs } from '@/engine/romanLine';
+import type { RomanOptions, RomanPrefs } from '@/engine/romanLine';
 import { langAttr } from '@/engine/segment/detect';
 import { SegmentedControl, useToast } from '@/ui';
 import type { LyricItem } from './lyricModel';
@@ -32,14 +32,30 @@ function LearnToken({
   units,
   prefs,
   language,
+  readingFirst,
 }: {
   t: Token;
   /** Per-character display syllables (Mandarin/Cantonese), or null. */
   units: string[] | null;
   prefs: RomanPrefs;
   language: LangCode;
+  /** Reading-first layout: English joins the reading row instead of interrupting it. */
+  readingFirst: boolean;
 }): ReactNode {
   if (t.kind === 'space') return t.surface;
+  // English in a Korean/Chinese song: when the reading leads, sing it from the same row as the romanisation.
+  // The base stays in the DOM (collapsed) so copy, search and screen readers still get the lyric text.
+  if (readingFirst && language !== 'ja' && t.kind === 'latin')
+    return (
+      <ruby className={s['english']}>
+        <span className={s['englishBase']} lang="en">
+          {t.surface}
+        </span>
+        <rt aria-hidden="true" lang="en">
+          {t.surface}
+        </rt>
+      </ruby>
+    );
   if (language === 'ja') {
     if (t.lang === 'en') return <span lang="en">{t.surface}</span>;
     if (t.lang !== 'ja') return t.surface;
@@ -119,9 +135,18 @@ function LearnToken({
 export interface LearnViewProps extends ViewProps {
   songId: string;
   learned: ReadonlySet<string>;
+  emphasis: DisplaySettings['learnEmphasis'];
 }
 
-export function LearnView({ items, language, analyses, prefs, songId, learned }: LearnViewProps) {
+export function LearnView({
+  items,
+  language,
+  analyses,
+  prefs,
+  songId,
+  learned,
+  emphasis,
+}: LearnViewProps) {
   const toast = useToast();
   // Optimistic state: shown immediately, dropped once the stored value agrees (J7.1).
   const [optimistic, setOptimistic] = useState<ReadonlyMap<string, boolean>>(new Map());
@@ -153,7 +178,12 @@ export function LearnView({ items, language, analyses, prefs, songId, learned }:
   }
 
   return (
-    <ol className={`${s['list']} ${s['learn']}`} aria-label="Lyrics">
+    <ol
+      className={`${s['list']} ${s['learn']}`}
+      aria-label="Lyrics"
+      data-emphasis={emphasis}
+      data-script={language}
+    >
       {items.map(({ line, kind, ordinal }) => {
         if (kind === 'blank')
           return (
@@ -201,6 +231,7 @@ export function LearnView({ items, language, analyses, prefs, songId, learned }:
                         units={units[i] ?? null}
                         prefs={prefs}
                         language={language}
+                        readingFirst={emphasis === 'reading'}
                       />
                     ));
                   })()
@@ -260,14 +291,21 @@ function romanisedOrOriginal(
   text: string,
   a: LineAnalysis | undefined,
   prefs: RomanPrefs,
+  opts: RomanOptions = {},
 ): ReactNode {
   if (!a || a.status === 'failed') return text;
   if (a.lang === 'ja' && a.tokens.some((t) => t.lang === 'ja' && t.reading))
     return renderJapaneseRoman(a, prefs);
-  return romaniseLine(a.tokens, prefs) || text;
+  return romaniseLine(a.tokens, prefs, opts) || text;
 }
 
-export function KaraokeView({ items, language, analyses, prefs }: ViewProps) {
+export interface KaraokeViewProps extends ViewProps {
+  syllables: boolean;
+}
+
+export function KaraokeView({ items, language, analyses, prefs, syllables }: KaraokeViewProps) {
+  // Only Korean has a syllable-separated form; Chinese is already per syllable and Japanese is not split (ADR 0012).
+  const opts: RomanOptions = { syllables: syllables && language === 'ko' };
   useWakeLock(true);
   return (
     <div className={s['karaoke']} role="group" aria-label="Romanised lyrics">
@@ -299,7 +337,7 @@ export function KaraokeView({ items, language, analyses, prefs }: ViewProps) {
             data-line-index={line.index}
             lang={romanised ? ROMAN_LANG[language] : langAttr(language, line.text)}
           >
-            {romanisedOrOriginal(line.text, a, prefs)}
+            {romanisedOrOriginal(line.text, a, prefs, opts)}
           </p>
         );
       })}

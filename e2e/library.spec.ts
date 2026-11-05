@@ -20,7 +20,7 @@ test.describe('library', () => {
     const row = page.getByRole('list', { name: 'Songs' }).getByRole('listitem').first();
     await expect(row).toContainText('First song');
     await expect(row).toContainText('Me · 4 lines');
-    await expect(row.getByRole('img', { name: 'Korean' })).toHaveText('KO');
+    await expect(row.getByRole('img', { name: 'Korean' })).toHaveText('KR');
   });
 
   test('Add song is reachable by keyboard (J1.2)', async ({ page, browserName }) => {

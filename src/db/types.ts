@@ -105,6 +105,14 @@ export interface RomanisationSettings {
   zh: { tones: 'marks' | 'numbers'; sandhi: boolean };
 }
 
+/** Device-local lyric display choices; deliberately not part of backups (like the Library view state). */
+export interface DisplaySettings {
+  /** Learn mode: which line leads the eye. */
+  learnEmphasis: 'reading' | 'original';
+  /** Karaoke only: show Korean romanisation split into syllables. */
+  karaokeSyllables: boolean;
+}
+
 export type LibrarySort = 'opened' | 'added' | 'title' | 'artist' | 'progress';
 export type LibraryFilter = 'all' | LangCode;
 
@@ -114,6 +122,7 @@ export interface Settings {
   /** 0..4 (default 2). */
   textSize: 0 | 1 | 2 | 3 | 4;
   romanisation: RomanisationSettings;
+  display: DisplaySettings;
   library: { query: string; filter: LibraryFilter; sort: LibrarySort };
   backup: {
     lastExportAt: number | null;

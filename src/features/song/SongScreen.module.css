@@ -56,3 +56,9 @@
     opacity: 0.5;
   }
 }
+
+.karaokeOptions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--space-8);
+}

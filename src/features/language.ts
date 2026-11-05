@@ -9,5 +9,8 @@ export const LANG_NAME: Record<LangCode, string> = {
   yue: 'Cantonese',
 };
 
-/** Two/three-letter chip codes (no per-language colour; DESIGN_SYSTEM §3). */
-export const LANG_CODE: Record<LangCode, string> = { ko: 'KO', ja: 'JA', zh: 'ZH', yue: 'YUE' };
+/**
+ * Friendly two-letter chip labels (no per-language colour; DESIGN_SYSTEM §3). Display only: stored data, imports and
+ * the engine keep the codes ko / ja / zh / yue.
+ */
+export const LANG_CODE: Record<LangCode, string> = { ko: 'KR', ja: 'JP', zh: 'CN', yue: 'HK' };

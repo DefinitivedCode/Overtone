@@ -1,24 +1,56 @@
 .group {
-  margin-top: var(--space-24);
+  margin-top: var(--space-32);
 }
 .groupTitle {
-  margin: 0 var(--space-12) var(--space-8);
+  margin: 0 var(--space-16) var(--space-8);
   font: var(--type-footnote);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--text-secondary);
 }
+/* Inset grouped list: one rounded card, rows divided by hairlines. */
 .card {
   display: grid;
-  gap: var(--space-12);
-  padding: var(--space-12);
   border-radius: var(--radius-row);
   background: var(--bg-elevated);
   box-shadow: 0 0 0 0.5px var(--separator);
+  overflow: hidden;
+}
+.card > * {
+  padding: var(--space-12) var(--space-16);
+}
+.card > * + * {
+  border-top: 0.5px solid var(--separator);
+}
+.item {
+  display: grid;
+  gap: var(--space-8);
+}
+.itemTitle {
+  margin: 0;
+  font: var(--type-body);
+  font-weight: 500;
+}
+.itemHint {
+  margin: 0;
+  font: var(--type-footnote);
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+.itemHint strong {
+  color: var(--text);
+}
+.aboutLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-12);
+  min-height: 28px;
+  margin: 0;
 }
 .sizeRow {
   display: grid;
-  gap: var(--space-8);
+  gap: var(--space-4);
 }
 .sizeRow input[type='range'] {
   width: 100%;
@@ -42,9 +74,53 @@
   overflow-wrap: anywhere;
 }
 .note {
-  margin: var(--space-8) var(--space-12) 0;
+  margin: var(--space-8) var(--space-16) 0;
   font: var(--type-footnote);
   color: var(--text-secondary);
+}
+
+/* Disclosure rows (native <details>) */
+.disclosure {
+  padding: 0 !important;
+}
+.summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  min-height: 52px;
+  padding: 0 var(--space-16);
+  cursor: pointer;
+  list-style: none;
+}
+.summary::-webkit-details-marker {
+  display: none;
+}
+.summary::after {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--text-tertiary);
+  border-bottom: 2px solid var(--text-tertiary);
+  transform: rotate(-45deg);
+  transition: transform calc(160ms * var(--motion-scale));
+}
+.disclosure[open] > .summary::after {
+  transform: rotate(45deg);
+}
+.summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.summaryValue {
+  margin-left: auto;
+  font: var(--type-subhead);
+  color: var(--text-secondary);
+}
+.disclosureBody {
+  display: grid;
+  gap: var(--space-12);
+  padding: var(--space-4) var(--space-16) var(--space-16);
 }
 
 .row {
@@ -54,4 +130,9 @@
 }
 .row strong {
   color: var(--text);
+}
+
+.actions {
+  display: grid;
+  gap: var(--space-8);
 }

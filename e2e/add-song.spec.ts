@@ -45,7 +45,7 @@ test.describe('add song (paste path)', () => {
     await dialog.getByRole('radio', { name: 'Mandarin' }).check({ force: true });
     await expect(dialog.getByText('Using Mandarin.')).toBeVisible();
     await dialog.getByRole('button', { name: 'Save', exact: true }).click();
-    await expect(page.getByRole('img', { name: 'Mandarin' })).toHaveText('ZH');
+    await expect(page.getByRole('img', { name: 'Mandarin' })).toHaveText('CN');
     await showClean(page);
     await expect(page.locator('article[aria-label="Lyrics"] p').first()).toHaveAttribute(
       'lang',

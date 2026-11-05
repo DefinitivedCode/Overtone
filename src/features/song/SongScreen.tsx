@@ -1,11 +1,13 @@
+import type { CSSProperties } from 'react';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { MoreHorizontal } from 'lucide-react';
 import { TopBar } from '@/app/TopBar';
 import { useLearnedKeys, useLines, useSettings, useSong } from '@/db/hooks';
 import { resetProgress } from '@/db/repositories/progress';
+import { updateSettings } from '@/db/repositories/settings';
 import { setCleanVariant, setDisplayMode, touchOpened } from '@/db/repositories/songs';
-import type { DisplayMode } from '@/db/types';
+import type { DisplayMode, DisplaySettings } from '@/db/types';
 import { DEFAULT_ROMAN_PREFS } from '@/engine/romanLine';
 import type { RomanPrefs } from '@/engine/romanLine';
 import { langAttr } from '@/engine/segment/detect';
@@ -14,6 +16,7 @@ import { LanguageDataBanner } from '@/features/packs/PackUi';
 import {
   Button,
   Chip,
+  ChipButton,
   ConfirmDialog,
   EmptyState,
   IconButton,
@@ -63,6 +66,7 @@ export function SongScreen() {
     if (songId) void touchOpened(songId).catch(() => undefined);
   }, [songId]);
 
+  const display = settings?.display;
   const prefs: RomanPrefs = useMemo(
     () => (settings ? settings.romanisation : DEFAULT_ROMAN_PREFS),
     [settings],
@@ -118,6 +122,7 @@ export function SongScreen() {
     setOptMode(m);
     void setDisplayMode(song.id, m);
   };
+  const showSyllableToggle = mode === 'karaoke' && song.language === 'ko';
   const menuItems: MenuItem[] = [
     { key: 'lyrics', label: 'Edit lyrics', onSelect: () => setSheet('lyrics') },
     { key: 'details', label: 'Edit details', onSelect: () => setSheet('details') },
@@ -142,7 +147,10 @@ export function SongScreen() {
           />
         }
       />
-      <main className="screen">
+      <main
+        className="screen"
+        style={showSyllableToggle ? ({ '--sticky-extra': '44px' } as CSSProperties) : undefined}
+      >
         <header className={s['header']}>
           <h1 className="title" lang={langAttr(song.language, song.title)}>
             {song.title}
@@ -177,6 +185,9 @@ export function SongScreen() {
             options={MODE_OPTIONS}
             onChange={changeMode}
           />
+          {showSyllableToggle ? (
+            <KaraokeOptions syllables={display?.karaokeSyllables ?? false} />
+          ) : null}
         </div>
 
         {song.language !== 'ko' ? (
@@ -190,6 +201,8 @@ export function SongScreen() {
           song={song}
           items={items}
           prefs={prefs}
+          emphasis={display?.learnEmphasis ?? 'reading'}
+          syllables={display?.karaokeSyllables ?? false}
           learned={learned ?? new Set()}
           mode={mode}
           variant={variant}
@@ -225,11 +238,15 @@ function SongBody({
   song,
   items,
   prefs,
+  emphasis,
+  syllables,
   learned,
   mode,
   variant,
   onVariant,
 }: {
+  emphasis: DisplaySettings['learnEmphasis'];
+  syllables: boolean;
   song: Song;
   mode: DisplayMode;
   variant: 'original' | 'romanised';
@@ -256,12 +273,39 @@ function SongBody({
         </div>
       ) : null}
       {mode === 'karaoke' ? (
-        <KaraokeView {...common} />
+        <KaraokeView {...common} syllables={syllables} />
       ) : mode === 'clean' ? (
         <CleanView {...common} variant={variant} onVariant={onVariant} />
       ) : (
-        <LearnView {...common} songId={song.id} learned={learned} />
+        <LearnView {...common} songId={song.id} learned={learned} emphasis={emphasis} />
       )}
     </>
+  );
+}
+
+/** Karaoke-only choice, remembered on this device; Learn and Clean never read it. */
+function KaraokeOptions({ syllables }: { syllables: boolean }) {
+  const toast = useToast();
+  const [optimistic, setOptimistic] = useState<boolean | null>(null);
+  if (optimistic !== null && optimistic === syllables) setOptimistic(null);
+  const value = optimistic ?? syllables;
+  return (
+    <div className={s['karaokeOptions']}>
+      <ChipButton
+        pressed={value}
+        onClick={() => {
+          const karaokeSyllables = !value;
+          setOptimistic(karaokeSyllables);
+          void updateSettings((x) => ({ ...x, display: { ...x.display, karaokeSyllables } })).catch(
+            () => {
+              setOptimistic(null);
+              toast.show({ message: 'Could not save this choice.' });
+            },
+          );
+        }}
+      >
+        Split into syllables
+      </ChipButton>
+    </div>
   );
 }

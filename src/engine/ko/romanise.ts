@@ -303,22 +303,26 @@ function applyRules(syls: Syl[]): void {
   }
 }
 
-function romaniseRun(run: string, mode: KoMode): string {
+/** Romanisation of a Hangul run, one string per syllable (after sound changes, so the pieces join into the word). */
+function romaniseRunParts(run: string, mode: KoMode): string[] {
   const syls = [...run].map(decompose);
   if (mode === 'pronunciation') applyRules(syls);
-  let out = '';
+  const parts: string[] = [];
   for (let i = 0; i < syls.length; i++) {
     const s = syls[i]!;
     const prev = syls[i - 1];
     let ini = INITIAL_ROMAN[s.L] ?? '';
     // ㄹ is "l" when it follows a final ㄹ (ㄹㄹ → ll), "r" otherwise.
     if (s.L === 'ㄹ' && prev && prev.T.length > 0 && prev.T[prev.T.length - 1] === 'ㄹ') ini = 'l';
-    out += ini + (VOWEL_ROMAN[s.V] ?? '');
-    if (mode === 'pronunciation') out += s.T.map((j) => FINAL_SOUND_ROMAN[j] ?? '').join('');
-    else out += FINAL_LETTER_ROMAN[composeFinalLetter(s.T)] ?? '';
+    let part = ini + (VOWEL_ROMAN[s.V] ?? '');
+    if (mode === 'pronunciation') part += s.T.map((j) => FINAL_SOUND_ROMAN[j] ?? '').join('');
+    else part += FINAL_LETTER_ROMAN[composeFinalLetter(s.T)] ?? '';
+    parts.push(part);
   }
-  return out;
+  return parts;
 }
+
+const romaniseRun = (run: string, mode: KoMode): string => romaniseRunParts(run, mode).join('');
 
 const CLUSTER: Record<string, string> = {
   ㄱㅅ: 'ㄳ',
@@ -363,6 +367,40 @@ export function romaniseEojeol(word: string, mode: KoMode = 'pronunciation'): st
   }
   flush();
   return out;
+}
+
+/**
+ * The same romanisation as `romaniseEojeol`, split at Hangul syllable boundaries. Because it comes from the
+ * pronunciation pipeline, each piece reflects sound changes (좋다 → jo, ta; 있어요 → i, sseo, yo) and
+ * `parts.join('')` always equals `romaniseEojeol(word, mode)`. Characters outside Hangul syllables stay attached to
+ * the preceding piece.
+ */
+export function romaniseEojeolSyllables(word: string, mode: KoMode = 'pronunciation'): string[] {
+  if (mode === 'pronunciation') {
+    for (const [key, pron] of KO_EXCEPTIONS) {
+      if (word === key) return romaniseRunParts(pron, 'pronunciation');
+    }
+  }
+  const parts: string[] = [];
+  let run = '';
+  const flush = () => {
+    if (run) parts.push(...romaniseRunParts(run, mode));
+    run = '';
+  };
+  const attach = (text: string) => {
+    if (parts.length > 0) parts[parts.length - 1] += text;
+    else parts.push(text);
+  };
+  for (const ch of word) {
+    const cp = ch.codePointAt(0)!;
+    if (isHangulSyllable(cp)) run += ch;
+    else {
+      flush();
+      attach(COMPAT[ch] ?? ch);
+    }
+  }
+  flush();
+  return parts;
 }
 
 /** Romanises text word by word (whitespace-delimited); whitespace is preserved. */

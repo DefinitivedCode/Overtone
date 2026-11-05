@@ -362,3 +362,13 @@ Date: 2026-11-05
 - WebKit lost verified tokenizer entries after reload when installation started in an uncontrolled page. The installer now waits for service-worker control. The manifest request can finish after navigation, which resolved a separate WebKit cancellation error. See ADR 0011.
 - Browser regressions exposed races around hard reload, offline emulation and the Undo clock. The tests now wait for the relevant state, start cold reloads offline and use the app's actual Undo timer. The expiry, reload, layout and accessibility assertions remain in place.
 - Desktop browser timings and the worker memory snapshot are proxies. Native iOS standalone storage, memory and rendering remain unverified. See `docs/KNOWN_LIMITATIONS.md` for Japanese reading ambiguity and resource recovery.
+
+---
+
+## UX refinement checkpoint (between M8 and M9) — done
+
+Date: 2026-11-05. Triggered by the owner's manual preview.
+
+- Learn: reading-first layout (default) with English in the reading row, or original-first, chosen in Settings. Karaoke: Korean "Split into syllables" toggle (persisted, Karaoke-only). Chips read KR/JP/CN/HK (full names for assistive tech; stored codes unchanged). Settings regrouped into Lyrics & appearance, Pronunciation (per-language disclosures), Offline language downloads, Backup & storage, About & licences. See ADR 0012.
+- Tests: 449 unit/engine/tooling (3 new); browser suite 392 passing before the test updates below, with 8 failures that were stale expectations (22→24 px Learn size, controls now behind disclosures); updated and re-run for modes, packs and screens. Changed expectations reflect the requested design change, not weakened assertions.
+- Not verified: real iPhone rendering of the new Learn layout (WebKit desktop emulation only).

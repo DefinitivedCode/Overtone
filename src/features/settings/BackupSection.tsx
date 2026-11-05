@@ -70,10 +70,12 @@ export function BackupSection() {
             {error}
           </Banner>
         ) : null}
-        <Button onClick={() => void doExport()} disabled={busy}>
-          Export backup
-        </Button>
-        <ImportFlow />
+        <div className={s['actions']}>
+          <Button onClick={() => void doExport()} disabled={busy}>
+            Export backup
+          </Button>
+          <ImportFlow />
+        </div>
         <p className={s['row']}>
           Last backup: <strong>{formatLastBackup(settings?.backup.lastExportAt ?? null)}</strong>
         </p>

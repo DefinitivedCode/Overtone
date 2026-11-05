@@ -1,14 +1,21 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
 import type { PageWithAllow } from './fixtures';
-import { addSong, expectAxeClean, expectNoOverflow, setTheme, WIDTHS } from './helpers';
+import {
+  addSong,
+  expectAxeClean,
+  expectNoOverflow,
+  setTheme,
+  WIDTHS,
+  openPronunciation,
+} from './helpers';
 
 const MANDARIN = '我爱你\n你好吗';
 const CANTONESE = '我哋喺度\n唔該晒';
 
 const packRow = (page: Page, name: string) =>
   page
-    .getByRole('region', { name: 'Offline language data' })
+    .getByRole('region', { name: 'Offline language downloads' })
     .getByRole('listitem')
     .filter({ hasText: name });
 
@@ -101,6 +108,7 @@ test.describe('language packs (Mandarin, Cantonese)', () => {
 
     await page.getByRole('link', { name: /Library/ }).click();
     await page.getByRole('link', { name: 'Settings' }).click();
+    await openPronunciation(page, 'Mandarin');
     await page.getByRole('switch', { name: /Apply 一 \/ 不 tone changes/ }).check({ force: true });
     await page.getByRole('radio', { name: /Numbers/ }).check({ force: true });
     await page.getByRole('link', { name: /Library/ }).click();
@@ -187,7 +195,7 @@ test.describe('language packs (Mandarin, Cantonese)', () => {
     test(`Chinese modes wrap and pass accessibility checks in ${theme}`, async ({ page }, info) => {
       await page.setViewportSize({ width: 375, height: 812 });
       await setTheme(page, theme);
-      const settings = page.getByRole('region', { name: 'Offline language data' });
+      const settings = page.getByRole('region', { name: 'Offline language downloads' });
       await expect(settings.getByRole('button', { name: /Download ·/ })).toHaveCount(3);
       await expectAxeClean(page, `pack settings before install, ${theme}`);
       for (const language of ['Mandarin', 'Cantonese'] as const) {

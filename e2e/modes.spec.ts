@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
-import { JA, KO, addSong } from './helpers';
+import { JA, KO, addSong, openPronunciation } from './helpers';
 
 const learnList = (page: Page) => page.getByRole('list', { name: 'Lyrics' });
 
@@ -17,10 +17,11 @@ test.describe('Korean song: Learn, Karaoke, Clean', () => {
     await expect(list.locator('rt[aria-hidden="true"]', { hasText: 'naneun' })).toHaveCount(1);
     await expect(list.locator('rt', { hasText: 'noraehae' })).toHaveCount(1);
     await expect(list.getByText('[Chorus]')).toBeVisible();
-    // English is shown as written, with no annotation; Hanja gets an unobtrusive "?" marker.
-    await expect(
-      list.locator('p', { hasText: 'baby' }).locator('rt', { hasText: 'baby' }),
-    ).toHaveCount(0);
+    // Reading first: English joins the reading row (its base text stays for copy and screen readers);
+    // Hanja gets an unobtrusive "?" marker.
+    const english = list.locator('p', { hasText: 'baby' });
+    await expect(english.locator('rt', { hasText: 'baby' })).toHaveCount(1);
+    await expect(english.locator('ruby span[lang="en"]', { hasText: 'baby' })).toHaveCount(1);
     await expect(list.locator('rt', { hasText: '?' })).toHaveCount(1);
     // sections have no check button; lyric lines do
     await expect(list.getByRole('button', { name: /Mark line \d+ as learned/ })).toHaveCount(5);
@@ -82,6 +83,60 @@ test.describe('Korean song: Learn, Karaoke, Clean', () => {
     ).toBeVisible();
   });
 
+  test('Karaoke can split Korean into syllables; the choice persists and leaves Learn and Clean alone', async ({
+    page,
+  }) => {
+    await page.goto('/');
+    await addSong(page, {
+      title: 'Syl',
+      lyrics: `${KO}
+baby 좋다`,
+    });
+    await page.getByRole('radio', { name: 'Karaoke' }).check({ force: true });
+    const group = page.getByRole('group', { name: 'Romanised lyrics' });
+    await expect(group.getByText('naneun noraehae', { exact: true })).toBeVisible();
+    const toggle = page.getByRole('button', { name: 'Split into syllables' });
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    await expect(group.getByText('na-neun no-rae-hae', { exact: true })).toBeVisible();
+    await expect(group).toContainText('baby jo-ta'); // English untouched, sound change respected
+    await page.getByRole('link', { name: /Library/ }).click();
+    await page.getByRole('link', { name: /Syl/ }).click();
+    await page.reload();
+    await expect(page.getByRole('button', { name: 'Split into syllables' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    await expect(group.getByText('na-neun no-rae-hae', { exact: true })).toBeVisible();
+    await page.getByRole('radio', { name: 'Clean' }).check({ force: true });
+    await page.getByRole('radio', { name: 'Romanised' }).check({ force: true });
+    await expect(
+      page.locator('article[aria-label="Lyrics"]').getByText('naneun noraehae'),
+    ).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Split into syllables' })).toHaveCount(0);
+    await page.getByRole('radio', { name: 'Learn' }).check({ force: true });
+    await expect(page.locator('rt', { hasText: 'naneun' })).toHaveCount(1);
+  });
+
+  test('Learn layout can switch to original first, keeping English in the line', async ({
+    page,
+  }) => {
+    await page.goto('/');
+    await addSong(page, { title: 'Layout', lyrics: 'baby 사랑해' });
+    const list = learnList(page);
+    await expect(list.locator('rt', { hasText: 'saranghae' })).toBeVisible();
+    await expect(list.locator('rt', { hasText: 'baby' })).toHaveCount(1);
+    await page.getByRole('link', { name: 'Library' }).click();
+    await page.getByRole('link', { name: 'Settings' }).click();
+    await page.getByRole('radio', { name: 'Original first' }).check({ force: true });
+    await page.getByRole('link', { name: 'Library' }).click();
+    await page.getByRole('link', { name: /Layout/ }).click();
+    await expect(list.locator('rt', { hasText: 'saranghae' })).toBeVisible();
+    await expect(list.locator('rt', { hasText: 'baby' })).toHaveCount(0);
+    await expect(list).toContainText('baby');
+  });
+
   test('mode is remembered per song', async ({ page }) => {
     await page.goto('/');
     await addSong(page, { title: 'Song A', lyrics: KO });
@@ -105,6 +160,7 @@ test.describe('Korean song: Learn, Karaoke, Clean', () => {
     await expect(group).toContainText('joa kkochi');
     await page.getByRole('link', { name: /Library/ }).click();
     await page.getByRole('link', { name: 'Settings' }).click();
+    await openPronunciation(page, 'Korean');
     await page.getByRole('radio', { name: 'Letter by letter' }).check({ force: true });
     await page.getByRole('link', { name: /Library/ }).click();
     await page.getByRole('link', { name: /Mode test/ }).click();
@@ -128,7 +184,7 @@ test.describe('Korean song: Learn, Karaoke, Clean', () => {
         .locator('p')
         .first()
         .evaluate((el) => parseFloat(getComputedStyle(el).fontSize)),
-    ).toBeCloseTo(22 * 1.25, 0);
+    ).toBeCloseTo(24 * 1.25, 0);
     await page.getByRole('radio', { name: 'Karaoke' }).check({ force: true });
     expect(
       await page

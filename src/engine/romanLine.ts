@@ -1,5 +1,5 @@
 /** Render-time projections of analysed tokens (ARCHITECTURE §4.4): romanisation preferences never need re-analysis. */
-import { romaniseEojeol } from './ko/romanise';
+import { romaniseEojeol, romaniseEojeolSyllables } from './ko/romanise';
 import type { KoMode } from './ko/romanise';
 import type { Token } from './model';
 import { zhDisplay } from './zh/pinyin';
@@ -46,12 +46,27 @@ const ASCII_PUNCT: Readonly<Record<string, string>> = {
 
 const toAscii = (s: string) => Array.from(s, (c) => ASCII_PUNCT[c] ?? c).join('');
 
+/** Joins the pieces of a syllable-separated Korean word. */
+export const SYLLABLE_SEPARATOR = '-';
+
+/** Display options that are not romanisation preferences (Karaoke only). */
+export interface RomanOptions {
+  /** Korean: separate romanised syllables, e.g. sa-rang-hae. Mandarin and Cantonese are always per syllable. */
+  syllables?: boolean;
+}
+
 /** Romanisation of one token under the user's preferences; falls back to the original text (never blank, J5.4). */
-export function tokenRoman(t: Token, prefs: RomanPrefs = DEFAULT_ROMAN_PREFS): string {
+export function tokenRoman(
+  t: Token,
+  prefs: RomanPrefs = DEFAULT_ROMAN_PREFS,
+  opts: RomanOptions = {},
+): string {
   if (t.kind === 'space') return ' ';
   if (t.kind === 'punct') return toAscii(t.surface);
   if (t.kind === 'word' && t.lang === 'ko' && t.roman !== null)
-    return romaniseEojeol(t.surface, prefs.ko.mode);
+    return opts.syllables
+      ? romaniseEojeolSyllables(t.surface, prefs.ko.mode).join(SYLLABLE_SEPARATOR)
+      : romaniseEojeol(t.surface, prefs.ko.mode);
   return t.roman ?? t.surface;
 }
 
@@ -78,9 +93,10 @@ export function tokenUnits(
 export function romaniseLine(
   tokens: readonly Token[],
   prefs: RomanPrefs = DEFAULT_ROMAN_PREFS,
+  opts: RomanOptions = {},
 ): string {
   if (tokens.some((token) => token.lang === 'ja' && token.reading !== null))
-    return japaneseRomanRuns(tokens, prefs)
+    return japaneseRomanRuns(tokens, prefs, opts)
       .map((run) => run.text)
       .join('')
       .trim();
@@ -90,7 +106,7 @@ export function romaniseLine(
   tokens.forEach((t, i) => {
     const u = units[i];
     const annotated = !!u && t.ruby.length > 0;
-    const r = annotated ? u.join(' ') : tokenRoman(t, prefs);
+    const r = annotated ? u.join(' ') : tokenRoman(t, prefs, opts);
     // Chinese words follow each other without spaces in the text; keep their syllables apart.
     if (annotated && prevUnits && !out.endsWith(' ')) out += ' ';
     out += r === ' ' && out.endsWith(' ') ? '' : r;
@@ -100,7 +116,11 @@ export function romaniseLine(
 }
 
 /** Japanese reading groups keep conjugation boundaries inside Hepburn, e.g. しまっ + た. */
-export function japaneseRomanRuns(tokens: readonly Token[], prefs: RomanPrefs) {
+export function japaneseRomanRuns(
+  tokens: readonly Token[],
+  prefs: RomanPrefs,
+  opts: RomanOptions = {},
+) {
   const runs: { text: string; lang?: string }[] = [];
   let prior: Token | undefined;
   const word = (token: Token) => !['space', 'punct', 'symbol'].includes(token.kind);
@@ -135,7 +155,7 @@ export function japaneseRomanRuns(tokens: readonly Token[], prefs: RomanPrefs) {
       );
     } else {
       runs.push({
-        text: tokenRoman(token, prefs),
+        text: tokenRoman(token, prefs, opts),
         lang: token.lang === 'en' ? 'en' : isJapanese ? 'ja' : undefined,
       });
     }

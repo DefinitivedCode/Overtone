@@ -166,3 +166,11 @@ export async function showClean(page: Page): Promise<void> {
   await page.getByRole('radio', { name: 'Clean' }).check({ force: true });
   await expect(page.locator('article[aria-label="Lyrics"]')).toBeVisible();
 }
+
+/** Opens a language's pronunciation options in Settings (they sit behind a disclosure). */
+export async function openPronunciation(
+  page: Page,
+  language: 'Korean' | 'Japanese' | 'Mandarin' | 'Cantonese',
+): Promise<void> {
+  await page.locator('summary').filter({ hasText: language }).click();
+}

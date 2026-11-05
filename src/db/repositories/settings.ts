@@ -11,6 +11,7 @@ export const DEFAULT_SETTINGS: Settings = {
     ko: { mode: 'pronunciation' },
     zh: { tones: 'marks', sandhi: false },
   },
+  display: { learnEmphasis: 'reading', karaokeSyllables: false },
   library: { query: '', filter: 'all', sort: 'opened' },
   backup: {
     lastExportAt: null,
@@ -34,6 +35,7 @@ export function withDefaults(stored: Partial<Settings> | undefined): Settings {
       ko: { ...d.romanisation.ko, ...s.romanisation?.ko },
       zh: { ...d.romanisation.zh, ...s.romanisation?.zh },
     },
+    display: { ...d.display, ...s.display },
     library: { ...d.library, ...s.library },
     backup: { ...d.backup, ...s.backup },
     storage: { ...d.storage, ...s.storage },

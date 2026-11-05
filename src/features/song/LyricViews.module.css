@@ -19,7 +19,7 @@
   overflow-wrap: anywhere;
 }
 [data-line-index] {
-  scroll-margin-top: 112px;
+  scroll-margin-top: calc(112px + var(--sticky-extra, 0px));
 }
 
 /* ---------- Learn ---------- */
@@ -70,8 +70,8 @@
   min-width: 0;
   margin: 0;
   padding-top: 0.55em;
-  font-size: calc(22px * var(--lyric-scale));
-  line-height: 1.5;
+  font-size: calc(24px * var(--lyric-scale));
+  line-height: 1.4;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   transition: color calc(200ms * var(--motion-scale));
@@ -80,9 +80,9 @@
   ruby-position: over;
 }
 .learnText rt {
-  font-size: 0.52em;
+  font-size: 0.66em;
+  font-weight: 500;
   color: var(--annotation);
-  font-feature-settings: 'case';
   overflow-wrap: anywhere;
 }
 .romaji {
@@ -90,6 +90,32 @@
   margin-top: 0.25em;
   font-size: 0.68em;
   color: var(--text-secondary);
+}
+
+/* Reading first (default): the romanisation is the line you sing, so it is the larger row; the original script sits
+   beneath it, aligned word for word. Japanese keeps furigana small and enlarges the romaji line instead. */
+.learn[data-emphasis='reading']:not([data-script='ja']) .learnText ruby {
+  font-size: 0.82em;
+}
+.learn[data-emphasis='reading']:not([data-script='ja']) .learnText rt {
+  font-size: 1.16em;
+  line-height: 1.25;
+}
+.learn[data-emphasis='reading'][data-script='ja'] .romaji {
+  font-size: 0.85em;
+  color: var(--annotation);
+  font-weight: 500;
+}
+/* Invisible, not removed: the lyric text stays in the DOM for copy, search and screen readers. */
+.englishBase {
+  color: transparent;
+}
+.english rt {
+  color: var(--text);
+  font-weight: 400;
+}
+.learnLine[data-learned='true'] .english rt {
+  color: var(--learned);
 }
 .learnLine[data-learned='true'] .learnText,
 .learnLine[data-learned='true'] .learnText rt {

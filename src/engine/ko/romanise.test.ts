@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { hasHangul, romaniseEojeol, romaniseKorean } from './romanise';
+import { hasHangul, romaniseEojeol, romaniseEojeolSyllables, romaniseKorean } from './romanise';
 
 interface Fx {
   id: string;
@@ -101,5 +101,28 @@ describe('invariants', () => {
       const out = romaniseKorean(f.text);
       expect(out).toMatch(/^[a-z ]+$/);
     }
+  });
+});
+
+describe('syllable separation', () => {
+  it('splits after sound changes, not at fixed positions in the romanised string', () => {
+    expect(romaniseEojeolSyllables('사랑해')).toEqual(['sa', 'rang', 'hae']);
+    expect(romaniseEojeolSyllables('좋다')).toEqual(['jo', 'ta']);
+    expect(romaniseEojeolSyllables('있어요')).toEqual(['i', 'sseo', 'yo']);
+    expect(romaniseEojeolSyllables('같이')).toEqual(['ga', 'chi']);
+    expect(romaniseEojeolSyllables('음악')).toEqual(['eu', 'mak']);
+    expect(romaniseEojeolSyllables('꽃잎')).toEqual(['kkon', 'nip']); // exception table
+  });
+  it('always joins back to the word-level romanisation, in both modes', () => {
+    for (const f of fixtures) {
+      for (const word of f.text.split(/\s+/u).filter(Boolean)) {
+        for (const mode of ['pronunciation', 'letters'] as const)
+          expect(romaniseEojeolSyllables(word, mode).join('')).toBe(romaniseEojeol(word, mode));
+      }
+    }
+  });
+  it('keeps non-Hangul characters attached and never returns an empty list for text', () => {
+    expect(romaniseEojeolSyllables('사랑!')).toEqual(['sa', 'rang!']);
+    expect(romaniseEojeolSyllables('baby')).toEqual(['baby']);
   });
 });
