@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="121" height="22" role="img" aria-label="PWA: installable">
+  <title>PWA: installable</title>
+  <clipPath id="r"><rect width="121" height="22" rx="4"/></clipPath>
+  <g clip-path="url(#r)">
+    <rect width="34" height="22" fill="#3C3842"/>
+    <rect x="34" width="87" height="22" fill="#17141A"/>
+  </g>
+  <g fill="#fff" font-family="Verdana,DejaVu Sans,Geneva,sans-serif" font-size="11" text-anchor="middle">
+    <text x="17" y="15">PWA</text>
+    <text x="77.5" y="15" font-weight="700">installable</text>
+  </g>
+</svg>

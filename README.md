@@ -7,15 +7,19 @@
 **Learn the songs you love: read the lyrics, understand every word, and sing along.**
 A local-first lyrics learner for Korean, Japanese, Mandarin and Cantonese.
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-E5533A?style=flat-square)](LICENSE)
-[![PWA](https://img.shields.io/badge/PWA-installable-17141A?style=flat-square&logo=pwa&logoColor=white)](#install-it)
-[![Offline first](https://img.shields.io/badge/offline-first-2F6B3A?style=flat-square)](#principles)
-[![No backend](https://img.shields.io/badge/backend-none-5E5763?style=flat-square)](#principles)
-[![No tracking](https://img.shields.io/badge/tracking-none-5E5763?style=flat-square)](#principles)
-[![React 19](https://img.shields.io/badge/React-19-149ECA?style=flat-square&logo=react&logoColor=white)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vite.dev)
-[![Playwright](https://img.shields.io/badge/tested%20with-Playwright-45BA4B?style=flat-square&logo=playwright&logoColor=white)](https://playwright.dev)
+<p>
+  <a href="LICENSE"><img src="docs/badges/license.svg" alt="License: MIT"></a>
+  <a href="#install-it"><img src="docs/badges/pwa.svg" alt="PWA: installable"></a>
+  <a href="#principles"><img src="docs/badges/offline.svg" alt="Offline first"></a>
+  <a href="#principles"><img src="docs/badges/backend.svg" alt="No backend"></a>
+  <a href="#principles"><img src="docs/badges/tracking.svg" alt="No tracking"></a>
+  <img src="docs/badges/languages.svg" alt="Languages: Korean, Japanese, Mandarin, Cantonese">
+  <br>
+  <img src="docs/badges/react.svg" alt="React 19">
+  <img src="docs/badges/typescript.svg" alt="TypeScript strict">
+  <img src="docs/badges/vite.svg" alt="Vite 8">
+  <img src="docs/badges/playwright.svg" alt="Tested with Playwright">
+</p>
 
 [Features](#features) · [Screenshots](#screenshots) · [Install it](#install-it) · [Run it locally](#run-it-locally) · [Deploy](#deploy-your-own) · [How it works](#how-it-works) · [Contributing](CONTRIBUTING.md)
 
