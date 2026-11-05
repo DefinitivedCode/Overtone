@@ -24,6 +24,11 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    // Plain JS tooling (spike harnesses): Node scripts that also contain page.evaluate() browser code.
+    files: ['**/*.{js,mjs,cjs}'],
+    languageOptions: { globals: { ...globals.node, ...globals.browser } },
+  },
+  {
     files: ['**/*.{ts,tsx}'],
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
     plugins: { 'react-hooks': reactHooks, 'jsx-a11y': jsxA11y },

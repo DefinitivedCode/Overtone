@@ -1,0 +1,552 @@
+[
+  {
+    "id": "ja-starter-001",
+    "lang": "ja",
+    "text": "君の名前を呼んでいた",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "きみのなまえをよんでいた"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-002",
+    "lang": "ja",
+    "text": "空を見ていた",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "そらをみていた"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-003",
+    "lang": "ja",
+    "text": "明日は晴れるかな",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "あしたははれるかな"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-004",
+    "lang": "ja",
+    "text": "今日も一人で歩く",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "きょうもひとりであるく"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-005",
+    "lang": "ja",
+    "text": "大きな夢を抱いて",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "おおきなゆめをだいて"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-006",
+    "lang": "ja",
+    "text": "東京の夜景が好き",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "とうきょうのやけいがすき"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-007",
+    "lang": "ja",
+    "text": "桜が咲く季節に",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "さくらがさくきせつに"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-008",
+    "lang": "ja",
+    "text": "愛してるって言えなくて",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "あいしてるっていえなくて"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-009",
+    "lang": "ja",
+    "text": "心の奥で叫んでる",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "こころのおくでさけんでる"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-010",
+    "lang": "ja",
+    "text": "時間が止まればいいのに",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "じかんがとまればいいのに"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-011",
+    "lang": "ja",
+    "text": "星空の下で",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ほしぞらのしたで"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-012",
+    "lang": "ja",
+    "text": "涙が止まらない",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "なみだがとまらない"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-013",
+    "lang": "ja",
+    "text": "優しい声が聞こえる",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "やさしいこえがきこえる"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-014",
+    "lang": "ja",
+    "text": "昨日の雨は上がった",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "きのうのあめはあがった"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-015",
+    "lang": "ja",
+    "text": "二人で歩いた道",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ふたりであるいたみち"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-016",
+    "lang": "ja",
+    "text": "春の風が吹いている",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "はるのかぜがふいている"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-017",
+    "lang": "ja",
+    "text": "夏の終わりの花火",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "なつのおわりのはなび"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-018",
+    "lang": "ja",
+    "text": "秋の空は高く",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "あきのそらはたかく"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-019",
+    "lang": "ja",
+    "text": "冬の朝は寒い",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ふゆのあさはさむい"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-020",
+    "lang": "ja",
+    "text": "友達と笑い合った",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ともだちとわらいあった"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-021",
+    "lang": "ja",
+    "text": "先生に会いに行く",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "せんせいにあいにいく"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-022",
+    "lang": "ja",
+    "text": "映画を見に行こう",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "えいがをみにいこう"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-023",
+    "lang": "ja",
+    "text": "未来へ向かって",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "みらいへむかって"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-024",
+    "lang": "ja",
+    "text": "強くなりたいと願った",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "つよくなりたいとねがった"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-025",
+    "lang": "ja",
+    "text": "君に伝えたいことがある",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "きみにつたえたいことがある"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-026",
+    "lang": "ja",
+    "text": "一日中君を想ってた",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "いちにちじゅうきみをおもってた"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-027",
+    "lang": "ja",
+    "text": "何も言わずに",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "なにもいわずに"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-028",
+    "lang": "ja",
+    "text": "手を繋いで歩こう",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "てをつないであるこう"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-029",
+    "lang": "ja",
+    "text": "遠い街へ旅立つ",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "とおいまちへたびだつ"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-030",
+    "lang": "ja",
+    "text": "海の向こうに",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "うみのむこうに"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-031",
+    "lang": "ja",
+    "text": "窓の外は雨",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "まどのそとはあめ"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-032",
+    "lang": "ja",
+    "text": "夜明け前の静けさ",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "よあけまえのしずけさ"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-033",
+    "lang": "ja",
+    "text": "揺れる想い",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ゆれるおもい"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-034",
+    "lang": "ja",
+    "text": "忘れないよ",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "わすれないよ"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-035",
+    "lang": "ja",
+    "text": "約束の場所で",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "やくそくのばしょで"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-036",
+    "lang": "ja",
+    "text": "光の中へ",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ひかりのなかへ"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-037",
+    "lang": "ja",
+    "text": "少しだけ寂しい",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "すこしだけさびしい"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-038",
+    "lang": "ja",
+    "text": "毎日が宝物",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "まいにちがたからもの"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-039",
+    "lang": "ja",
+    "text": "本当の気持ち",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ほんとうのきもち"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-040",
+    "lang": "ja",
+    "text": "人々の声",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ひとびとのこえ"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-041",
+    "lang": "ja",
+    "text": "三人で乾杯",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "さんにんでかんぱい"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-042",
+    "lang": "ja",
+    "text": "一つだけの願い",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ひとつだけのねがい"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-043",
+    "lang": "ja",
+    "text": "コーヒーを飲みながら",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "こーひーをのみながら"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-044",
+    "lang": "ja",
+    "text": "恋をしている",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "こいをしている"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-045",
+    "lang": "ja",
+    "text": "風に乗って",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "かぜにのって"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-046",
+    "lang": "ja",
+    "text": "夢を見ていた",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ゆめをみていた"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-047",
+    "lang": "ja",
+    "text": "雪が降る街",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ゆきがふるまち"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-048",
+    "lang": "ja",
+    "text": "始まりの歌",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "はじまりのうた"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-049",
+    "lang": "ja",
+    "text": "今年の夏",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ことしのなつ"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "ja-starter-050",
+    "lang": "ja",
+    "text": "大人になっても",
+    "source": "original (written for Overtone); readings written by the implementer and not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "おとなになっても"
+    },
+    "tags": [],
+    "reviewed": false
+  }
+]

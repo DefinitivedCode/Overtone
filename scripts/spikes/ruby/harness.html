@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0 16px;
+        font:
+          17px/1.4 -apple-system,
+          system-ui,
+          sans-serif;
+        background: #f6f2ec;
+        color: #1b181e;
+      }
+      .line {
+        font-size: 22px;
+        line-height: 1.1;
+        margin: 16px 0;
+        overflow-wrap: anywhere;
+      }
+      button.tok {
+        all: unset;
+        display: inline;
+        padding: 0 4px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+      rt {
+        font-size: 0.52em;
+        color: #b23a26;
+        ruby-position: over;
+      }
+      /* Variant B: inline-flex stack */
+      .b button.tok {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        vertical-align: bottom;
+        padding: 0 4px;
+        min-height: 44px;
+        justify-content: flex-end;
+      }
+      .b .rt {
+        font-size: 0.52em;
+        line-height: 1.2;
+        color: #b23a26;
+        white-space: nowrap;
+      }
+      .b .base {
+        white-space: pre;
+      }
+      h2 {
+        font: 600 13px system-ui;
+        margin: 24px 0 0;
+        color: #5e5763;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="a"><h2>A: native &lt;ruby&gt; inside &lt;button&gt;</h2></div>
+    <div id="b" class="b"><h2>B: inline-flex stack</h2></div>
+    <script>
+      const lines = [
+        {
+          lang: 'ko',
+          toks: [
+            ['정말', 'jeongmal'],
+            ['감사합니다', 'gamsahamnida'],
+            ['사랑해', 'saranghae'],
+            ['보고', 'bogo'],
+            ['싶어', 'sipeo'],
+          ],
+        },
+        {
+          lang: 'zh-Hans',
+          toks: [
+            ['装', 'zhuāng'],
+            ['满', 'mǎn'],
+            ['了', 'le'],
+            ['我', 'wǒ'],
+            ['的', 'de'],
+            ['爱', 'ài'],
+            ['情', 'qíng'],
+            ['和', 'hé'],
+            ['梦', 'mèng'],
+            ['想', 'xiǎng'],
+          ],
+        },
+        {
+          lang: 'ja',
+          toks: [
+            ['今日', 'きょう'],
+            ['は', ''],
+            ['晴', 'は'],
+            ['れ', ''],
+            ['る', ''],
+            ['大人', 'おとな'],
+            ['になっても', ''],
+          ],
+        },
+        {
+          lang: 'ko',
+          toks: [
+            ['abcdefghij', 'abcdefghij'],
+            ['가', 'geuriwoyoseongsilsaranghaeyo'],
+            ['나', 'na'],
+          ],
+        },
+      ];
+      function mkA(l) {
+        const d = document.createElement('div');
+        d.className = 'line';
+        d.lang = l.lang;
+        for (const [base, rt] of l.toks) {
+          const b = document.createElement('button');
+          b.className = 'tok';
+          b.type = 'button';
+          const r = document.createElement('ruby');
+          r.append(document.createTextNode(base));
+          if (rt) {
+            const t = document.createElement('rt');
+            t.textContent = rt;
+            r.append(t);
+          }
+          b.append(r);
+          d.append(b);
+        }
+        return d;
+      }
+      function mkB(l) {
+        const d = document.createElement('div');
+        d.className = 'line';
+        d.lang = l.lang;
+        for (const [base, rt] of l.toks) {
+          const b = document.createElement('button');
+          b.className = 'tok';
+          b.type = 'button';
+          const r = document.createElement('span');
+          r.className = 'rt';
+          r.textContent = rt || ' ';
+          const s = document.createElement('span');
+          s.className = 'base';
+          s.textContent = base;
+          b.append(r, s);
+          d.append(b);
+        }
+        return d;
+      }
+      for (const l of lines) {
+        document.getElementById('a').append(mkA(l));
+        document.getElementById('b').append(mkB(l));
+      }
+      window.measure = () => {
+        const out = {};
+        for (const id of ['a', 'b']) {
+          const root = document.getElementById(id);
+          const toks = [...root.querySelectorAll('button.tok')];
+          let rtOutside = 0,
+            tapSmall = 0,
+            collisions = 0;
+          const rects = toks.map((t) => {
+            const rt = t.querySelector('rt, .rt');
+            const base = t.querySelector('ruby, .base');
+            const tr = t.getBoundingClientRect();
+            const rr = rt && rt.textContent.trim() ? rt.getBoundingClientRect() : null;
+            if (rr && (rr.left < tr.left - 1 || rr.right > tr.right + 1)) rtOutside++;
+            if (tr.height < 36) tapSmall++;
+            return { tr, rr };
+          });
+          for (let i = 0; i < rects.length; i++)
+            for (let j = i + 1; j < rects.length; j++) {
+              const a = rects[i].rr,
+                b = rects[j].rr;
+              if (!a || !b) continue;
+              if (Math.abs(a.top - b.top) < 4 && a.left < b.right - 0.5 && b.left < a.right - 0.5)
+                collisions++;
+            }
+          out[id] = {
+            tokens: toks.length,
+            rtOutsideToken: rtOutside,
+            rtCollisions: collisions,
+            tokensShorterThan36px: tapSmall,
+            scrollW: document.scrollingElement.scrollWidth,
+            clientW: document.documentElement.clientWidth,
+            lineHeights: [...root.querySelectorAll('.line')].map((l) =>
+              Math.round(l.getBoundingClientRect().height),
+            ),
+          };
+        }
+        return out;
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,443 @@
+[
+  {
+    "id": "yue-starter-001",
+    "lang": "yue",
+    "text": "嘅",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ge3"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-002",
+    "lang": "yue",
+    "text": "咗",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "zo2"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-003",
+    "lang": "yue",
+    "text": "唔",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "m4"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-004",
+    "lang": "yue",
+    "text": "冇",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "mou5"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-005",
+    "lang": "yue",
+    "text": "佢哋",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "keoi5 dei6"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-006",
+    "lang": "yue",
+    "text": "喺",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "hai2"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-007",
+    "lang": "yue",
+    "text": "嘢",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "je5"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-008",
+    "lang": "yue",
+    "text": "啲",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "di1"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-009",
+    "lang": "yue",
+    "text": "嚟",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "lai4"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-010",
+    "lang": "yue",
+    "text": "睇",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "tai2"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-011",
+    "lang": "yue",
+    "text": "瞓",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "fan3"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-012",
+    "lang": "yue",
+    "text": "搵",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "wan2"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-013",
+    "lang": "yue",
+    "text": "揾",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "wan2"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-014",
+    "lang": "yue",
+    "text": "我愛你",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ngo5 oi3 nei5"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-015",
+    "lang": "yue",
+    "text": "銀行",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ngan4 hong4"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-016",
+    "lang": "yue",
+    "text": "行路",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "haang4 lou6"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-017",
+    "lang": "yue",
+    "text": "長大",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "zoeng2 daai6"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-018",
+    "lang": "yue",
+    "text": "好長",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "hou2 coeng4"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-019",
+    "lang": "yue",
+    "text": "重要",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "zung6 jiu3"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-020",
+    "lang": "yue",
+    "text": "好重",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "hou2 cung5"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-021",
+    "lang": "yue",
+    "text": "音樂",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "jam1 ngok6"
+    },
+    "tags": [],
+    "reviewed": false,
+    "note": "Corrected during M4: 音樂 is jam1 ngok6 (樂 is ngok6 in 音樂, lok6 in 快樂); the first draft wrongly said jyut6."
+  },
+  {
+    "id": "yue-starter-022",
+    "lang": "yue",
+    "text": "快樂",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "faai3 lok6"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-023",
+    "lang": "yue",
+    "text": "瞓覺",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "fan3 gaau3"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-024",
+    "lang": "yue",
+    "text": "覺得",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "gok3 dak1"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-025",
+    "lang": "yue",
+    "text": "落雨",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "lok6 jyu5"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-026",
+    "lang": "yue",
+    "text": "我哋喺度",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ngo5 dei6 hai2 dou6"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-027",
+    "lang": "yue",
+    "text": "你係邊個",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "nei5 hai6 bin1 go3"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-028",
+    "lang": "yue",
+    "text": "唔該",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "m4 goi1"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-029",
+    "lang": "yue",
+    "text": "點解",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "dim2 gaai2"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-030",
+    "lang": "yue",
+    "text": "乜嘢",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "mat1 je5"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-031",
+    "lang": "yue",
+    "text": "聽日",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ting1 jat6"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-032",
+    "lang": "yue",
+    "text": "今日",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "gam1 jat6"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-033",
+    "lang": "yue",
+    "text": "學校",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "hok6 haau6"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-034",
+    "lang": "yue",
+    "text": "朋友",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "pang4 jau5"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-035",
+    "lang": "yue",
+    "text": "再見",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "zoi3 gin3"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-036",
+    "lang": "yue",
+    "text": "好靚",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "hou2 leng3"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-037",
+    "lang": "yue",
+    "text": "攰",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "gui6"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-038",
+    "lang": "yue",
+    "text": "啱",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "ngaam1"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-039",
+    "lang": "yue",
+    "text": "咁",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "gam3"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "yue-starter-040",
+    "lang": "yue",
+    "text": "嗰度",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "go2 dou6"
+    },
+    "tags": [],
+    "reviewed": false
+  }
+]

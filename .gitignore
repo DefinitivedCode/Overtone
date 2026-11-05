@@ -25,3 +25,5 @@ reports
 playwright-report
 test-results
 *.tsbuildinfo
+
+scripts/spikes/.own-*.mjs

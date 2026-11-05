@@ -1,0 +1,398 @@
+[
+  {
+    "id": "zh-starter-001",
+    "lang": "zh",
+    "text": "银行",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "yín háng"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-002",
+    "lang": "zh",
+    "text": "行走",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "xíng zǒu"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-003",
+    "lang": "zh",
+    "text": "长大",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "zhǎng dà"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-004",
+    "lang": "zh",
+    "text": "很长",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "hěn cháng"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-005",
+    "lang": "zh",
+    "text": "重要",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "zhòng yào"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-006",
+    "lang": "zh",
+    "text": "重新",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "chóng xīn"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-007",
+    "lang": "zh",
+    "text": "还是",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "hái shì"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-008",
+    "lang": "zh",
+    "text": "还钱",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "huán qián"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-009",
+    "lang": "zh",
+    "text": "得到",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "dé dào"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-010",
+    "lang": "zh",
+    "text": "跑得快",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "pǎo de kuài"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-011",
+    "lang": "zh",
+    "text": "我得去",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "wǒ děi qù"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-012",
+    "lang": "zh",
+    "text": "了解",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "liǎo jiě"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-013",
+    "lang": "zh",
+    "text": "走了",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "zǒu le"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-014",
+    "lang": "zh",
+    "text": "睡觉",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "shuì jiào"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-015",
+    "lang": "zh",
+    "text": "觉得",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "jué de"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-016",
+    "lang": "zh",
+    "text": "音乐",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "yīn yuè"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-017",
+    "lang": "zh",
+    "text": "快乐",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "kuài lè"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-018",
+    "lang": "zh",
+    "text": "看着",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "kàn zhe"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-019",
+    "lang": "zh",
+    "text": "着急",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "zháo jí"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-020",
+    "lang": "zh",
+    "text": "一只猫",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "yī zhī māo"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-021",
+    "lang": "zh",
+    "text": "只有",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "zhǐ yǒu"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-022",
+    "lang": "zh",
+    "text": "地方",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "dì fāng"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-023",
+    "lang": "zh",
+    "text": "慢慢地走",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "màn màn de zǒu"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-024",
+    "lang": "zh",
+    "text": "我爱你",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "wǒ ài nǐ"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-025",
+    "lang": "zh",
+    "text": "你好吗",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "nǐ hǎo ma"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-026",
+    "lang": "zh",
+    "text": "朋友们",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "péng yǒu men"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-027",
+    "lang": "zh",
+    "text": "我的歌",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "wǒ de gē"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-028",
+    "lang": "zh",
+    "text": "吃吧",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "chī ba"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-029",
+    "lang": "zh",
+    "text": "我愛你",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "wǒ ài nǐ"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-030",
+    "lang": "zh",
+    "text": "對不起",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "duì bu qǐ"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-031",
+    "lang": "zh",
+    "text": "銀行",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "yín háng"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-032",
+    "lang": "zh",
+    "text": "長大",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "zhǎng dà"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-033",
+    "lang": "zh",
+    "text": "音樂",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "yīn yuè"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-034",
+    "lang": "zh",
+    "text": "覺得",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "jué de"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-035",
+    "lang": "zh",
+    "text": "還是",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "hái shì"
+    },
+    "tags": [],
+    "reviewed": false
+  },
+  {
+    "id": "zh-starter-036",
+    "lang": "zh",
+    "text": "聽見",
+    "source": "original probe words/phrases chosen by the implementer; readings from the implementer's knowledge, not reviewed by a fluent speaker",
+    "expected": {
+      "reading": "tīng jiàn"
+    },
+    "tags": [],
+    "reviewed": false
+  }
+]

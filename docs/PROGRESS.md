@@ -174,3 +174,40 @@ See `docs/TRACEABILITY.md` (generated; 26 covered, 14 partial of 73 ACs at this 
 ### Follow-ups
 
 - M4 next (spikes). Keep initial bundle ≤ 180 KB gzip: engine work must stay behind dynamic imports.
+
+---
+
+## M4 — Language engine spikes — done
+
+Date: 2026-11-05
+
+### Delivered
+
+- ADRs 0002–0007 with measured numbers (`docs/adr/`), spike harnesses under `scripts/spikes/` (+ README), starter fixtures `fixtures/linguistic/{ko 60, ja 50, zh 36, yue 40}/starter.json` (all `reviewed: false`, original text).
+- Decisions (they supersede LANGUAGE_ENGINE implementation defaults, not product requirements):
+  - **Japanese: lindera-wasm (IPADIC) instead of kuromoji.js** — identical accuracy (46/50), 11.4 MB vs 17.0 MB download, +78 MB vs +302 MB Node RSS, works in a module Worker in WebKit and Chromium with no loader shim.
+  - **Korean: own rule module** (no package exceeded ~84 % eojeol on the starter set); lindera ko-dic rejected on size (20.8 MB gz vs 8 MB budget).
+  - **Mandarin: pinyin-pro with `toneSandhi:false` + opencc-js `t2cn` shadow string**; pinyin-pro fails Traditional polyphones (銀行 xíng etc.) and several Simplified ones, so accuracy needs dictionary-informed correction — threshold ≥ 98 % flagged **at risk** for M7.
+  - **Cantonese: to-jyutping** (40/40 on the probe set, native Simplified support, 273 KB gz); opencc not needed for readings.
+  - **Dictionaries:** licences and pins confirmed from the files (CC-CEDICT is CC BY-SA **4.0**; kengdic is CC BY-SA 3.0 / LGPL-2.0, differing from the plan); trimmed pack sizes all within budget (ja-core ≈ 21.1 MB of 25).
+  - **Ruby:** native `<ruby>` inside `<button>` (WebKit and Chromium, 320/375 px, no overflow or collisions).
+- Also delivered ahead of M5: `src/engine/ko/romanise.ts` + `exceptions.ts` (rules 1–10, letter mode) with 93 tests.
+
+### Acceptance
+
+Every ADR has measured numbers and a decision; the "to verify" items of LANGUAGE_ENGINE are resolved or explicitly listed as not measured in the ADRs.
+
+### Verification (actual output)
+
+- `npm run lint` clean; `npm test`: **328 tests passed (14 files)**. Spike scripts re-run and reproduce the ADR numbers (Korean comparison, Chinese probes, tokenizers Node + browser, dictionary sizes, ruby harness).
+- Not measured / limits (also stated in the ADRs): heap in browsers; lindera under our CSP and via the service-worker pack route (→ M8); Korean lemma accuracy; self-authored fixtures (circularity of the own-module 100 %); real iOS ruby rendering.
+
+### Scope deviations / limitations
+
+- kuromoji (named as the default in the plan) replaced by lindera-wasm per ADR 0002 — an implementation detail allowed by AUTONOMOUS_AGENT §3.
+- Wiktionary licence wording not re-verified beyond kaikki's page (listed under ADR 0006 Open items).
+- Spike packages live in `.cache/spikes` (untracked), not in `package.json`.
+
+### Follow-ups
+
+- M5: wire the existing romaniser into the worker pipeline; build eojeol tokenisation, lemma heuristics, particle table; Korean linguistic suite ≥ 120 lines.
