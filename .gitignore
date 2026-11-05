@@ -15,3 +15,13 @@ $RECYCLE.BIN/
 !.env.example
 !.env.sample
 !.env.template
+
+# Overtone build output and caches
+node_modules
+dist
+.cache
+public/packs
+reports
+playwright-report
+test-results
+*.tsbuildinfo

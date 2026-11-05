@@ -1,0 +1,12 @@
+dist
+node_modules
+public/packs
+reports
+playwright-report
+test-results
+package-lock.json
+planning
+.cache
+README.md
+AGENTS.md
+CLAUDE.md
