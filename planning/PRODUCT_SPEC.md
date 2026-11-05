@@ -1,6 +1,6 @@
 # Overtone — Product Specification (v0.1)
 
-> Working folder name `romanised-learner` is a placeholder. The product name is **Overtone** (see [DESIGN_SYSTEM.md §1](DESIGN_SYSTEM.md#1-name-and-brand)).
+> The product name is **Overtone** (see [DESIGN_SYSTEM.md §1](DESIGN_SYSTEM.md#1-name-and-brand)). It was previously called `romanised-learner`.
 
 Requirement keywords: **MUST** = required for v0.1 completion. **SHOULD** = expected unless documented as infeasible with a defensible alternative. **MAY** = optional, only if cheap and non-disruptive. **OUT** = explicitly not in v0.1.
 

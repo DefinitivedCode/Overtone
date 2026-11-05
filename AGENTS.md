@@ -1,4 +1,4 @@
-# romanised-learner — development instructions
+# Overtone — development instructions
 
 lyric learner for canto, mandarin, japanese & korean!
 

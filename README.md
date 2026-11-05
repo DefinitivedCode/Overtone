@@ -8,8 +8,7 @@ Overtone is a local-first app for learning song lyrics in Korean, Japanese, Mand
 - No accounts and no server. Everything stays on your device. You can back up and restore with JSON export/import.
 - Free to run. It has no paid APIs and no hosted AI.
 
-> **Status:** planning complete, implementation not started. The folder is still called `romanised-learner` for now.
-
+> **Status:** planning complete, implementation not started.
 ## Planning
 
 The full engineering plan is in [`planning/`](planning/README.md). Start with [`planning/AUTONOMOUS_AGENT.md`](planning/AUTONOMOUS_AGENT.md).
