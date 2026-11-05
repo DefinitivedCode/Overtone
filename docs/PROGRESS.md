@@ -88,3 +88,49 @@ Brand pipeline + assets · tokens/base/typography CSS · theme resolution · ind
 - M2: move theme/text-size source of truth into the Settings record (keep localStorage mirror).
 - M3: real-browser Sheet E2E (Escape, drag, history back, focus return).
 - M13: large-title collapse, View Transitions, `VITE_BASE` subpath E2E.
+
+---
+
+## M2 — Data layer and backup — done
+
+Date: 2026-11-05
+
+### Checklist (planned)
+
+lyrics parse/diff · Dexie schema v1 + types · repositories (songs, lines, progress, corrections, settings, drafts, meta/marker) · backup format/export/import/migrations/checksum · storage helpers + defensive open · search fold · tests per TEST_STRATEGY §2.1, §2.2, §2.3, §2.6.
+
+### Delivered
+
+- `src/lyrics/parse.ts` (NFC / line endings / control + zero-width stripping with emoji-ZWJ exception, section detection, SHA-1 line keys, limits and user-facing validation messages) and `diff.ts` (LCS summary).
+- `src/db/`: schema v1 exactly as ARCHITECTURE §3.3; typed errors (`StorageError` quota/unavailable/blocked/unknown, `ValidationError`); defensive `openDatabase` (retry once after 500 ms, never deletes); `versionchange` hook.
+- Repositories: songs (create, details, lyrics edit with preservation, kind overrides, mode/variant, soft delete/undo/purge/purge-at-launch, romanised search suffix), progress (shared keys, per-occurrence counts, reset), corrections (CRUD, active-by-language, orphan list/cleanup), settings (defaults + backfill), drafts, library marker (IndexedDB + localStorage mirror) with recovery check.
+- Backup: zod format v1, canonical JSON + SHA-256 checksum, migration registry/harness, export (deterministic), import (validate → preview → merge/replace in one transaction), `overtone-backup-YYYY-MM-DD.json` naming, `recordExport`.
+- `src/search/fold.ts`, `src/platform/storage.ts` (persist/estimate/low-space).
+- `fixtures/backups/v1.json` (frozen) + README.
+
+### Acceptance criteria covered (data-layer parts; UI parts land in M3)
+
+- Atomicity under injected failures (create, edit lyrics, toggle progress, Replace import, Merge import) → `repositories.test.ts`, `backup.test.ts` (pass).
+- Export → wipe → import deep-equals (songs, lines, progress, corrections of every patch type, settings) and a second export is byte-identical → `backup.test.ts` (pass). J11.6 data-layer.
+- Edit-preservation matrix: unchanged / changed / inserted / deleted / reordered / duplicated / corrections / kind overrides → `repositories.test.ts` (pass). J7.3, J7.4, J7.5, J8.2 data-layer.
+- J2.1, J2.5 (limits), J9.1 (inactive/reactivated corrections), J9.2 data (soft delete/undo/purge), J11.3, J11.5 (newer rejected; migration harness), J12.5 (recovery logic), J12.6 (typed errors) data-layer → tests above.
+- J10.1 folding and the 1,000-song filter budget (Node: well under 50 ms) → `fold.test.ts`.
+
+### Verification (actual output)
+
+- `npm run verify`: lint clean, typecheck clean, **207 tests in 9 files passed** (unit + tooling), build OK, **72 e2e passed** (unchanged specs; M2 adds no UI).
+- Bundle unchanged: initial JS 86.81 KB gzip (M2 code is not yet imported by the app).
+- Not run / unavailable: real-browser IndexedDB (unit tests use fake-indexeddb; real IndexedDB is exercised from M3 E2E). Failure injection covers the main write paths, not every repository function (e.g. purge, reset, corrections).
+
+### Scope deviations / limitations
+
+- Backup `songs[]` carries `languageDetected` (not in the ARCHITECTURE §7 example) so a round trip is lossless; it is optional on import (default false). Format v1 has not shipped, so no version bump.
+- `Settings.backup.songsSinceExport` added (ARCHITECTURE §3.2 lists only `changesSinceExport`) to implement the J11.7 "≥ 1 new song or ≥ 10 changes" rule exactly.
+- `LineAnalysisCache.analysis` is typed `unknown` until the engine model exists (M5).
+- Backup `settings` contains theme, text size and romanisation only; library view state, backup counters and storage state are device-local and excluded.
+- Soft-deleted songs are excluded from export and treated as absent by Merge.
+
+### Follow-ups
+
+- M3: wire Settings (theme/text size) to the DB with the localStorage mirror; open DB at startup (openDatabase), run `purgeSoftDeleted`, request persistence after first save, recovery screen.
+- A "frozen v1" Dexie schema test exists; add one per future schema version.

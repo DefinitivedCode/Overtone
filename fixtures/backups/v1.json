@@ -1,0 +1,86 @@
+{
+  "format": "overtone-backup",
+  "schemaVersion": 1,
+  "exportedAt": "2026-11-05T10:00:00.000Z",
+  "app": {
+    "name": "Overtone",
+    "version": "0.1.0"
+  },
+  "settings": {
+    "theme": "system",
+    "textSize": 2,
+    "romanisation": {
+      "ja": {
+        "longVowels": "macron",
+        "showRomajiLine": true,
+        "furiganaForKanaWords": false
+      },
+      "ko": {
+        "mode": "pronunciation"
+      },
+      "zh": {
+        "tones": "marks",
+        "sandhi": false
+      }
+    }
+  },
+  "songs": [
+    {
+      "id": "11111111-1111-4111-8111-111111111111",
+      "title": "Fixture KO",
+      "artist": "Original text written for tests",
+      "language": "ko",
+      "languageDetected": true,
+      "rawLyrics": "[Chorus]\n사랑해 요\n\n나는 노래해\n사랑해 요",
+      "lineKindOverrides": [],
+      "displayMode": "learn",
+      "cleanVariant": "original",
+      "source": {
+        "kind": "manual"
+      },
+      "createdAt": 1700000000000,
+      "updatedAt": 1700000000000,
+      "openedAt": 1700000000000,
+      "progress": [
+        {
+          "lineKey": "1cb0b75b16790869",
+          "learnedAt": 1700000001000
+        }
+      ],
+      "corrections": [
+        {
+          "id": "666c1262-a466-44c4-b696-a0812db2e2d8",
+          "lineKey": "fb51344150b6d63c",
+          "surface": "노래해",
+          "occurrence": null,
+          "language": "ko",
+          "patch": {
+            "romanisation": "noraehae"
+          },
+          "createdAt": 1700000002000,
+          "updatedAt": 1700000002000
+        }
+      ]
+    },
+    {
+      "id": "22222222-2222-4222-8222-222222222222",
+      "title": "Fixture JA",
+      "artist": null,
+      "language": "ja",
+      "languageDetected": false,
+      "rawLyrics": "君の名前を呼んでいた\n空を見ていた",
+      "lineKindOverrides": [],
+      "displayMode": "learn",
+      "cleanVariant": "original",
+      "source": {
+        "kind": "manual"
+      },
+      "createdAt": 1700000003000,
+      "updatedAt": 1700000003000,
+      "openedAt": 1700000003000,
+      "progress": [],
+      "corrections": []
+    }
+  ],
+  "checksum": "3d5fd1e4bbaf859a6d9f35953d1ee602f0a561d8dcd791ce5ddb7ab643a02abd"
+}
