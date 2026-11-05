@@ -26,6 +26,8 @@ export async function setTheme(page: Page, theme: 'light' | 'dark'): Promise<voi
 
 /** Fails on serious/critical axe violations. */
 export async function expectAxeClean(page: Page, where: string): Promise<void> {
+  // Short fade-ins (annotation arrival, sheet slide) would make colour-contrast measure a half-transparent element.
+  await page.waitForTimeout(300);
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
     .analyze();

@@ -41,6 +41,7 @@ export function SongRow({ song, onEditDetails, onDelete, onOpen }: SongRowProps)
     <li className={s['row']}>
       <Link
         to={`/song/${song.id}`}
+        viewTransition
         className={s['link']}
         onPointerDown={() => {
           longPressed.current = false;

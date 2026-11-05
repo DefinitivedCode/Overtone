@@ -1,4 +1,6 @@
 import { createHash } from 'node:crypto';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
 import type { HtmlTagDescriptor, Plugin } from 'vite';
 import { splashLinks } from '../../src/app/splash-links.generated';
 
@@ -15,6 +17,26 @@ const CSP = (scriptHash: string) =>
     "base-uri 'none'",
     "form-action 'none'",
   ].join('; ');
+
+/** Cloudflare Pages / Netlify `_headers`: the same CSP plus the protections a <meta> cannot carry, and caching. */
+function headersFile(base: string, csp: string): string {
+  const p = base.replace(/\/$/, '');
+  return `/*
+  Content-Security-Policy: ${csp}; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+
+# Hashed build output never changes.
+${p}/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Language packs are versioned by path: <id>/<version>/<file>. The manifest next to them is not.
+${p}/packs/:id/:version/*
+  Cache-Control: public, max-age=31536000, immutable
+`;
+}
 
 function manifest(base: string): string {
   return JSON.stringify(
@@ -56,11 +78,14 @@ function manifest(base: string): string {
 export function overtoneHtml(): Plugin {
   let base = '/';
   let isBuild = false;
+  let csp = '';
+  let outDir = 'dist';
   return {
     name: 'overtone-html',
     configResolved(config) {
       base = config.base;
       isBuild = config.command === 'build';
+      outDir = path.resolve(config.root, config.build.outDir);
     },
     configureServer(server) {
       server.middlewares.use(`${base}manifest.webmanifest`, (_req, res) => {
@@ -70,6 +95,13 @@ export function overtoneHtml(): Plugin {
     },
     generateBundle() {
       this.emitFile({ type: 'asset', fileName: 'manifest.webmanifest', source: manifest(base) });
+    },
+    // The HTML transform runs after generateBundle, so the headers file is written once the hash is known.
+    closeBundle() {
+      if (!isBuild || !csp) return;
+      const dir = path.resolve(outDir);
+      mkdirSync(dir, { recursive: true });
+      writeFileSync(path.join(dir, '_headers'), headersFile(base, csp));
     },
     transformIndexHtml(html) {
       const tags: HtmlTagDescriptor[] = [
@@ -88,6 +120,7 @@ export function overtoneHtml(): Plugin {
         const m = /<script id="theme-init">([\s\S]*?)<\/script>/.exec(html);
         if (!m) throw new Error('index.html is missing <script id="theme-init">');
         const hash = `sha256-${createHash('sha256').update(m[1]!).digest('base64')}`;
+        csp = CSP(hash);
         tags.unshift({
           tag: 'meta',
           attrs: { 'http-equiv': 'Content-Security-Policy', content: CSP(hash) },

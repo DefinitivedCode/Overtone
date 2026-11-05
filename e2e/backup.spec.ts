@@ -224,4 +224,25 @@ test.describe('backup', () => {
     await page.goto('/');
     await expect(page.getByRole('list', { name: 'Songs' })).toContainText('Hand edited (edited)');
   });
+
+  test('a gentle, dismissible backup reminder appears a week after changes and stays dismissed (J11.7)', async ({
+    page,
+  }) => {
+    await page.goto('/');
+    await addSong(page, { title: 'Unbacked', lyrics: KO });
+    await page.getByRole('link', { name: 'Library' }).click();
+    await expect(page.getByText(/changes that aren.t in a backup yet/)).toHaveCount(0);
+
+    await page.clock.setFixedTime(Date.now() + 8 * 24 * 60 * 60 * 1000);
+    await page.reload();
+    const banner = page.getByText(/changes that aren.t in a backup yet/);
+    await expect(banner).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Back up now' })).toBeVisible();
+
+    await page.getByRole('button', { name: /Dismiss/ }).click();
+    await expect(banner).toHaveCount(0);
+    await page.reload();
+    await expect(page.getByRole('link', { name: /Unbacked/ })).toBeVisible();
+    await expect(banner).toHaveCount(0);
+  });
 });

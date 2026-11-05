@@ -3,6 +3,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { MoreHorizontal } from 'lucide-react';
 import { TopBar } from '@/app/TopBar';
+import { useCollapsedTitle } from '@/app/useCollapsedTitle';
 import { useCorrections, useLearnedKeys, useLines, useSettings, useSong } from '@/db/hooks';
 import { resetProgress } from '@/db/repositories/progress';
 import { updateSettings } from '@/db/repositories/settings';
@@ -62,6 +63,7 @@ export function SongScreen() {
   const [confirmReset, setConfirmReset] = useState(false);
   const { requestDelete, dialog } = useDeleteSong(() => navigate('/', { replace: true }));
   const anchor = useRef<number | null>(null);
+  const { ref: titleRef, collapsed } = useCollapsedTitle<HTMLHeadingElement>();
   // Optimistic: the control reflects the click at once; the stored value catches up a moment later.
   const [optMode, setOptMode] = useState<DisplayMode | null>(null);
   const [optVariant, setOptVariant] = useState<'original' | 'romanised' | null>(null);
@@ -143,6 +145,8 @@ export function SongScreen() {
     <>
       <TopBar
         back={back}
+        title={song.title}
+        titleVisible={collapsed}
         trailing={
           <Menu
             renderTrigger={(p) => (
@@ -159,7 +163,7 @@ export function SongScreen() {
         style={showSyllableToggle ? ({ '--sticky-extra': '44px' } as CSSProperties) : undefined}
       >
         <header className={s['header']}>
-          <h1 className="title" lang={langAttr(song.language, song.title)}>
+          <h1 ref={titleRef} className="title" lang={langAttr(song.language, song.title)}>
             {song.title}
           </h1>
           {song.artist ? (

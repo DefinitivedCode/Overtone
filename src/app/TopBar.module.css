@@ -25,7 +25,17 @@
   align-items: center;
 }
 .title {
+  grid-column: 2;
+  max-width: 52vw;
+  overflow: hidden;
   font: var(--type-headline);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity calc(120ms * var(--motion-scale));
+}
+.title[data-visible='true'] {
+  opacity: 1;
 }
 .back {
   display: inline-flex;

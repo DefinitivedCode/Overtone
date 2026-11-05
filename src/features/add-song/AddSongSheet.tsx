@@ -5,7 +5,8 @@ import { StorageError, ValidationError } from '@/db/errors';
 import { clearDraft, getDraft, saveDraft } from '@/db/repositories/drafts';
 import { updateSettings } from '@/db/repositories/settings';
 import { createSong } from '@/db/repositories/songs';
-import type { LangCode } from '@/db/types';
+import type { LangCode, SongSource } from '@/db/types';
+import type { LrclibResult } from '@/online/lrclib';
 import { detectLanguage, langAttr } from '@/engine/segment/detect';
 import { LANGUAGES, LANG_NAME } from '@/features/language';
 import { exportBackupFile } from '@/features/settings/backupActions';
@@ -23,6 +24,7 @@ import {
   TextField,
 } from '@/ui';
 import { Switch } from '@/ui';
+import { OnlineSearch } from './OnlineSearch';
 import s from './AddSongSheet.module.css';
 
 type LangChoice = 'auto' | LangCode;
@@ -38,7 +40,7 @@ const LANGUAGE_OPTIONS = [
   ...LANGUAGES.map((l) => ({ value: l, label: LANG_NAME[l] })),
 ];
 
-/** Add Song sheet, "Paste lyrics" path (PRODUCT_SPEC J2). The Search tab arrives with M12. */
+/** Add Song sheet: paste lyrics (default, dependable) or search LRCLIB (optional, PRODUCT_SPEC J2/J3). */
 export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
   const [title, setTitle] = useState('');
   const [artist, setArtist] = useState('');
@@ -53,6 +55,8 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [storageFull, setStorageFull] = useState(false);
+  const [tab, setTab] = useState<'paste' | 'search'>('paste');
+  const [source, setSource] = useState<SongSource | null>(null);
 
   const reset = () => {
     setTitle('');
@@ -65,6 +69,8 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
     setTouched({ title: false, lyrics: false });
     setSaveError(null);
     setStorageFull(false);
+    setTab('paste');
+    setSource(null);
   };
 
   // Restore an autosaved draft each time the sheet opens (J2.6).
@@ -158,6 +164,7 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
         languageDetected: language === 'auto',
         rawLyrics: lyrics,
         usePastedReadings: offersReadings ? usePastedReadings : undefined,
+        ...(source ? { source } : {}),
       });
       await clearDraft().catch(() => undefined);
       reset();
@@ -183,6 +190,25 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
 
   const lyricsLang = resolved ? langAttr(resolved, lyrics) : undefined;
 
+  function pick(r: LrclibResult) {
+    if (!r.plainLyrics) return;
+    setTitle(r.title);
+    setArtist(r.artist ?? '');
+    setLyrics(r.plainLyrics);
+    setLanguage('auto');
+    setHanUserChose(false);
+    setTouched({ title: false, lyrics: false });
+    setSource({
+      kind: 'lrclib',
+      trackId: r.id,
+      fetchedAt: Date.now(),
+      syncedLyrics: r.syncedLyrics,
+      duration: r.duration,
+      album: r.album,
+    });
+    setTab('paste');
+  }
+
   return (
     <>
       <Sheet
@@ -200,103 +226,130 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
           </Button>
         }
       >
-        <form
-          className={s['form']}
-          onSubmit={(e) => {
-            e.preventDefault();
-            void save();
-          }}
-        >
-          {saveError ? (
-            <Banner
-              tone="error"
-              action={
-                storageFull ? (
-                  <Button
-                    variant="plain"
-                    onClick={() => void exportBackupFile().catch(() => undefined)}
-                  >
-                    Export backup
-                  </Button>
-                ) : undefined
-              }
-            >
-              {saveError}
-            </Banner>
-          ) : null}
-          <TextField
-            label="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            onBlur={() => setTouched((t) => ({ ...t, title: true }))}
-            onFocus={(e) => scrollFocusedIntoView(e.currentTarget)}
-            error={titleError}
-            required
-            enterKeyHint="next"
-            autoComplete="off"
+        <div className={s['tabs']}>
+          <SegmentedControl
+            label="Add song by"
+            value={tab}
+            onChange={setTab}
+            options={[
+              { value: 'paste', label: 'Paste text' },
+              { value: 'search', label: 'Search online' },
+            ]}
           />
-          <TextField
-            label="Artist (optional)"
-            value={artist}
-            onChange={(e) => setArtist(e.target.value)}
-            onFocus={(e) => scrollFocusedIntoView(e.currentTarget)}
-            error={errors.artist}
-            enterKeyHint="next"
-            autoComplete="off"
-          />
-          <Select
-            label="Language"
-            value={language}
-            onChange={(e) => {
-              setLanguage(e.target.value as LangChoice);
-              setHanUserChose(false);
+        </div>
+        {tab === 'search' ? (
+          <OnlineSearch initialTitle={title} initialArtist={artist} onPick={pick} />
+        ) : (
+          <form
+            className={s['form']}
+            onSubmit={(e) => {
+              e.preventDefault();
+              void save();
             }}
-            options={LANGUAGE_OPTIONS}
-            hint={languageHint}
-          />
-          {needsHanChoice ? (
-            <div className={s['han']}>
-              <SegmentedControl
-                label="Chinese language"
-                value={hanValue ?? 'zh'}
-                options={[
-                  { value: 'zh', label: 'Mandarin' },
-                  { value: 'yue', label: 'Cantonese' },
-                ]}
-                onChange={(v) => {
-                  setHan(v);
-                  setHanUserChose(true);
-                }}
-              />
-              <p className={s['hanHint']}>
-                {hanUserChose
-                  ? `Using ${hanValue === 'yue' ? 'Cantonese' : 'Mandarin'}.`
-                  : `Suggested: ${detection.suggestion === 'yue' ? 'Cantonese' : 'Mandarin'} — this is only a guess, please confirm.`}
-              </p>
-            </div>
-          ) : null}
-          <TextArea
-            label="Lyrics"
-            value={lyrics}
-            onChange={(e) => setLyrics(e.target.value)}
-            onBlur={() => setTouched((t) => ({ ...t, lyrics: true }))}
-            onFocus={(e) => scrollFocusedIntoView(e.currentTarget)}
-            error={lyricsError}
-            minRows={8}
-            lang={lyricsLang}
-            autoCapitalize="off"
-            autoCorrect="off"
-            spellCheck={false}
-            enterKeyHint="enter"
-          />
-          {offersReadings ? (
-            <Switch
-              label="Use readings from pasted text"
-              checked={usePastedReadings}
-              onChange={setUsePastedReadings}
+          >
+            {source ? (
+              <Banner
+                action={
+                  <Button variant="plain" onClick={() => setSource(null)}>
+                    Detach
+                  </Button>
+                }
+              >
+                Lyrics from LRCLIB. Review and edit them before saving; the source is kept with the
+                song.
+              </Banner>
+            ) : null}
+            {saveError ? (
+              <Banner
+                tone="error"
+                action={
+                  storageFull ? (
+                    <Button
+                      variant="plain"
+                      onClick={() => void exportBackupFile().catch(() => undefined)}
+                    >
+                      Export backup
+                    </Button>
+                  ) : undefined
+                }
+              >
+                {saveError}
+              </Banner>
+            ) : null}
+            <TextField
+              label="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              onBlur={() => setTouched((t) => ({ ...t, title: true }))}
+              onFocus={(e) => scrollFocusedIntoView(e.currentTarget)}
+              error={titleError}
+              required
+              enterKeyHint="next"
+              autoComplete="off"
             />
-          ) : null}
-        </form>
+            <TextField
+              label="Artist (optional)"
+              value={artist}
+              onChange={(e) => setArtist(e.target.value)}
+              onFocus={(e) => scrollFocusedIntoView(e.currentTarget)}
+              error={errors.artist}
+              enterKeyHint="next"
+              autoComplete="off"
+            />
+            <Select
+              label="Language"
+              value={language}
+              onChange={(e) => {
+                setLanguage(e.target.value as LangChoice);
+                setHanUserChose(false);
+              }}
+              options={LANGUAGE_OPTIONS}
+              hint={languageHint}
+            />
+            {needsHanChoice ? (
+              <div className={s['han']}>
+                <SegmentedControl
+                  label="Chinese language"
+                  value={hanValue ?? 'zh'}
+                  options={[
+                    { value: 'zh', label: 'Mandarin' },
+                    { value: 'yue', label: 'Cantonese' },
+                  ]}
+                  onChange={(v) => {
+                    setHan(v);
+                    setHanUserChose(true);
+                  }}
+                />
+                <p className={s['hanHint']}>
+                  {hanUserChose
+                    ? `Using ${hanValue === 'yue' ? 'Cantonese' : 'Mandarin'}.`
+                    : `Suggested: ${detection.suggestion === 'yue' ? 'Cantonese' : 'Mandarin'} — this is only a guess, please confirm.`}
+                </p>
+              </div>
+            ) : null}
+            <TextArea
+              label="Lyrics"
+              value={lyrics}
+              onChange={(e) => setLyrics(e.target.value)}
+              onBlur={() => setTouched((t) => ({ ...t, lyrics: true }))}
+              onFocus={(e) => scrollFocusedIntoView(e.currentTarget)}
+              error={lyricsError}
+              minRows={8}
+              lang={lyricsLang}
+              autoCapitalize="off"
+              autoCorrect="off"
+              spellCheck={false}
+              enterKeyHint="enter"
+            />
+            {offersReadings ? (
+              <Switch
+                label="Use readings from pasted text"
+                checked={usePastedReadings}
+                onChange={setUsePastedReadings}
+              />
+            ) : null}
+          </form>
+        )}
       </Sheet>
       <ConfirmDialog
         open={confirmDiscard}

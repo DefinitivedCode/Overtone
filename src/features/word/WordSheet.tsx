@@ -69,6 +69,14 @@ export function WordSheet({
   onClose,
 }: WordSheetProps) {
   const token = target?.token ?? null;
+  // Hanja or foreign text in this song that the engine could not read: nothing to look up, but it can be corrected.
+  const unreadable =
+    !!token &&
+    token.kind === 'word' &&
+    token.confidence === 'none' &&
+    token.lang !== language &&
+    token.lang !== 'en' &&
+    token.corrected !== true;
   const lineIndex = target?.lineIndex ?? 0;
   const toast = useToast();
   const [editingFor, setEditingFor] = useState<WordTarget | null>(null);
@@ -80,7 +88,7 @@ export function WordSheet({
   const installed = useInstalledPacks();
   const installedKey = installed?.map((p) => `${p.id}@${p.version}`).join(',') ?? '';
   useEffect(() => {
-    if (!token || !open || token.kind === 'latin' || token.kind === 'symbol') return;
+    if (!token || !open || token.kind === 'latin' || token.kind === 'symbol' || unreadable) return;
     let active = true;
     void lookupWord(token, language).then((lookup) => {
       if (active) setResult({ token, lookup });
@@ -88,7 +96,7 @@ export function WordSheet({
     return () => {
       active = false;
     };
-  }, [token, language, open, installedKey]);
+  }, [token, language, open, installedKey, unreadable]);
 
   const shown = token && result?.token === token ? result.lookup : null;
   const isParticle = token?.kind === 'particle' || (!!token?.particleGloss && !token.dict);
@@ -160,7 +168,7 @@ export function WordSheet({
             </p>
           ) : null}
 
-          {shown === null && !isParticle && !plainMarked ? (
+          {shown === null && !isParticle && !plainMarked && !unreadable ? (
             <p className={s['quiet']}>Looking up…</p>
           ) : null}
 
@@ -209,6 +217,12 @@ export function WordSheet({
             </>
           ) : null}
 
+          {unreadable ? (
+            <p className={s['quiet']}>
+              No reading found for this word. If you know it, add one with Correct….
+            </p>
+          ) : null}
+
           {shown?.status === 'no-entry' && !isParticle ? (
             <p className={s['quiet']}>
               {`No dictionary entry was found for “${token.surface}”. Names, slang and conjugated forms are sometimes missing.`}
@@ -243,7 +257,9 @@ export function WordSheet({
             <p className={s['note']}>
               {token.notes.includes('lemma-guess')
                 ? 'The dictionary form was guessed from the ending. Check it.'
-                : 'This reading depends on context. Check it.'}
+                : /^[㄰-㆏]+$/u.test(token.surface)
+                  ? 'Typed as separate letters, so it is read letter by letter. Check it.'
+                  : 'This reading depends on context. Check it.'}
             </p>
           ) : null}
           {token.corrected ? (

@@ -9,9 +9,54 @@ const rows = [...spec.matchAll(/^- (J\d+\.\d+) (MUST|SHOULD|MAY):? ?(.*)$/gm)].m
   id: m[1],
   lvl: m[2],
 }));
-const LAST = 'end of M8';
+const LAST = 'M13 (release candidate)';
 
 const covered = {
+  'J11.7':
+    'libraryModel.test, repositories.test, e2e/backup.spec (appears after 7 days, dismissal persists)',
+  'J1.1':
+    'e2e/offline.spec (cold reload and deep link offline, modes, progress, Settings, Licences), e2e/packs.spec',
+  'J1.3':
+    'e2e/offline.spec (iPhone projects show the tip, others do not, dismissal persists); real Safari → MANUAL #29',
+  'J2.4':
+    'engine.test (saving is independent of processing), e2e/learn-interactions.spec (quota error keeps the form and offers Export)',
+  'J3.1':
+    'e2e/lrclib.spec (offline state, service blocked, manual save), src/online/lrclib.test.ts',
+  'J3.2':
+    'src/online/lrclib.test.ts (every error kind, 429 + Retry-After), e2e/lrclib.spec (503 + Retry, 429 countdown, unreadable reply)',
+  'J3.3': 'src/online/lrclib.test.ts (normalised, capped, markup stays text), e2e/lrclib.spec',
+  'J3.4': 'e2e/lrclib.spec (instrumental and lyric-less results disabled with a reason)',
+  'J3.5':
+    'e2e/lrclib.spec (source with untouched synced lyrics stored; "Lyrics from LRCLIB" shown)',
+  'J3.6': 'e2e/lrclib.spec (notice visible)',
+  'J4.3':
+    'e2e/learn-interactions.spec (accessible name, ≥ 44 × 24 px target), e2e/screens.spec and e2e/packs.spec (axe target-size)',
+  'J4.5':
+    'e2e/learn-interactions.spec ("?" marker, "No reading found", Correct… gives it a reading), e2e/modes.spec',
+  'J4.6': 'e2e/learn-interactions.spec (dotted underline and explanation)',
+  'J4.7':
+    'e2e/word-sheet.spec ("No dictionary entry was found…", missing-pack prompt), src/features/word/lookup.test.ts',
+  'J4.8':
+    'e2e/learn-interactions.spec (right-click and context-menu key: mark learned, copy original/romanised). Long-press on iOS → MANUAL #12',
+  'J5.6':
+    'Implemented in KaraokeView (feature-detected, released on leave); cannot be exercised in CI → MANUAL',
+  'J7.1': 'e2e/progress.spec, e2e/learn-interactions.spec (failed write reverts and toasts)',
+  'J7.4': 'e2e/learn-interactions.spec, repositories.test',
+  'J8.1': 'e2e/corrections.spec (reload), backup.test (all patch types), overlay.test.ts',
+  'J8.2': 'e2e/corrections.spec (lyric edits), repositories.test',
+  'J8.3': 'e2e/corrections.spec (Learn, Karaoke and Clean update at once)',
+  'J8.4':
+    'src/engine/overlay.test.ts (romaji → kana, pinyin marks/numbers, Jyutping), e2e/corrections.spec (syllable-count error)',
+  'J8.5': 'e2e/corrections.spec (Revert), overlay.test.ts',
+  'J9.1':
+    'e2e/edit.spec, repositories.test, overlay.test.ts (language mismatch is inactive); re-processing is automatic via the cache key',
+  'J12.1': 'e2e/offline.spec, e2e/packs.spec, e2e/japanese.spec',
+  'J12.6':
+    'repositories.test (typed errors, no partial writes), e2e/learn-interactions.spec (quota error with Export)',
+  'J12.7':
+    'e2e/update.spec (real worker swap in Chromium and WebKit: held while a sheet is open, Reload, data intact)',
+  'J13.4':
+    'e2e/word-sheet.spec (Licences screen), tests/tooling/licences.test.ts (generated list matches dependencies and pinned sources)',
   'J1.2': 'e2e/library.spec, e2e/screens.spec (Chromium; WebKit skipped)',
   'J2.1': 'e2e/add-song.spec, src/lyrics/lyrics.test.ts',
   'J2.2': 'e2e/add-song.spec',
@@ -64,27 +109,10 @@ const covered = {
     'e2e/modes.spec (Korean), e2e/packs.spec (Mandarin and Cantonese), e2e/japanese.spec (Japanese)',
 };
 const partial = {
-  'J1.1':
-    'Empty state done; service worker precaches the shell (e2e/packs.spec offline flow); dedicated offline.spec → M11',
-  'J2.4':
-    'Saving is independent of processing (engine runs after save, in a worker with main-thread fallback: engine.test); quota path e2e → M11',
   'J4.2':
-    'e2e/japanese.spec checks ruby alignment at five widths. ADR 0007 measured other languages.',
-  'J4.5':
-    '"?" marker for unknown segments done (e2e/modes.spec); "No reading found" Word sheet → M9',
-  'J4.6': 'Dotted underline for low-confidence tokens done; explanation in the Word sheet → M9',
-  'J7.1':
-    'Optimistic toggle + persistence done (e2e/progress.spec); the failure-revert path is not exercised by a test',
-  'J7.4': 'Data-layer (repositories.test); correction UI → M10',
-  'J8.1': 'Data-layer done (repositories.test); UI → M10',
-  'J8.2': 'Data-layer done (repositories.test); UI → M10',
-  'J9.1':
-    'Edit details/language + corrections inactive/reactivated done (e2e/edit.spec, repositories.test); reprocessing is automatic via the cache key (not separately tested)',
-  'J10.6': 'Node budget (fold.test: 1,000 songs < 50 ms); throttled CI measurement → M13',
-  'J11.7': 'Rule + counters (libraryModel.test, repositories.test); banner e2e → later',
-  'J12.1':
-    'e2e/packs.spec and e2e/japanese.spec reopen and analyse songs offline with installed packs. Full offline matrix → M11.',
-  'J12.6': 'Typed errors + no partial writes (repositories.test); e2e of the quota banner → M11',
+    'e2e/japanese.spec checks ruby alignment at five widths; e2e/screens.spec and e2e/packs.spec check overflow at five widths for the other languages. ADR 0007 measured them.',
+  'J10.6':
+    'Node budget (fold.test: 1,000 songs < 50 ms). The throttled-browser CI measurement was not built.',
 };
 const milestone = (id) =>
   ({

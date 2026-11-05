@@ -2,12 +2,12 @@ import type { Page } from '@playwright/test';
 import { expect, test as base } from '@playwright/test';
 
 /**
- * WebKit reports a module-worker script fetch that is aborted by a navigation as an "access control
+ * WebKit reports a module-worker script (or the lazily loaded main-thread fallback chunk) fetch that is aborted by a navigation as an "access control
  * checks" error (as a page error and/or console error). It only occurs when a test leaves the page
  * while the engine worker is still loading; the engine client falls back to the main thread and
  * nothing is lost. Every other error still fails the test.
  */
-const BENIGN = /assets\/worker-[\w-]+\.js due to access control checks/;
+const BENIGN = /assets\/(?:worker|analyse)-[\w-]+\.js due to access control checks/;
 
 export type PageWithAllow = Page & {
   /** Declares that a console error matching `pattern` is expected in this test (e.g. a deliberately failed request). */

@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Check } from 'lucide-react';
 import { setLearned } from '@/db/repositories/progress';
@@ -7,7 +7,7 @@ import type { LineAnalysis, Token } from '@/engine/model';
 import { japaneseRomanRuns, romaniseLine, tokenRoman, tokenUnits } from '@/engine/romanLine';
 import type { RomanOptions, RomanPrefs } from '@/engine/romanLine';
 import { langAttr } from '@/engine/segment/detect';
-import { SegmentedControl, useToast } from '@/ui';
+import { Button, Sheet, SegmentedControl, useToast } from '@/ui';
 import type { WordTarget } from '@/features/word/target';
 import type { LyricItem } from './lyricModel';
 import s from './LyricViews.module.css';
@@ -132,6 +132,16 @@ function LearnToken({
       </ruby>
     );
   }
+  // A word with a reading typed by the user (e.g. Hanja in a Korean song) shows it like any annotated word.
+  if (t.kind === 'word' && t.userRoman !== undefined)
+    return (
+      <ruby>
+        {t.surface}
+        <rt aria-hidden="true" lang={ROMAN_LANG[language]}>
+          {t.userRoman}
+        </rt>
+      </ruby>
+    );
   // A foreign or unreadable segment inside a song we can read (Japanese or Hanja in a Korean song): unknown reading.
   if (t.kind === 'word' && t.confidence === 'none' && t.lang !== language)
     return (
@@ -160,7 +170,52 @@ const readingFirst = (emphasis: DisplaySettings['learnEmphasis'], language: Lang
 
 /** Tokens with something to look up (not punctuation, English or unreadable segments). */
 const isTappable = (t: Token, language: LangCode): boolean =>
-  t.corrected === true || ((t.kind === 'word' || t.kind === 'particle') && t.lang === language);
+  t.corrected === true ||
+  ((t.kind === 'word' || t.kind === 'particle') && t.lang === language) ||
+  isUnreadable(t, language);
+
+/** A word the engine could not read (Hanja or Japanese in a Korean song): shown with "?", tappable to correct it. */
+const isUnreadable = (t: Token, language: LangCode): boolean =>
+  t.kind === 'word' && t.confidence === 'none' && t.lang !== language && t.lang !== 'en';
+
+/** Screen-reader name for a word button (J4.3): the word, its reading and what a tap does. */
+function wordLabel(t: Token, prefs: RomanPrefs, language: LangCode): string {
+  if (isUnreadable(t, language)) return `${t.surface}, no reading found. Show details.`;
+  const roman = romaniseLine([t], prefs);
+  const readings = [t.lang === 'ja' ? t.reading : null, roman !== t.surface ? roman : null].filter(
+    (x): x is string => !!x,
+  );
+  return `${t.surface}${readings.length ? `, reading ${readings.join(', ')}` : ''}. Show meaning.`;
+}
+
+const LONG_PRESS_MS = 500;
+
+/** Copies text; falls back to a hidden textarea where the async clipboard API is unavailable (older WebKit). */
+async function copyText(text: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.append(area);
+    area.select();
+    const ok = document.execCommand('copy');
+    area.remove();
+    return ok;
+  }
+}
+
+interface LineMenuState {
+  key: string;
+  ordinal: number;
+  text: string;
+  roman: string;
+  learned: boolean;
+}
 
 export function LearnView({
   items,
@@ -173,6 +228,11 @@ export function LearnView({
   onWord,
 }: LearnViewProps) {
   const toast = useToast();
+  // Line menu (J4.8): long-press, right-click, or the context-menu key on a line's check button.
+  const [menu, setMenu] = useState<LineMenuState | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pressTimer = useRef(0);
+  const longPressed = useRef(false);
   // Optimistic state: shown immediately, dropped once the stored value agrees (J7.1).
   const [optimistic, setOptimistic] = useState<ReadonlyMap<string, boolean>>(new Map());
   // When the stored set changes, forget optimistic entries it now agrees with (adjusting state while rendering
@@ -203,121 +263,214 @@ export function LearnView({
   }
 
   return (
-    <ol
-      className={`${s['list']} ${s['learn']}`}
-      aria-label="Lyrics"
-      data-emphasis={emphasis}
-      data-script={language}
-    >
-      {items.map(({ line, kind, ordinal }) => {
-        if (kind === 'blank')
+    <>
+      <ol
+        className={`${s['list']} ${s['learn']}`}
+        aria-label="Lyrics"
+        data-emphasis={emphasis}
+        data-script={language}
+      >
+        {items.map(({ line, kind, ordinal }) => {
+          if (kind === 'blank')
+            return (
+              <li
+                key={line.id}
+                className={s['gap']}
+                aria-hidden="true"
+                data-line-index={line.index}
+              />
+            );
+          if (kind === 'section')
+            return (
+              <li key={line.id} className={s['section']} data-line-index={line.index}>
+                {line.text}
+              </li>
+            );
+          const isLearned = optimistic.get(line.key) ?? learned.has(line.key);
+          const analysis = analyses.get(line.id);
+          const openMenu = () => {
+            longPressed.current = true;
+            window.clearTimeout(pressTimer.current);
+            setMenu({
+              key: line.key,
+              ordinal: ordinal ?? 0,
+              text: line.text,
+              roman:
+                analysis && analysis.status !== 'failed'
+                  ? romaniseLine(analysis.tokens, prefs) || line.text
+                  : line.text,
+              learned: isLearned,
+            });
+            setMenuOpen(true);
+          };
           return (
             <li
               key={line.id}
-              className={s['gap']}
-              aria-hidden="true"
+              className={s['learnLine']}
+              data-learned={isLearned}
               data-line-index={line.index}
-            />
-          );
-        if (kind === 'section')
-          return (
-            <li key={line.id} className={s['section']} data-line-index={line.index}>
-              {line.text}
+              onContextMenu={(e) => {
+                e.preventDefault();
+                openMenu();
+              }}
+            >
+              <button
+                type="button"
+                className={s['check']}
+                aria-pressed={isLearned}
+                aria-label={`Mark line ${ordinal} as learned`}
+                onClick={() => void toggle(line.key, !isLearned)}
+                onKeyDown={(e) => {
+                  if (e.key === 'ContextMenu' || (e.shiftKey && e.key === 'F10')) {
+                    e.preventDefault();
+                    openMenu();
+                  }
+                }}
+              >
+                <span className={s['checkMark']} aria-hidden="true">
+                  {isLearned ? <Check size={16} strokeWidth={2.5} /> : null}
+                </span>
+              </button>
+              <p
+                className={s['learnText']}
+                lang={langAttr(language, line.text)}
+                onPointerDown={() => {
+                  longPressed.current = false;
+                  window.clearTimeout(pressTimer.current);
+                  pressTimer.current = window.setTimeout(openMenu, LONG_PRESS_MS);
+                }}
+                onPointerUp={() => window.clearTimeout(pressTimer.current)}
+                onPointerLeave={() => window.clearTimeout(pressTimer.current)}
+                onPointerCancel={() => window.clearTimeout(pressTimer.current)}
+                onPointerMove={(e) => {
+                  // A scroll or drag is not a long press.
+                  if (Math.abs(e.movementX) + Math.abs(e.movementY) > 6)
+                    window.clearTimeout(pressTimer.current);
+                }}
+                onClickCapture={(e) => {
+                  if (longPressed.current) {
+                    longPressed.current = false;
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }
+                }}
+              >
+                {analysis && analysis.status !== 'failed'
+                  ? (() => {
+                      const units = tokenUnits(analysis.tokens, prefs);
+                      const english = readingFirst(emphasis, language);
+                      return analysis.tokens.map((t, i) => {
+                        const before = analysis.tokens[i - 1];
+                        const after = analysis.tokens[i + 1];
+                        if (english && t.kind === 'punct' && before?.kind === 'latin') return null;
+                        const node = (
+                          <LearnToken
+                            t={t}
+                            units={units[i] ?? null}
+                            prefs={prefs}
+                            language={language}
+                            readingFirst={emphasis === 'reading'}
+                            trail={
+                              english && t.kind === 'latin' && after?.kind === 'punct'
+                                ? after.surface
+                                : ''
+                            }
+                          />
+                        );
+                        return isTappable(t, language) ? (
+                          <button
+                            key={i}
+                            type="button"
+                            className={s['word']}
+                            aria-haspopup="dialog"
+                            aria-label={wordLabel(t, prefs, language)}
+                            data-word={t.start}
+                            data-line={line.index}
+                            data-corrected={t.corrected === true ? 'true' : undefined}
+                            onClick={() => {
+                              const same = analysis.tokens.filter(
+                                (x) => x.surface === t.surface && isTappable(x, language),
+                              );
+                              const following = analysis.tokens[i + 1];
+                              onWord({
+                                token: t,
+                                lineKey: line.key,
+                                lineIndex: line.index,
+                                occurrence: same.indexOf(t),
+                                repeats: same.length,
+                                next:
+                                  following &&
+                                  following.start === t.end &&
+                                  isTappable(following, language) &&
+                                  following.kind === 'word'
+                                    ? following
+                                    : null,
+                              });
+                            }}
+                          >
+                            {node}
+                          </button>
+                        ) : (
+                          <Fragment key={i}>{node}</Fragment>
+                        );
+                      });
+                    })()
+                  : line.text}
+                {language === 'ja' &&
+                prefs.ja.showRomajiLine &&
+                analysis?.tokens.some((t) => t.lang === 'ja' && t.reading) ? (
+                  <span className={s['romaji']} lang="ja-Latn">
+                    {renderJapaneseRoman(analysis, prefs)}
+                  </span>
+                ) : null}
+              </p>
             </li>
           );
-        const isLearned = optimistic.get(line.key) ?? learned.has(line.key);
-        const analysis = analyses.get(line.id);
-        return (
-          <li
-            key={line.id}
-            className={s['learnLine']}
-            data-learned={isLearned}
-            data-line-index={line.index}
-          >
-            <button
-              type="button"
-              className={s['check']}
-              aria-pressed={isLearned}
-              aria-label={`Mark line ${ordinal} as learned`}
-              onClick={() => void toggle(line.key, !isLearned)}
+        })}
+      </ol>
+      <Sheet
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        title={menu ? `Line ${menu.ordinal}` : 'Line'}
+        detent="half"
+      >
+        {menu ? (
+          <div className={s['lineMenu']}>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                void toggle(menu.key, !menu.learned);
+                setMenuOpen(false);
+              }}
             >
-              <span className={s['checkMark']} aria-hidden="true">
-                {isLearned ? <Check size={16} strokeWidth={2.5} /> : null}
-              </span>
-            </button>
-            <p className={s['learnText']} lang={langAttr(language, line.text)}>
-              {analysis && analysis.status !== 'failed'
-                ? (() => {
-                    const units = tokenUnits(analysis.tokens, prefs);
-                    const english = readingFirst(emphasis, language);
-                    return analysis.tokens.map((t, i) => {
-                      const before = analysis.tokens[i - 1];
-                      const after = analysis.tokens[i + 1];
-                      if (english && t.kind === 'punct' && before?.kind === 'latin') return null;
-                      const node = (
-                        <LearnToken
-                          t={t}
-                          units={units[i] ?? null}
-                          prefs={prefs}
-                          language={language}
-                          readingFirst={emphasis === 'reading'}
-                          trail={
-                            english && t.kind === 'latin' && after?.kind === 'punct'
-                              ? after.surface
-                              : ''
-                          }
-                        />
-                      );
-                      return isTappable(t, language) ? (
-                        <button
-                          key={i}
-                          type="button"
-                          className={s['word']}
-                          aria-haspopup="dialog"
-                          data-word={t.start}
-                          data-line={line.index}
-                          data-corrected={t.corrected === true ? 'true' : undefined}
-                          onClick={() => {
-                            const same = analysis.tokens.filter(
-                              (x) => x.surface === t.surface && isTappable(x, language),
-                            );
-                            const following = analysis.tokens[i + 1];
-                            onWord({
-                              token: t,
-                              lineKey: line.key,
-                              lineIndex: line.index,
-                              occurrence: same.indexOf(t),
-                              repeats: same.length,
-                              next:
-                                following &&
-                                following.start === t.end &&
-                                isTappable(following, language) &&
-                                following.kind === 'word'
-                                  ? following
-                                  : null,
-                            });
-                          }}
-                        >
-                          {node}
-                        </button>
-                      ) : (
-                        <Fragment key={i}>{node}</Fragment>
-                      );
-                    });
-                  })()
-                : line.text}
-              {language === 'ja' &&
-              prefs.ja.showRomajiLine &&
-              analysis?.tokens.some((t) => t.lang === 'ja' && t.reading) ? (
-                <span className={s['romaji']} lang="ja-Latn">
-                  {renderJapaneseRoman(analysis, prefs)}
-                </span>
-              ) : null}
-            </p>
-          </li>
-        );
-      })}
-    </ol>
+              {menu.learned ? 'Mark as not learned' : 'Mark as learned'}
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() =>
+                void copyText(menu.text).then((ok) => {
+                  toast.show({ message: ok ? 'Original copied' : 'Could not copy' });
+                  setMenuOpen(false);
+                })
+              }
+            >
+              Copy original
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() =>
+                void copyText(menu.roman).then((ok) => {
+                  toast.show({ message: ok ? 'Romanised copied' : 'Could not copy' });
+                  setMenuOpen(false);
+                })
+              }
+            >
+              Copy romanised
+            </Button>
+          </div>
+        ) : null}
+      </Sheet>
+    </>
   );
 }
 

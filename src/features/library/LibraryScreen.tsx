@@ -1,13 +1,13 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowUpDown, Plus, Settings as SettingsIcon } from 'lucide-react';
 import { TopBar } from '@/app/TopBar';
+import { useCollapsedTitle } from '@/app/useCollapsedTitle';
 import { InstallTip } from '@/app/InstallTip';
 import { useDebounced } from '@/app/useDebounced';
 import { useSettings, useSongs } from '@/db/hooks';
 import { updateSettings } from '@/db/repositories/settings';
 import type { LibraryFilter, LibrarySort, Song } from '@/db/types';
-import { AddSongSheet } from '@/features/add-song/AddSongSheet';
 import { LANGUAGES, LANG_CODE, LANG_NAME } from '@/features/language';
 import { EditDetailsSheet } from '@/features/song/EditDetailsSheet';
 import { useDeleteSong } from '@/features/song/useDeleteSong';
@@ -34,6 +34,10 @@ import { SongRow } from './SongRow';
 
 const SORTS = Object.keys(SORT_LABEL) as LibrarySort[];
 
+const AddSongSheet = lazy(() =>
+  import('@/features/add-song/AddSongSheet').then((m) => ({ default: m.AddSongSheet })),
+);
+
 export function LibraryScreen() {
   const navigate = useNavigate();
   const songs = useSongs();
@@ -41,6 +45,15 @@ export function LibraryScreen() {
   const [queryOverride, setQuery] = useState<string | null>(null);
   const query = queryOverride ?? settings?.library.query ?? '';
   const [adding, setAdding] = useState(false);
+  // The Add sheet (with the online search client and its schema library) is not needed for first paint: it loads
+  // in the background after the Library is up, and stays mounted once opened so its exit animation can finish.
+  const [addMounted, setAddMounted] = useState(false);
+  if (adding && !addMounted) setAddMounted(true);
+  useEffect(() => {
+    const idle = window.requestIdleCallback ?? ((fn: () => void) => window.setTimeout(fn, 1500));
+    const handle = idle(() => void import('@/features/add-song/AddSongSheet'));
+    return () => (window.cancelIdleCallback ? window.cancelIdleCallback(handle) : undefined);
+  }, []);
   const [editing, setEditing] = useState<Song | null>(null);
   const { requestDelete, dialog } = useDeleteSong();
 
@@ -67,14 +80,17 @@ export function LibraryScreen() {
   const setLibrary = (patch: Partial<{ filter: LibraryFilter; sort: LibrarySort }>) =>
     void updateSettings((x) => ({ ...x, library: { ...x.library, ...patch } }));
 
+  const { ref: titleRef, collapsed } = useCollapsedTitle<HTMLHeadingElement>();
   const header = (
     <TopBar
+      title="Library"
+      titleVisible={collapsed}
       trailing={
         <>
           <IconButton label="Add song" onClick={() => setAdding(true)}>
             <Plus size={24} strokeWidth={1.75} aria-hidden="true" />
           </IconButton>
-          <Link to="/settings" aria-label="Settings" className={s['iconLink']}>
+          <Link to="/settings" aria-label="Settings" className={s['iconLink']} viewTransition>
             <SettingsIcon size={22} strokeWidth={1.75} aria-hidden="true" />
           </Link>
         </>
@@ -86,7 +102,9 @@ export function LibraryScreen() {
     <>
       {header}
       <main className="screen">
-        <h1 className="large-title">Library</h1>
+        <h1 ref={titleRef} className="large-title">
+          Library
+        </h1>
 
         {songs === undefined ? (
           <div className={s['skeletons']} aria-hidden="true">
@@ -203,14 +221,18 @@ export function LibraryScreen() {
         )}
       </main>
 
-      <AddSongSheet
-        open={adding}
-        onClose={() => setAdding(false)}
-        onSaved={(id) => {
-          setAdding(false);
-          navigate(`/song/${id}`, { replace: true });
-        }}
-      />
+      {addMounted ? (
+        <Suspense fallback={null}>
+          <AddSongSheet
+            open={adding}
+            onClose={() => setAdding(false)}
+            onSaved={(id) => {
+              setAdding(false);
+              navigate(`/song/${id}`, { replace: true });
+            }}
+          />
+        </Suspense>
+      ) : null}
       <EditDetailsSheet song={editing} onClose={() => setEditing(null)} />
       {dialog}
     </>

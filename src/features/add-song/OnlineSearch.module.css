@@ -1,0 +1,48 @@
+.search {
+  display: grid;
+  gap: var(--space-16);
+}
+.results {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-radius: var(--radius-row);
+  background: var(--bg-elevated);
+  box-shadow: 0 0 0 0.5px var(--separator);
+  overflow: hidden;
+}
+.results > li + li {
+  border-top: 0.5px solid var(--separator);
+}
+.result {
+  display: grid;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 56px;
+  padding: var(--space-12) var(--space-16);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.result:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+.name {
+  font: var(--type-body);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.meta,
+.blocked,
+.empty,
+.notice {
+  margin: 0;
+  font: var(--type-footnote);
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}

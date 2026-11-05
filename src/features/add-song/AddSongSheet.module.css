@@ -11,3 +11,7 @@
   font: var(--type-footnote);
   color: var(--text-secondary);
 }
+
+.tabs {
+  margin-bottom: var(--space-16);
+}

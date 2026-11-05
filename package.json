@@ -69,5 +69,25 @@
     "brand": "tsx scripts/brand/generate-assets.ts",
     "packs": "tsx scripts/packs/build.ts",
     "licences": "node scripts/docs/licences.mjs"
-  }
+  },
+  "license": "MIT",
+  "author": "DefinitivedCode",
+  "homepage": "https://github.com/DefinitivedCode/Overtone",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DefinitivedCode/Overtone.git"
+  },
+  "keywords": [
+    "lyrics",
+    "language-learning",
+    "korean",
+    "japanese",
+    "mandarin",
+    "cantonese",
+    "pwa",
+    "romanisation",
+    "furigana",
+    "pinyin",
+    "jyutping"
+  ]
 }

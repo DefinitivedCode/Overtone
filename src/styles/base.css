@@ -112,3 +112,23 @@ html[data-scroll-locked] {
     scroll-behavior: auto !important;
   }
 }
+
+/* Screen-to-screen transitions (View Transitions API; browsers without it simply navigate). Only opacity and
+   transform animate; --motion-scale is 0 under prefers-reduced-motion, which makes them instant. */
+@keyframes ot-page-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+@keyframes ot-page-out {
+  to {
+    opacity: 0;
+  }
+}
+::view-transition-old(root) {
+  animation: ot-page-out calc(140ms * var(--motion-scale)) linear both;
+}
+::view-transition-new(root) {
+  animation: ot-page-in calc(280ms * var(--motion-scale)) cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}

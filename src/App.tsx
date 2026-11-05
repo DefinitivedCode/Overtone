@@ -4,7 +4,6 @@ import { BootGate } from '@/app/BootGate';
 import { ErrorBoundary } from '@/app/ErrorBoundary';
 import { useAppearance } from '@/app/theme';
 import { LibraryScreen } from '@/features/library/LibraryScreen';
-import { SongScreen } from '@/features/song/SongScreen';
 import { UpdateNotifier } from '@/app/UpdateNotifier';
 import { ToastProvider } from '@/ui';
 
@@ -13,6 +12,10 @@ const SettingsScreen = lazy(() =>
   import('@/features/settings/SettingsScreen').then((m) => ({ default: m.SettingsScreen })),
 );
 
+// The Song screen carries the engine's display code (Hepburn tables, overlay, Word sheet); it loads when first opened.
+const SongScreen = lazy(() =>
+  import('@/features/song/SongScreen').then((m) => ({ default: m.SongScreen })),
+);
 const LicencesScreen = lazy(() =>
   import('@/features/about/LicencesScreen').then((m) => ({ default: m.LicencesScreen })),
 );
@@ -22,7 +25,14 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<LibraryScreen />} />
-      <Route path="/song/:id" element={<SongScreen />} />
+      <Route
+        path="/song/:id"
+        element={
+          <Suspense fallback={null}>
+            <SongScreen />
+          </Suspense>
+        }
+      />
       <Route
         path="/settings"
         element={
