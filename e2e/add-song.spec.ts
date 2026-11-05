@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
-import { JA, KO } from './helpers';
+import { JA, KO, showClean } from './helpers';
 
 async function openAdd(page: Page) {
   await page.goto('/');
@@ -46,7 +46,11 @@ test.describe('add song (paste path)', () => {
     await expect(dialog.getByText('Using Mandarin.')).toBeVisible();
     await dialog.getByRole('button', { name: 'Save', exact: true }).click();
     await expect(page.getByRole('img', { name: 'Mandarin' })).toHaveText('ZH');
-    await expect(page.locator('article[aria-label="Lyrics"]')).toHaveAttribute('lang', 'zh-Hans');
+    await showClean(page);
+    await expect(page.locator('article[aria-label="Lyrics"] p').first()).toHaveAttribute(
+      'lang',
+      'zh-Hans',
+    );
   });
 
   test('Cantonese songs use the zh-HK font language; Traditional Mandarin uses zh-Hant', async ({
@@ -57,7 +61,11 @@ test.describe('add song (paste path)', () => {
     await dialog.getByLabel('Lyrics').fill('我愛你');
     await dialog.getByLabel('Language', { exact: true }).selectOption({ label: 'Cantonese' });
     await dialog.getByRole('button', { name: 'Save', exact: true }).click();
-    await expect(page.locator('article[aria-label="Lyrics"]')).toHaveAttribute('lang', 'zh-HK');
+    await showClean(page);
+    await expect(page.locator('article[aria-label="Lyrics"] p').first()).toHaveAttribute(
+      'lang',
+      'zh-HK',
+    );
   });
 
   test('Latin-only text cannot be saved until a language is chosen', async ({ page }) => {
@@ -96,6 +104,7 @@ test.describe('add song (paste path)', () => {
       .getByLabel('Lyrics')
       .fill('[Chorus]\r\n사랑해 요  \r\n\r\n    indented\r\n(Repeat)\r\n');
     await dialog.getByRole('button', { name: 'Save', exact: true }).click();
+    await showClean(page);
     const lyrics = page.locator('article[aria-label="Lyrics"]');
     await expect(lyrics.locator('p')).toHaveText([
       '[Chorus]',
@@ -131,7 +140,27 @@ test.describe('add song (paste path)', () => {
     const dialog = await openAdd(page);
     await dialog.getByLabel('Title', { exact: true }).fill('Long paste');
     await dialog.getByLabel('Lyrics').fill(KO);
-    await page.waitForTimeout(900); // debounce + write
+    // Poll the real stored draft rather than sleeping: debounce + write time varies under load.
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () =>
+            new Promise<string | null>((resolve) => {
+              const open = indexedDB.open('overtone');
+              open.onerror = () => resolve(null);
+              open.onsuccess = () => {
+                const db = open.result;
+                const get = db.transaction('drafts').objectStore('drafts').get('add-song');
+                get.onsuccess = () => {
+                  db.close();
+                  resolve((get.result as { lyrics?: string } | undefined)?.lyrics ?? null);
+                };
+                get.onerror = () => resolve(null);
+              };
+            }),
+        ),
+      )
+      .toContain('사랑해');
     await page.reload();
     await page.getByRole('button', { name: 'Add song', exact: true }).click();
     const again = page.getByRole('dialog', { name: 'New Song' });
@@ -156,6 +185,15 @@ test.describe('add song (paste path)', () => {
 
   test('dragging the sheet header down dismisses it', async ({ page }) => {
     const dialog = await openAdd(page);
+    // Wait for the slide-in to finish: measuring the header mid-animation drags from the wrong place.
+    await expect
+      .poll(() =>
+        dialog
+          .locator('> div')
+          .first()
+          .evaluate((el) => getComputedStyle(el).transform),
+      )
+      .toMatch(/^(none|matrix\(1, 0, 0, 1, 0, 0\))$/);
     const header = dialog.locator('h2').locator('..');
     const box = (await header.boundingBox())!;
     await page.mouse.move(box.x + box.width / 2, box.y + 6);

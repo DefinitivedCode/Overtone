@@ -1,0 +1,139 @@
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 var(--space-56);
+}
+.gap {
+  height: 2em;
+}
+.section,
+.kSection,
+.cSection {
+  margin: var(--space-8) 0 var(--space-4);
+  font: var(--type-footnote);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  /* DESIGN_SYSTEM names text-tertiary; it is < 4.5:1 at 13 px, so WCAG AA wins (see PROGRESS conflicts). */
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+[data-line-index] {
+  scroll-margin-top: 112px;
+}
+
+/* ---------- Learn ---------- */
+.learnLine {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin: 0 0 1.1em;
+}
+.check {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-left: -10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent-contrast);
+}
+.checkMark {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--text-secondary);
+  border-radius: 50%;
+  transition:
+    background calc(160ms * var(--motion-scale)),
+    transform calc(160ms * var(--motion-scale));
+}
+.check[aria-pressed='true'] .checkMark {
+  border-color: var(--accent);
+  background: var(--accent);
+  animation: pop calc(160ms * var(--motion-scale)) ease-out;
+}
+@keyframes pop {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.learnText {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding-top: 0.55em;
+  font-size: calc(22px * var(--lyric-scale));
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  transition: color calc(200ms * var(--motion-scale));
+}
+.learnText ruby {
+  ruby-position: over;
+}
+.learnText rt {
+  font-size: 0.52em;
+  color: var(--annotation);
+  font-feature-settings: 'case';
+  overflow-wrap: anywhere;
+}
+.learnLine[data-learned='true'] .learnText,
+.learnLine[data-learned='true'] .learnText rt {
+  color: var(--learned);
+}
+.uncertain {
+  text-decoration: underline dotted var(--text-tertiary) 1px;
+  text-underline-offset: 0.2em;
+}
+.unknown {
+  color: var(--text-tertiary);
+}
+
+/* ---------- Karaoke ---------- */
+.karaoke {
+  padding-bottom: 40vh;
+  font-size: calc(30px * var(--lyric-scale));
+  font-weight: 500;
+  line-height: 1.35;
+}
+.kLine {
+  margin: 0 0 0.6em;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.kGap {
+  height: 1.6em;
+}
+
+/* ---------- Clean ---------- */
+.cleanToggle {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--space-12);
+}
+.cleanToggle > * {
+  min-width: min(260px, 100%);
+}
+.clean {
+  font-size: calc(19px * var(--lyric-scale));
+  line-height: 1.6;
+  padding-bottom: var(--space-56);
+  -webkit-user-select: text;
+  user-select: text;
+}
+.cLine {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.cGap {
+  height: 1.4em;
+}

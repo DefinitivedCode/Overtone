@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
+import { isUnloading } from '@/platform/lifecycle';
 import { Button, EmptyState } from '@/ui';
 
 interface State {
@@ -15,7 +16,7 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
   }
 
   override componentDidCatch(error: Error, info: ErrorInfo): void {
-    console.error('Overtone render error', error, info.componentStack);
+    if (!isUnloading()) console.error('Overtone render error', error, info.componentStack);
   }
 
   override render(): ReactNode {

@@ -159,3 +159,10 @@ export const LONG_TEXT_SONGS: FileSong[] = [
     rawLyrics: '君の名前を呼んでいた'.repeat(8) + '\n空を見ていた',
   },
 ];
+
+/** Switches the Song screen to Clean mode (plain original text), the reference view for exact-text checks. */
+export async function showClean(page: Page): Promise<void> {
+  await expect(page.locator('dialog[open]')).toHaveCount(0); // a closing sheet keeps the page inert for ~320 ms
+  await page.getByRole('radio', { name: 'Clean' }).check({ force: true });
+  await expect(page.locator('article[aria-label="Lyrics"]')).toBeVisible();
+}

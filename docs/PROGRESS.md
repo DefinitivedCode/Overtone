@@ -211,3 +211,69 @@ Every ADR has measured numbers and a decision; the "to verify" items of LANGUAGE
 ### Follow-ups
 
 - M5: wire the existing romaniser into the worker pipeline; build eojeol tokenisation, lemma heuristics, particle table; Korean linguistic suite ≥ 120 lines.
+
+---
+
+## M5 — Engine core + Korean + mixed-language routing — done
+
+Date: 2026-11-05
+
+### Delivered
+
+- `src/engine/model.ts` (Token/LineAnalysis + `checkInvariants`), `version.ts`, `cacheKey.ts`; `segment/segment.ts` (script runs with UTF-16 offsets, routing, Han+kana → Japanese segment merge); `analyse.ts` (pure pipeline), `ko/romanise.ts` (rules 1–10, exceptions table, letter mode), `ko/lemma.ts` (particle splitting with batchim agreement, particle gloss table, predicate lemma candidates incl. reverse contractions), `romanLine.ts` (render-time projection; settings never need reprocessing).
+- Worker (`worker.ts`, Comlink) + `EngineClient` (≤ 20-line batches, in-flight dedupe, abort/cancel, 60 s idle termination, main-thread fallback if the worker cannot be created or rejects, diagnostics buffer) + `clientDefault.ts` (module Worker, 30 s hidden-page termination).
+- `db/repositories/analysis.ts` (cache rows, prune) and `useLineAnalyses` (progressive fill-in; romanised search text written once analysis completes, so "saranghae" finds 사랑해).
+- Japanese/Hanja/Chinese segments inside a Korean song, and non-Korean songs in general, are shown as original text with a clear note (`needs-language-data` / `hanja`): real behaviour until M7/M8.
+- Linguistic suites: Korean 169 lines, mixed routing 43 lines (`tests/linguistic/ko.test.ts`, `docs/LINGUISTIC_REPORT.md`).
+
+### Acceptance
+
+Korean songs show romanisation above words (Learn mode, M6); Korean suite ≥ 97 % on ≥ 120 lines; worker failure never breaks rendering (client fallback tests).
+
+### Verification (actual output)
+
+- `npm test` (unit + engine + tooling projects): **377 tests passed (15 files)**, including 154 engine tests (invariants as property tests over 4 analysers × 300 random mixed-script strings, client behaviour with fake timers).
+- `npm run test:ling`: **6 tests passed**: Korean 169 lines, eojeol 190/190 (100.0 %, circular: see LINGUISTIC_REPORT), mixed routing 99/99 segments.
+- Not run / limits: the real Worker is exercised only through the e2e specs (WebKit/Chromium production build); heap/time of Korean processing was not measured separately; the main-thread fallback is unit-tested but not e2e-tested.
+
+### Scope deviations / limitations
+
+- The cache key hashes text with cyrb53 (sync) instead of sha1 (ARCHITECTURE §3.2 is an internal detail).
+- `Token` gained an optional `lemmaCandidates` field; lemmas are not set until the dictionary can validate them (M9).
+- The Word sheet is not shown (the dictionary arrives in M9) and tokens are not buttons yet (no dead controls).
+- WebKit logs an aborted module-worker fetch as a "page error" when a test navigates away mid-load; the e2e fixture filters exactly that message (documented in `e2e/fixtures.ts`); every other console/page error still fails the test.
+
+---
+
+## M6 — Display modes and progress — done
+
+Date: 2026-11-05
+
+### Delivered
+
+- Learn (check button per learnable line with `aria-pressed`, ruby romanisation over each eojeol, learned styling with a check icon, dotted underline for low confidence, `?` marker for unreadable foreign segments, sections/blanks not learnable), Karaoke (romanised only, ≥ 28 px, zero interactive elements, wake lock when supported: MAY, not tested), Clean (Original ⇄ Romanised, selectable text), mode switcher with optimistic state and per-song persistence, scroll anchoring on mode change.
+- Progress: header "N of M lines" + bar + "Learned ✓", Library bars/badge, shared keys, Reset with confirmation; optimistic toggles with revert + toast on failure.
+- Settings → Romanisation: Korean (Pronunciation / Letter by letter) applied in all modes at render time. Text size applies to lyrics in all modes.
+- Notices: songs in a language without data show "Pronunciation for X isn't available yet" and keep progress working.
+
+### Acceptance
+
+J4 (except dictionary parts and the line menu), J5, J6, J7 pass for Korean; see `docs/TRACEABILITY.md` (38 of 73 ACs covered, 15 partial at this point).
+
+### Verification (actual output)
+
+- `npm run verify`: lint clean, typecheck clean, **377 unit/engine/tooling tests passed**, build OK, **336 e2e passed** across webkit-iphone, webkit-iphone-se, chromium-mobile, chromium-desktop (new specs: `modes`, `progress`; axe clean in Learn/Karaoke/Clean/Clean-romanised, light and dark; no horizontal overflow at 320–768 px with Korean long-text fixtures).
+- Bundle: main JS **171.6 KB gzip** (budget 180: little headroom; the engine worker is a separate chunk). CSS 5.4 KB gzip.
+- Visual inspection in WebKit at 375 px, light/dark (Learn, Karaoke, Clean romanised).
+- Bugs found by tests and fixed: (1) a Han run next to kana was not merged into a Japanese segment; (2) live queries rethrew transient IndexedDB errors into render (an aborted transaction on navigation blanked the screen); the hooks now retry once and stay quiet when the page is unloading or the DB was closed deliberately; (3) mode and Korean-setting radios waited for the DB write before reflecting the click (now optimistic); (4) the processing indicator duplicated the toast's `status` role; (5) several tests raced hard navigations against in-flight writes.
+- Not done / not verified: J4.8 line long-press menu (SHOULD), deferred to M13; per-width rt-vs-base bounding-box assertions (ADR 0007 measured them in a harness only); scroll anchoring is tested coarsely; real iOS rendering, keyboard and wake lock; Word sheet and token buttons (M9).
+
+### Scope deviations / limitations
+
+- Section labels use `--text-secondary` instead of `--text-tertiary` (WCAG AA; logged under conflicts).
+- Hanja and Japanese inside a Korean song are unannotated (documented limitation).
+- The ruby tokens are plain `<ruby>` for now; they become `<button>`s with the Word sheet in M9.
+
+### Follow-ups
+
+- M7: packs infrastructure, service worker, Mandarin and Cantonese. The main bundle is at 171.6 KB gzip, so pinyin-pro (140 KB), to-jyutping (273 KB) and opencc t2cn (54 KB) must be lazy chunks loaded by the worker.

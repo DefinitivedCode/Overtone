@@ -51,7 +51,7 @@ test.describe('layout: no horizontal overflow with awkward text (J4.1)', () => {
       await expectNoOverflow(page, `library @${width}`);
 
       await page.getByRole('link', { name: /A very long title/ }).click();
-      await expect(page.locator('article[aria-label="Lyrics"]')).toBeVisible();
+      await expect(page.getByRole('list', { name: 'Lyrics' })).toBeVisible();
       await expectNoOverflow(page, `long Korean song @${width}`);
       await page.getByRole('button', { name: 'Song options' }).click();
       await page.getByRole('menuitem', { name: 'Edit lyrics' }).click();
@@ -62,7 +62,7 @@ test.describe('layout: no horizontal overflow with awkward text (J4.1)', () => {
 
       await page.goto('/');
       await page.getByRole('link', { name: /日本語のとても長い/ }).click();
-      await expect(page.locator('article[aria-label="Lyrics"]')).toBeVisible();
+      await expect(page.getByRole('list', { name: 'Lyrics' })).toBeVisible();
       await expectNoOverflow(page, `long Japanese song @${width}`);
 
       await page.goto('/');
@@ -105,8 +105,17 @@ test.describe('accessibility (axe: no serious/critical) on library, song, sheets
       await page.getByRole('button', { name: 'Discard' }).click();
 
       await page.getByRole('link', { name: /Plain Korean/ }).click();
-      await expect(page.locator('article[aria-label="Lyrics"]')).toBeVisible();
-      await expectAxeClean(page, `song ${theme}`);
+      await expect(page.getByRole('list', { name: 'Lyrics' })).toBeVisible();
+      await expect(page.locator('rt').first()).toBeVisible(); // wait for the romanisation to arrive
+      await expectAxeClean(page, `song learn ${theme}`);
+      await page.getByRole('button', { name: 'Mark line 1 as learned' }).click();
+      await expectAxeClean(page, `song learn with a learned line ${theme}`);
+      await page.getByRole('radio', { name: 'Karaoke' }).check({ force: true });
+      await expectAxeClean(page, `song karaoke ${theme}`);
+      await page.getByRole('radio', { name: 'Clean' }).check({ force: true });
+      await expectAxeClean(page, `song clean ${theme}`);
+      await page.getByRole('radio', { name: 'Romanised' }).check({ force: true });
+      await expectAxeClean(page, `song clean romanised ${theme}`);
       await page.getByRole('button', { name: 'Song options' }).click();
       await page.getByRole('menuitem', { name: 'Edit details' }).click();
       await expectAxeClean(page, `edit details ${theme}`);

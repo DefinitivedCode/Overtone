@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { expect, test } from './fixtures';
-import { JA, KO, addSong, backupJson, importBackup } from './helpers';
+import { JA, KO, addSong, backupJson, importBackup, showClean } from './helpers';
 
 // Playwright's Chromium may or may not implement Web Share; force the download path unless a test stubs share.
 const noShare = () => {
@@ -105,6 +105,7 @@ test.describe('backup', () => {
     await expect(list).toContainText('Song KO');
     await expect(list).toContainText('Song JA');
     await page2.getByRole('link', { name: /Song KO/ }).click();
+    await showClean(page2);
     await expect(page2.locator('article[aria-label="Lyrics"] p')).toHaveText([
       '[Chorus]',
       '사랑해 요',

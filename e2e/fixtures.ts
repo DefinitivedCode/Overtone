@@ -1,13 +1,23 @@
 import { expect, test as base } from '@playwright/test';
 
+/**
+ * WebKit reports a module-worker script fetch that is aborted by a navigation as an "access control
+ * checks" error (as a page error and/or console error). It only occurs when a test leaves the page
+ * while the engine worker is still loading; the engine client falls back to the main thread and
+ * nothing is lost. Every other error still fails the test.
+ */
+const BENIGN = /assets\/worker-[\w-]+\.js due to access control checks/;
+
 /** Fails any test that logs console.error or throws a page error (AUTONOMOUS_AGENT §5). */
 export const test = base.extend({
   page: async ({ page }, run) => {
     const errors: string[] = [];
     page.on('console', (msg) => {
-      if (msg.type() === 'error') errors.push(msg.text());
+      if (msg.type() === 'error' && !BENIGN.test(msg.text())) errors.push(msg.text());
     });
-    page.on('pageerror', (err) => errors.push(err.message));
+    page.on('pageerror', (err) => {
+      if (!BENIGN.test(err.message)) errors.push(err.message);
+    });
     await run(page);
     expect(errors, 'console errors during test').toEqual([]);
   },

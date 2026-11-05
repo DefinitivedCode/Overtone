@@ -1,5 +1,5 @@
 import { expect, test } from './fixtures';
-import { KO, addSong, backupJson, importBackup } from './helpers';
+import { KO, addSong, backupJson, importBackup, showClean } from './helpers';
 
 test.describe('song screen: edit and delete', () => {
   test('menu offers Edit lyrics, Edit details and Delete (Reset only once something is learned)', async ({
@@ -30,6 +30,7 @@ test.describe('song screen: edit and delete', () => {
     await expect(page.getByRole('status')).toContainText(
       'Lyrics updated · 1 changed line reset to unlearned, 1 line added',
     );
+    await showClean(page);
     await expect(page.locator('article[aria-label="Lyrics"] p')).toHaveText([
       'one',
       'TWO CHANGED',
@@ -73,7 +74,11 @@ test.describe('song screen: edit and delete', () => {
     await expect(page.getByRole('heading', { level: 1, name: 'New title' })).toBeVisible();
     await expect(page.getByText('New artist')).toBeVisible();
     await expect(page.getByRole('img', { name: 'Japanese' })).toBeVisible();
-    await expect(page.locator('article[aria-label="Lyrics"]')).toHaveAttribute('lang', 'ja');
+    await showClean(page);
+    await expect(page.locator('article[aria-label="Lyrics"] p').first()).toHaveAttribute(
+      'lang',
+      'ja',
+    );
   });
 
   test('Delete asks for confirmation, returns to the Library, and Undo restores the song (J9.2)', async ({
