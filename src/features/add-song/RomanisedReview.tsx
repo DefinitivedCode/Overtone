@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { LANG_NAME } from '@/features/language';
 import {
   assemble,
@@ -10,6 +10,8 @@ import {
   type Choices,
   type ReverseLang,
 } from '@/lyrics/reverse/convert';
+import { installedKoreanLexicon } from '@/lyrics/reverse/lexicon';
+import type { Lexicon } from '@/lyrics/reverse/rank';
 import { Banner, Button, SegmentedControl, Switch, TextField } from '@/ui';
 import s from './RomanisedReview.module.css';
 
@@ -39,9 +41,25 @@ export function RomanisedReview({
   const [editing, setEditing] = useState<number | null>(null);
   const [onlyReview, setOnlyReview] = useState(false);
 
+  // Korean spellings are ordered with the installed dictionary (when there is one). The list is shown only once that
+  // lookup has finished, so a late result can never reshuffle the options under the user's finger.
+  const [lexicon, setLexicon] = useState<{ text: string; value: Lexicon | null } | null>(null);
+  useEffect(() => {
+    if (language !== 'ko') return;
+    let live = true;
+    void installedKoreanLexicon(source).then((value) => {
+      if (live) setLexicon({ text: source, value });
+    });
+    return () => {
+      live = false;
+    };
+  }, [source, language]);
+  const checking = language === 'ko' && lexicon?.text !== source;
+  const lexiconNow = language === 'ko' && !checking ? lexicon!.value : null;
+
   const lines = useMemo(
-    () => (language ? convertLyrics(source, language) : []),
-    [source, language],
+    () => (language && !checking ? convertLyrics(source, language, { lexicon: lexiconNow }) : []),
+    [source, language, checking, lexiconNow],
   );
   const lyricLines = lines.filter(
     (l) => l.kind === 'lyric' && l.segments.some((x) => x.type === 'word'),
@@ -85,10 +103,19 @@ export function RomanisedReview({
         <>
           <Banner tone="warning">{LIMITATION[language]}</Banner>
           <p className={s['summary']} aria-live="polite">
-            {converted === 0
-              ? 'Nothing here could be read as romanisation, so there is nothing to convert.'
-              : `${converted} words converted, ${toReview} with other options. Your pasted text stays available until you use the result.`}
+            {checking
+              ? 'Checking the Korean dictionary…'
+              : converted === 0
+                ? 'Nothing here could be read as romanisation, so there is nothing to convert.'
+                : `${converted} words converted, ${toReview} with other options. Your pasted text stays available until you use the result.`}
           </p>
+          {language === 'ko' && !checking ? (
+            <p className={s['summary']}>
+              {lexiconNow
+                ? 'Options are ordered using your Korean dictionary, so real words come first.'
+                : 'Download the Korean dictionary in Settings to put real words first.'}
+            </p>
+          ) : null}
           <Switch label="Only show lines to check" checked={onlyReview} onChange={setOnlyReview} />
           <ol className={s['lines']} lang={language}>
             {shown.map((line) => {

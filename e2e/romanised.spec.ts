@@ -65,3 +65,49 @@ test.describe('romanised lyrics import (issue #4)', () => {
     await expect(dialog.getByText(/look romanised/)).toHaveCount(0);
   });
 });
+
+test.describe('romanised Korean uses the installed dictionary (issue #11)', () => {
+  const PASTE = 'meogeo bogo sipeo\nsaranghae neoreul jeongmal';
+
+  async function firstProposal(page: Page) {
+    const dialog = await openAdd(page);
+    await dialog.getByLabel('Title', { exact: true }).fill('Ranked');
+    await dialog.getByLabel('Lyrics').fill(PASTE);
+    await dialog.getByRole('button', { name: 'Review', exact: true }).click();
+    const review = page.getByRole('dialog', { name: 'Convert Lyrics' });
+    await expect(review).toBeVisible();
+    await review.getByRole('radio', { name: 'Korean' }).check({ force: true });
+    await expect(review.getByText('Checking the Korean dictionary…')).toBeHidden();
+    return review;
+  }
+
+  test('without the dictionary the order is unchanged and a hint says how to improve it', async ({
+    page,
+  }) => {
+    const review = await firstProposal(page);
+    await expect(review.getByText(/Download the Korean dictionary in Settings/)).toBeVisible();
+    await expect(review.getByRole('button', { name: /^meogeo: 머거/ })).toBeVisible();
+  });
+
+  test('with the dictionary, real words come first and every option is still reachable', async ({
+    page,
+  }) => {
+    await page.goto('/settings');
+    await page
+      .getByRole('region', { name: 'Offline language downloads' })
+      .getByRole('listitem')
+      .filter({ hasText: 'Korean dictionary' })
+      .getByRole('button', { name: /Download ·/ })
+      .click();
+    await expect(page.getByText(/Downloaded · [\d.]+ MB/).first()).toBeVisible({ timeout: 30_000 });
+
+    const review = await firstProposal(page);
+    await expect(review.getByText(/ordered using your Korean dictionary/)).toBeVisible();
+    const word = review.getByRole('button', { name: /^meogeo: 먹어/ });
+    await expect(word).toBeVisible();
+    await expect(word).toHaveAccessibleName(/Option 1 of \d+/);
+    await word.click();
+    await expect(review.getByRole('button', { name: /^meogeo: 머거/ })).toBeVisible();
+    await expectAxeClean(page, 'romanised review with dictionary');
+  });
+});
