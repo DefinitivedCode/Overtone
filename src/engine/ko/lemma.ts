@@ -14,6 +14,30 @@ const finalOf = (c: string) => (c.codePointAt(0)! - S_BASE) % 28;
 const hasBatchim = (c: string) => isSyl(c) && finalOf(c) !== 0;
 const endsInRieul = (c: string) => isSyl(c) && finalOf(c) === 8;
 
+/** The syllable `c` with its final consonant replaced (0 = none, 4 = ㄴ, 8 = ㄹ, 17 = ㅂ). */
+const withFinal = (c: string, final: number) =>
+  String.fromCodePoint(c.codePointAt(0)! - finalOf(c) + final);
+
+/**
+ * ㄹ-stem verbs (알다, 만들다, 불다) lose their ㄹ before ㄴ, ㅂ, ㅅ and a following 는: 아는, 압니다, 만드세요,
+ * 분다. Given the eojeol with that ending removed, returns dictionary forms with the ㄹ restored.
+ * Also covers plain vowel stems that take ㅂ니다 / ㄴ다 (갑니다 → 가다, 간다 → 가다).
+ */
+function rieulForms(stem: string, merged: 'none' | 'nieun' | 'bieup'): string[] {
+  const chars = [...stem];
+  const last = chars.pop();
+  if (last === undefined || !isSyl(last)) return [];
+  const head = chars.join('');
+  const final = finalOf(last);
+  if (merged === 'none') {
+    // The ending is a separate syllable (는, 세요), so the stem has no final of its own.
+    return final === 0 ? [`${head}${withFinal(last, 8)}다`] : [];
+  }
+  // ㄴ or ㅂ was absorbed into the stem's last syllable (분 = 부 + ㄴ).
+  if (final !== (merged === 'nieun' ? 4 : 17)) return [];
+  return [`${head}${withFinal(last, 0)}다`, `${head}${withFinal(last, 8)}다`];
+}
+
 /** Longest first. `batchim`: required stem ending ('yes' needs a final consonant, 'no' needs none/ㄹ). */
 const PARTICLES: ReadonlyArray<readonly [string, 'any' | 'yes' | 'no']> = [
   ['에서부터', 'any'],
@@ -209,6 +233,22 @@ export function lemmaCandidates(eojeol: string): string[] {
     for (const [from, to] of REVERSE) {
       if (last === from && from !== to) add(`${[...stem].slice(0, -1).join('')}${to}다`);
     }
+  }
+  // ㄹ-dropping and ㅂ/ㄴ-absorbing endings, which the plain ending list above cannot see. These look at the whole
+  // eojeol: a trailing 는 would otherwise already have been taken for a particle.
+  const chars = [...eojeol];
+  if (chars.length >= 3 && eojeol.endsWith('니다') && finalOf(chars.at(-3)!) === 17)
+    rieulForms(chars.slice(0, -2).join(''), 'bieup').forEach(add);
+  else if (
+    chars.length >= 2 &&
+    chars.at(-1) === '다' &&
+    isSyl(chars.at(-2)!) &&
+    finalOf(chars.at(-2)!) === 4
+  )
+    rieulForms(chars.slice(0, -1).join(''), 'nieun').forEach(add);
+  for (const end of ['시는', '십니다', '세요', '는']) {
+    if (eojeol.endsWith(end) && eojeol.length > end.length)
+      rieulForms(eojeol.slice(0, -end.length), 'none').forEach(add);
   }
   // Contracted stems with no separate ending: 해 → 하다, 봐 → 보다, 줘 → 주다.
   const lastCh = [...base].pop() ?? '';
