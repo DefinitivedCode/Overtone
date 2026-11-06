@@ -96,6 +96,9 @@ export function Sheet({
             ? lastPressed
             : null;
       dlg.showModal();
+      // Flush styles so the closed (off-screen) state is committed before the open class is applied; without
+      // it iOS can skip the transition and paint the panel mid-way or at its final position for a frame.
+      void dlg.offsetHeight;
     }
     document.documentElement.dataset['scrollLocked'] = 'true';
     const raf = requestAnimationFrame(() => {
