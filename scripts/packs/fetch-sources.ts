@@ -17,7 +17,17 @@ const sha256 = (b: Buffer) => createHash('sha256').update(b).digest('hex');
  * A SHA-256 mismatch is an error: the upstream file changed, so the pin and pack version must be updated on purpose.
  */
 export async function fetchSource(id: SourceId): Promise<Buffer> {
-  const s = sources.sources[id];
+  const s: Source & { vendored?: string } = sources.sources[id];
+  // Vendored sources (rolling upstream URLs) come from the repository, never the network; still checksum-verified.
+  if (s.vendored) {
+    const buf = readFileSync(path.join(import.meta.dirname, s.vendored));
+    const got = sha256(buf);
+    if (got !== s.sha256)
+      throw new Error(
+        `${s.name}: vendored copy ${s.vendored} does not match its pinned SHA-256 (got ${got}).`,
+      );
+    return buf;
+  }
   const file = path.join(cacheDir, s.file);
   mkdirSync(cacheDir, { recursive: true });
   const cached = existsSync(file);

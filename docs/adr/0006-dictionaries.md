@@ -48,3 +48,7 @@ M7 retains these pins. The production packs contain the full trimmed Mandarin an
 - Wiktionary's exact licence wording (CC BY-SA 4.0 vs 3.0 / GFDL) must be copied from the Wiktionary reuse page when the pack manifest is written (M9); kaikki's request for a link back and citation will be satisfied in About.
 - JMdict attribution text: use the EDRDG-prescribed wording (page above) verbatim.
 - Dictionary files change daily (CC-CEDICT's `Last-Modified` was the day of download); the pins above are a snapshot and will be refreshed deliberately, with the pack version bumped.
+
+## Addendum 2026-11-06: CC-CEDICT is vendored
+
+The MDBG URL is a rolling "latest" export rebuilt daily, so the 2026-11-05 pin broke CI the next day (the checksum guard did its job). The 2026-11-06 file was inspected against the old one: same format and header, same CC BY-SA 4.0 licence, 125,369 entries (+2) and a handful of edited definitions. The pin was refreshed deliberately (3,983,590 bytes, SHA-256 `5b6db884de36cf04ac3be268d758cd4512ba3a487c1775348ba8e18ea8f0e25f`), `zh-core` is now `2026.11.6`, and the exact file is committed as `scripts/packs/vendor/cedict-2026-11-06.zip` (`"vendored"` in `sources.json`) so builds are reproducible. Redistribution is permitted by CC BY-SA 4.0 and the attribution in `sources.json` and About → Licences already covers it. To update CC-CEDICT: download, review the diff, add a new vendored file, update the pin and bump the pack version. The other sources use versioned or dated URLs and stay download-and-verify.
