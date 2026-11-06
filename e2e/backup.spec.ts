@@ -169,8 +169,7 @@ test.describe('backup', () => {
     });
     const dialog = page.getByRole('dialog', { name: 'Import backup' });
     const replace = dialog.getByRole('radio', { name: 'Replace library' });
-    await expect(replace).toBeInViewport();
-    await replace.check({ force: true });
+    await replace.check();
     await expect(
       dialog.getByRole('button', { name: 'Export current library first' }),
     ).toBeVisible();
