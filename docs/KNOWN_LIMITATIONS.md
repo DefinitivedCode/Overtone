@@ -4,7 +4,7 @@ Things that are genuinely limited today. Implementation notes belong in the ADRs
 
 ## Verification
 
-- **Real iOS (M0):** Playwright WebKit is desktop WebKit with mobile emulation, not iOS. Standalone mode, Home Screen storage and update prompts, the real keyboard, safe areas, native memory behaviour and the status bar can only be verified by a human on a device. See `docs/IOS_VERIFICATION.md`.
+- **Real iOS (M0):** Playwright WebKit is desktop WebKit with mobile emulation, not iOS. The owner has checked offline cold launch, the update prompt, sheets, scrolling, the sort menu, animations and the romanised-import review on a real iPhone (2026-11-06). Install icon and splash, the real keyboard, safe areas and landscape, VoiceOver, memory behaviour and week-long storage persistence are still unchecked. See `docs/IOS_VERIFICATION.md`.
 - **Linguistic fixtures (M4):** all fixtures are self-authored and unreviewed by a fluent speaker; the Korean module's 100 % on its starter set is circular. A native-speaker review of a sample is the single most valuable accuracy check still missing.
 - **Splash screens (M1):** the iPhone sizes in `scripts/brand/devices.ts` were not verified against Apple's current specifications. A device with no matching image shows a plain background-colour launch screen.
 
