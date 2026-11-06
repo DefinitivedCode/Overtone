@@ -64,11 +64,26 @@
 
 /* ---------- Segmented control ---------- */
 .segmented {
+  position: relative;
   display: flex;
   padding: 2px;
   gap: 2px;
   border-radius: var(--radius-pill);
   background: var(--bg-sunken);
+}
+/* The thumb slides between segments (transform only, so no layout shift); instant under reduced motion. */
+.segmented::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  width: calc((100% - 4px - 2px * (var(--seg-count, 1) - 1)) / var(--seg-count, 1));
+  border-radius: var(--radius-pill);
+  background: var(--bg-elevated);
+  box-shadow: 0 0 0 0.5px var(--separator);
+  transform: translateX(calc(var(--seg-index, 0) * (100% + 2px)));
+  transition: transform calc(200ms * var(--motion-scale)) cubic-bezier(0.32, 0.72, 0, 1);
 }
 .segment {
   position: relative;
@@ -94,10 +109,8 @@
   text-align: center;
 }
 .segment input:checked + span {
-  background: var(--bg-elevated);
   color: var(--text);
   font-weight: 600;
-  box-shadow: 0 0 0 0.5px var(--separator);
 }
 .segment input:focus-visible + span {
   outline: 2px solid var(--accent);
@@ -298,6 +311,15 @@ button.chip {
   box-shadow:
     0 0 0 0.5px var(--separator),
     0 12px 32px rgba(0, 0, 0, 0.18);
+}
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+.menu {
+  animation: menu-in calc(120ms * var(--motion-scale)) ease-out;
 }
 .menuEnd {
   right: 0;
