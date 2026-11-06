@@ -10,7 +10,8 @@ import {
   type Choices,
   type ReverseLang,
 } from '@/lyrics/reverse/convert';
-import { installedKoreanLexicon } from '@/lyrics/reverse/lexicon';
+import { installedKanjiIndex, installedKoreanLexicon } from '@/lyrics/reverse/lexicon';
+import type { KanjiIndex } from '@/lyrics/reverse/kanji';
 import type { Lexicon } from '@/lyrics/reverse/rank';
 import { Banner, Button, SegmentedControl, Switch, TextField } from '@/ui';
 import s from './RomanisedReview.module.css';
@@ -25,7 +26,7 @@ export interface RomanisedReviewProps {
 
 const LIMITATION: Record<ReverseLang, string> = {
   ko: 'Romanisation records sound, not spelling, so several spellings can fit one word (for example 먹어 and 머거). Hangul is proposed from the sound; a silent ㅎ or a doubled final may be missing. Tap an underlined word to try another spelling.',
-  ja: 'Romaji has no kanji, so lyrics are converted to kana only. Particles (は/わ, を/お, へ/え) and long vowels can differ from the original. Tap an underlined word to try another reading, or katakana.',
+  ja: 'Romaji has no kanji, so lyrics start out as kana. Particles (は/わ, を/お, へ/え) and long vowels can differ from the original. Tap an underlined word to try another reading, or katakana.',
 };
 
 /** Review step: propose original-script lyrics from pasted romanisation; nothing is applied until the user accepts. */
@@ -41,25 +42,37 @@ export function RomanisedReview({
   const [editing, setEditing] = useState<number | null>(null);
   const [onlyReview, setOnlyReview] = useState(false);
 
-  // Korean spellings are ordered with the installed dictionary (when there is one). The list is shown only once that
-  // lookup has finished, so a late result can never reshuffle the options under the user's finger.
-  const [lexicon, setLexicon] = useState<{ text: string; value: Lexicon | null } | null>(null);
+  // Dictionary evidence (Korean: real words first; Japanese: kanji options) comes from the installed packs. The list is
+  // shown only once that lookup has finished, so a late result can never reshuffle the options under the user's finger.
+  const [evidence, setEvidence] = useState<{
+    key: string;
+    lexicon: Lexicon | null;
+    kanji: KanjiIndex | null;
+  } | null>(null);
+  const evidenceKey = `${language ?? ''}
+${source}`;
   useEffect(() => {
-    if (language !== 'ko') return;
+    if (language === null) return;
     let live = true;
-    void installedKoreanLexicon(source).then((value) => {
-      if (live) setLexicon({ text: source, value });
-    });
+    const done = (lexicon: Lexicon | null, kanji: KanjiIndex | null) => {
+      if (live) setEvidence({ key: evidenceKey, lexicon, kanji });
+    };
+    if (language === 'ko') void installedKoreanLexicon(source).then((l) => done(l, null));
+    else void installedKanjiIndex().then((k) => done(null, k));
     return () => {
       live = false;
     };
-  }, [source, language]);
-  const checking = language === 'ko' && lexicon?.text !== source;
-  const lexiconNow = language === 'ko' && !checking ? lexicon!.value : null;
+  }, [source, language, evidenceKey]);
+  const checking = language !== null && evidence?.key !== evidenceKey;
+  const lexiconNow = !checking ? (evidence?.lexicon ?? null) : null;
+  const kanjiNow = !checking ? (evidence?.kanji ?? null) : null;
 
   const lines = useMemo(
-    () => (language && !checking ? convertLyrics(source, language, { lexicon: lexiconNow }) : []),
-    [source, language, checking, lexiconNow],
+    () =>
+      language && !checking
+        ? convertLyrics(source, language, { lexicon: lexiconNow, kanji: kanjiNow })
+        : [],
+    [source, language, checking, lexiconNow, kanjiNow],
   );
   const lyricLines = lines.filter(
     (l) => l.kind === 'lyric' && l.segments.some((x) => x.type === 'word'),
@@ -104,16 +117,20 @@ export function RomanisedReview({
           <Banner tone="warning">{LIMITATION[language]}</Banner>
           <p className={s['summary']} aria-live="polite">
             {checking
-              ? 'Checking the Korean dictionary…'
+              ? 'Checking the dictionary…'
               : converted === 0
                 ? 'Nothing here could be read as romanisation, so there is nothing to convert.'
                 : `${converted} words converted, ${toReview} with other options. Your pasted text stays available until you use the result.`}
           </p>
-          {language === 'ko' && !checking ? (
+          {!checking ? (
             <p className={s['summary']}>
-              {lexiconNow
-                ? 'Options are ordered using your Korean dictionary, so real words come first.'
-                : 'Download the Korean dictionary in Settings to put real words first.'}
+              {language === 'ko'
+                ? lexiconNow
+                  ? 'Options are ordered using your Korean dictionary, so real words come first.'
+                  : 'Download the Korean dictionary in Settings to put real words first.'
+                : kanjiNow
+                  ? 'Common kanji are offered as extra options (tap a word), using your Japanese dictionary. Conjugated verbs stay in kana.'
+                  : 'Download the Japanese dictionary in Settings to get kanji options.'}
             </p>
           ) : null}
           <Switch label="Only show lines to check" checked={onlyReview} onChange={setOnlyReview} />

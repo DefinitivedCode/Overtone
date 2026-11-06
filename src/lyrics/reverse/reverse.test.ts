@@ -6,6 +6,7 @@ import { assemble, convertLyrics, lineText, reviewCount } from './convert';
 import { detectRomanised } from './detect';
 import { romajiToKana } from './japanese';
 import { romanToHangul } from './korean';
+import { buildKanjiIndex, kanjiFor } from './kanji';
 import { rankByLexicon } from './rank';
 
 describe('Korean: romanisation → Hangul candidates', () => {
@@ -203,5 +204,38 @@ describe('dictionary ranking', () => {
   });
   it('does not touch Japanese', () => {
     expect(convertLyrics('kimi', 'ja', { lexicon })).toEqual(convertLyrics('kimi', 'ja'));
+  });
+});
+
+describe('kanji options (pure index)', () => {
+  const rows = [
+    { f: '空', r: 'そら', q: 1, e: 2 },
+    { f: '宙', r: 'そら', q: 0, e: 1 }, // not an ordinary entry: never offered
+    { f: '天空', r: 'てんくう', q: 1, e: 3 },
+    { f: '歯', r: 'は', q: 1, e: 4 }, // one kana: never offered (it would turn every は into 歯)
+    { f: '有る', r: 'ある', q: 1, e: 5 }, // everyday kana word: not offered
+    { f: '色', r: 'いろ', a: ['しき'], q: 1, e: 6 },
+    { f: '色彩', r: 'シキサイ', q: 1, e: 7 }, // katakana readings are matched as hiragana
+    { f: 'ひらがな', r: 'ひらがな', q: 1, e: 8 }, // no kanji: not an option
+  ];
+  const index = buildKanjiIndex(rows);
+  it('offers common kanji forms for an exact reading, oldest entries first', () => {
+    expect(kanjiFor('そら', index)).toEqual(['空']);
+    expect(kanjiFor('しき', index)).toEqual(['色']);
+    expect(kanjiFor('しきさい', index)).toEqual(['色彩']);
+  });
+  it('stays quiet for function words, one-kana words and unknown readings', () => {
+    expect(kanjiFor('は', index)).toEqual([]);
+    expect(kanjiFor('ある', index)).toEqual([]);
+    expect(kanjiFor('ひらがな', index)).toEqual([]);
+    expect(kanjiFor('ぜんぜん', index)).toEqual([]);
+  });
+  it('keeps the kana default first and the katakana alternative', () => {
+    const word = convertLyrics('sora', 'ja', { kanji: index })[0]!.segments[0]!;
+    if (word.type !== 'word') throw new Error('expected a word');
+    expect(word.candidates).toEqual(['そら', '空', 'ソラ']);
+    expect(convertLyrics('sora', 'ja', { kanji: null })[0]!.segments[0]).toEqual(
+      convertLyrics('sora', 'ja')[0]!.segments[0],
+    );
   });
 });

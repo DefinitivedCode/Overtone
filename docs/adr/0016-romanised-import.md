@@ -36,3 +36,11 @@ Measured against the real `ko-core` pack (`tests/linguistic/romanised-ranking.te
 | 하다 forms (X해, X합니다; n=1500)              | 34.3 % | 84.7 % | 85.1 %        |
 
 Caveats, stated plainly: these cases are words the dictionary contains, so they measure ranking among homophone candidates, not coverage; names, slang and words missing from the dictionary fall back to the previous order and are not measured. The headword sample is uniform over the dictionary, not weighted by how often a word appears in lyrics, and the starter words are self-authored and unreviewed by a fluent speaker (issue #14). The test floors sit just under these figures as regression guards.
+
+## Addendum: kanji options for Japanese (issue #10)
+
+Japanese words keep **kana as the default**; kanji are offered as extra options after it (`src/lyrics/reverse/kanji.ts`). Options come from _ordinary_ (common) JMdict entries whose reading matches exactly, oldest entry first, at most three per word. One-kana words and everyday kana words (ある, これ, から, …) get none, so は never offers 歯.
+
+**No pack-format or schema change.** The dictionary is indexed by written form, so "which kanji have this reading?" cannot be asked of it directly. Instead the review step scans only the `"q":1` lines of the installed Japanese pack's kanji blocks once (`src/engine/dict/scan.ts`) and builds a reading → kanji map in memory. Nothing is stored; without the pack the review is unchanged and says how to get the options. The list is shown after that scan finishes so options never reshuffle.
+
+Measured on the real `ja-core` pack (`tests/linguistic/romaji-kanji.test.ts`): for 3,000 sampled common kanji words, the original kanji is the **first** option for 81 % and among the three offered for 95 %. Caveats: dictionary forms only (about 83 % of kanji tokens in the Japanese fixtures; stems of conjugated verbs such as 歩い and 走っ stay kana, a candidate for a later deinflection step); the sample is uniform over common words, not weighted by lyric frequency; names, slang and rare words are not offered; and no frequency data exists in the pack, so homophones are ordered by entry id, which is only a rough proxy.

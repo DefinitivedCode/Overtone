@@ -9,6 +9,7 @@ import { detectKind, type LineKind } from '../parse';
 import { isAlwaysEnglish, isContextualEnglish } from './english';
 import { MAX_CANDIDATES, RANKING_POOL, romanToHangul } from './korean';
 import { romajiToKana } from './japanese';
+import { kanjiFor, type KanjiIndex } from './kanji';
 import { rankByLexicon, type Lexicon } from './rank';
 
 export type ReverseLang = 'ko' | 'ja';
@@ -49,6 +50,8 @@ export function tokenise(line: string): string[] {
 export interface ConvertOptions {
   /** Dictionary evidence used to put real words first among a word's candidates (Korean only today). */
   lexicon?: Lexicon | null;
+  /** Kanji options for Japanese words, offered after the kana (never the default). */
+  kanji?: KanjiIndex | null;
 }
 
 export function convertLyrics(
@@ -61,11 +64,16 @@ export function convertLyrics(
     const key = word.toLowerCase();
     let hit = cache.get(key);
     if (!hit) {
+      const withKanji = (kana: string[]): string[] => {
+        const extra =
+          lang === 'ja' && options.kanji && kana[0] ? kanjiFor(kana[0], options.kanji) : [];
+        return extra.length ? [kana[0]!, ...extra, ...kana.slice(1)] : kana;
+      };
       // With dictionary evidence, rank a wider pool first so a real word is not cut off before it can move up.
       const lex = lang === 'ko' ? options.lexicon : null;
       hit = lex
         ? rankByLexicon(romanToHangul(word, RANKING_POOL), lex).slice(0, MAX_CANDIDATES)
-        : convertWord(word, lang);
+        : withKanji(convertWord(word, lang));
       cache.set(key, hit);
     }
     return hit;
