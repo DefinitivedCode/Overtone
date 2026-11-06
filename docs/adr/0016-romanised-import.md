@@ -20,3 +20,19 @@ Lyrics sources (including LRCLIB) often provide only romanisation. The Add Song 
 ## Known gaps
 
 No lexicon ranking (an installed Korean dictionary could order candidates); Korean letters ㅎ and doubled finals are only recovered as sound; non-standard conventions beyond the listed variants (k/g, t/d, p/b, ch/j, `oo`, `ee`, `sh`) are not read; a long list of English words is not exhaustive, so English words that look like romanisation may be offered in kana/Hangul (they are underlined and one tap from being reverted).
+
+## Addendum: dictionary ranking (issue #11)
+
+Korean candidates are now ordered with the installed Korean dictionary (`src/lyrics/reverse/rank.ts`, `lexicon.ts`). A candidate scores higher when it is a headword, or an inflected/particle form of one (the Word sheet's `lemmaCandidates`), with ordinary entries above proper nouns. The score only **reorders**: nothing is removed, a wider pool (24) is ranked before truncating to six, and with no dictionary installed the order is unchanged (the review step says so and points to Settings). The review list is shown only after the lookup finishes, so options never move under the user's finger. Japanese is unchanged.
+
+The converter also gained the spelling hidden inside an aspirated sound (ㅂ+ㅎ heard as ㅍ: 공습해 is "gongseupae"; ㅎ+ㄷ heard as ㅌ: 좋다 is "jota"), which previously could not be proposed at all.
+
+Measured against the real `ko-core` pack (`tests/linguistic/romanised-ranking.test.ts`; first candidate equals the original word):
+
+| Set                                            | Before | After  | In candidates |
+| ---------------------------------------------- | ------ | ------ | ------------- |
+| Starter fixture words (n=73, self-authored)    | 28.8 % | 60.3 % | 64.4 %        |
+| Seeded sample of dictionary headwords (n=3000) | 76.6 % | 92.6 % | 92.9 %        |
+| 하다 forms (X해, X합니다; n=1500)              | 34.3 % | 84.7 % | 85.1 %        |
+
+Caveats, stated plainly: these cases are words the dictionary contains, so they measure ranking among homophone candidates, not coverage; names, slang and words missing from the dictionary fall back to the previous order and are not measured. The headword sample is uniform over the dictionary, not weighted by how often a word appears in lyrics, and the starter words are self-authored and unreviewed by a fluent speaker (issue #14). The test floors sit just under these figures as regression guards.

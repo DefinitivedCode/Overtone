@@ -85,7 +85,18 @@ interface Syl {
 }
 
 const MAX_PARSES = 400;
-const MAX_CANDIDATES = 6;
+/** Candidates offered to the user. */
+export const MAX_CANDIDATES = 6;
+/** Wider pool returned when the caller will rank before truncating (dictionary ranking). */
+export const RANKING_POOL = 24;
+
+/** Aspirated initial → the plain consonant it merges from when a ㅎ is next to it (ㅂ+ㅎ → ㅍ, ㅎ+ㄷ → ㅌ). */
+const ASPIRATED_FROM: Readonly<Record<string, readonly [plain: string, final: string]>> = {
+  ㅋ: ['ㄱ', 'ㄱ'],
+  ㅌ: ['ㄷ', 'ㄷ'],
+  ㅍ: ['ㅂ', 'ㅂ'],
+  ㅊ: ['ㅈ', 'ㅈ'],
+};
 
 function enumerateParses(word: string): Syl[][] {
   const out: Syl[][] = [];
@@ -186,6 +197,20 @@ function spellingVariants(parse: readonly Syl[]): Syl[][] {
       v[i]!.T = alt;
       variants.push(v);
     }
+    // ㅎ merging with a neighbour: 습+해 is heard as 스+패, and 좋+다 as 조+타. Offer both spellings of the sound.
+    const merged = ASPIRATED_FROM[next.L];
+    if (merged && s.T === '') {
+      const v = clone();
+      v[i]!.T = merged[1]; // previous syllable takes the plain final...
+      v[i + 1]!.L = 'ㅎ'; // ...and the next one starts with ㅎ
+      variants.push(v);
+    }
+    if (merged && s.T === '') {
+      const v = clone();
+      v[i]!.T = 'ㅎ'; // ...or the previous syllable ends in ㅎ and the next starts with the plain consonant (좋+다)
+      v[i + 1]!.L = merged[0];
+      variants.push(v);
+    }
     if (s.T === '' && next.L !== 'ㅇ' && LIAISON_FINALS.has(next.L)) {
       const v = clone();
       v[i]!.T = next.L;
@@ -209,7 +234,7 @@ export function normaliseRoman(word: string): string {
  * Ranked Hangul candidates for one romanised word; `[]` when the text cannot be read as Korean romanisation.
  * The first candidates are Revised Romanization readings; spellings that only fit looser conventions come last.
  */
-export function romanToHangul(word: string): string[] {
+export function romanToHangul(word: string, limit: number = MAX_CANDIDATES): string[] {
   const text = normaliseRoman(word);
   if (!/^[a-z]+$/.test(text)) return [];
   const parses = enumerateParses(text)
@@ -228,7 +253,7 @@ export function romanToHangul(word: string): string[] {
   const best = parses.slice(0, 40);
   for (const { p } of best) add(p);
   for (const { p } of best) for (const v of spellingVariants(p)) add(v);
-  return [...strict, ...loose].slice(0, MAX_CANDIDATES);
+  return [...strict, ...loose].slice(0, limit);
 }
 
 /** Evidence for Korean over Japanese: letter groups that Hepburn Japanese does not produce. */

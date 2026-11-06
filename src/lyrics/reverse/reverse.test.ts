@@ -6,6 +6,7 @@ import { assemble, convertLyrics, lineText, reviewCount } from './convert';
 import { detectRomanised } from './detect';
 import { romajiToKana } from './japanese';
 import { romanToHangul } from './korean';
+import { rankByLexicon } from './rank';
 
 describe('Korean: romanisation → Hangul candidates', () => {
   it.each([
@@ -170,5 +171,37 @@ describe('convertLyrics', () => {
   it('handles mixed Korean and English lines', () => {
     const [line] = convertLyrics('baby saranghae you', 'ko');
     expect(lineText(line!)).toBe('baby 사랑해 you');
+  });
+});
+
+describe('Korean: ㅎ merging with a neighbour', () => {
+  it('offers the spelling where the ㅎ is hidden in an aspirated sound', () => {
+    expect(romanToHangul('gongseupae')).toContain('공습해'); // ㅂ+ㅎ is heard as ㅍ
+    expect(romanToHangul('jota')).toContain('좋다'); // ㅎ+ㄷ is heard as ㅌ
+    expect(romanToHangul('joha')).toContain('조하'); // plain syllables are unaffected
+  });
+  it('still leads with a spelling that romanises back to the paste', () => {
+    for (const w of ['gongseupae', 'jota', 'mani', 'hakgyo'])
+      expect(romaniseEojeol(romanToHangul(w)[0]!)).toBe(w);
+  });
+});
+
+describe('dictionary ranking', () => {
+  const known = new Set(['먹어', '사랑해']);
+  const lexicon = (f: string) => (known.has(f) ? 4 : 0);
+  it('puts real words first and keeps everything else in its original order', () => {
+    expect(rankByLexicon(['머거', '먹어', '멀거'], lexicon)).toEqual(['먹어', '머거', '멀거']);
+    expect(rankByLexicon(['a', 'b', 'c'], () => 0)).toEqual(['a', 'b', 'c']);
+  });
+  it('is applied by convertLyrics, never removes candidates, and is optional', () => {
+    const plain = convertLyrics('meogeo', 'ko')[0]!.segments[0]!;
+    const ranked = convertLyrics('meogeo', 'ko', { lexicon })[0]!.segments[0]!;
+    if (plain.type !== 'word' || ranked.type !== 'word') throw new Error('expected a word');
+    expect(ranked.candidates[0]).toBe('먹어');
+    expect([...ranked.candidates].sort()).toEqual([...plain.candidates].sort());
+    expect(convertLyrics('meogeo', 'ko', { lexicon: null })).toEqual(convertLyrics('meogeo', 'ko'));
+  });
+  it('does not touch Japanese', () => {
+    expect(convertLyrics('kimi', 'ja', { lexicon })).toEqual(convertLyrics('kimi', 'ja'));
   });
 });

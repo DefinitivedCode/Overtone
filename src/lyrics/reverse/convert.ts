@@ -7,8 +7,9 @@
  */
 import { detectKind, type LineKind } from '../parse';
 import { isAlwaysEnglish, isContextualEnglish } from './english';
-import { romanToHangul } from './korean';
+import { MAX_CANDIDATES, RANKING_POOL, romanToHangul } from './korean';
 import { romajiToKana } from './japanese';
+import { rankByLexicon, type Lexicon } from './rank';
 
 export type ReverseLang = 'ko' | 'ja';
 
@@ -45,13 +46,26 @@ export function tokenise(line: string): string[] {
   return line.match(TOKEN) ?? [];
 }
 
-export function convertLyrics(text: string, lang: ReverseLang): ReverseLine[] {
+export interface ConvertOptions {
+  /** Dictionary evidence used to put real words first among a word's candidates (Korean only today). */
+  lexicon?: Lexicon | null;
+}
+
+export function convertLyrics(
+  text: string,
+  lang: ReverseLang,
+  options: ConvertOptions = {},
+): ReverseLine[] {
   const cache = new Map<string, string[]>();
   const candidatesFor = (word: string): string[] => {
     const key = word.toLowerCase();
     let hit = cache.get(key);
     if (!hit) {
-      hit = convertWord(word, lang);
+      // With dictionary evidence, rank a wider pool first so a real word is not cut off before it can move up.
+      const lex = lang === 'ko' ? options.lexicon : null;
+      hit = lex
+        ? rankByLexicon(romanToHangul(word, RANKING_POOL), lex).slice(0, MAX_CANDIDATES)
+        : convertWord(word, lang);
       cache.set(key, hit);
     }
     return hit;
