@@ -11,6 +11,8 @@ import { detectLanguage, langAttr } from '@/engine/segment/detect';
 import { LANGUAGES, LANG_NAME } from '@/features/language';
 import { exportBackupFile } from '@/features/settings/backupActions';
 import { validateSongInput } from '@/lyrics/parse';
+import { detectRomanised } from '@/lyrics/reverse/detect';
+import type { ReverseLang } from '@/lyrics/reverse/convert';
 import { scrollFocusedIntoView } from '@/platform/keyboard';
 import { requestPersistence } from '@/platform/storage';
 import {
@@ -25,6 +27,7 @@ import {
 } from '@/ui';
 import { Switch } from '@/ui';
 import { OnlineSearch } from './OnlineSearch';
+import { RomanisedReview } from './RomanisedReview';
 import s from './AddSongSheet.module.css';
 
 type LangChoice = 'auto' | LangCode;
@@ -57,6 +60,10 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
   const [storageFull, setStorageFull] = useState(false);
   const [tab, setTab] = useState<'paste' | 'search'>('paste');
   const [source, setSource] = useState<SongSource | null>(null);
+  // Romanised lyrics the user pasted before converting them; kept so the conversion can be undone.
+  const [pasted, setPasted] = useState<string | null>(null);
+  const [reviewing, setReviewing] = useState(false);
+  const [romanBannerHidden, setRomanBannerHidden] = useState(false);
 
   const reset = () => {
     setTitle('');
@@ -71,6 +78,9 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
     setStorageFull(false);
     setTab('paste');
     setSource(null);
+    setPasted(null);
+    setReviewing(false);
+    setRomanBannerHidden(false);
   };
 
   // Restore an autosaved draft each time the sheet opens (J2.6).
@@ -86,6 +96,7 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
           setLanguage(d.language);
           setLyrics(d.lyrics);
           setUsePastedReadings(d.usePastedReadings ?? true);
+          setPasted(d.pastedRomanisation ?? null);
         }
       })
       .catch(() => undefined)
@@ -97,23 +108,36 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
   }, [open]);
 
   const hasContent = title !== '' || artist !== '' || lyrics !== '';
-  const draftKey = JSON.stringify([title, artist, language, lyrics, usePastedReadings]);
+  const draftKey = JSON.stringify([title, artist, language, lyrics, usePastedReadings, pasted]);
   const debouncedDraftKey = useDebounced(draftKey, 400);
   useEffect(() => {
     if (!open || !draftLoaded) return;
-    const [t, a, l, ly, useRuby] = JSON.parse(debouncedDraftKey) as [
+    const [t, a, l, ly, useRuby, past] = JSON.parse(debouncedDraftKey) as [
       string,
       string,
       LangChoice,
       string,
       boolean,
+      string | null,
     ];
     const op =
       t || a || ly
-        ? saveDraft({ title: t, artist: a, language: l, lyrics: ly, usePastedReadings: useRuby })
+        ? saveDraft({
+            title: t,
+            artist: a,
+            language: l,
+            lyrics: ly,
+            usePastedReadings: useRuby,
+            ...(past === null ? {} : { pastedRomanisation: past }),
+          })
         : clearDraft();
     void op.catch(() => undefined);
   }, [debouncedDraftKey, open, draftLoaded]);
+
+  // Romanised Korean/Japanese is only looked for once typing pauses: detection parses a sample of words.
+  const settledLyrics = useDebounced(lyrics, 400);
+  const romanised = useMemo(() => detectRomanised(settledLyrics), [settledLyrics]);
+  const offerConversion = romanised.romanised && pasted === null && !romanBannerHidden;
 
   // Computed synchronously: saving must never use a stale detection from an earlier edit.
   const detection = useMemo(() => detectLanguage(lyrics), [lyrics]);
@@ -190,6 +214,14 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
 
   const lyricsLang = resolved ? langAttr(resolved, lyrics) : undefined;
 
+  function applyConversion(converted: string, lang: ReverseLang) {
+    setPasted(lyrics);
+    setLyrics(converted);
+    setLanguage(lang);
+    setHanUserChose(false);
+    setReviewing(false);
+  }
+
   function pick(r: LrclibResult) {
     if (!r.plainLyrics) return;
     setTitle(r.title);
@@ -214,19 +246,35 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
       <Sheet
         open={open}
         onClose={requestClose}
-        title="New Song"
+        title={reviewing ? 'Convert Lyrics' : 'New Song'}
         leading={
-          <Button variant="plain" onClick={requestClose}>
-            Cancel
-          </Button>
+          reviewing ? (
+            <Button variant="plain" onClick={() => setReviewing(false)}>
+              Back
+            </Button>
+          ) : (
+            <Button variant="plain" onClick={requestClose}>
+              Cancel
+            </Button>
+          )
         }
         trailing={
-          <Button variant="plain" disabled={!canSave} onClick={() => void save()}>
-            Save
-          </Button>
+          reviewing ? undefined : (
+            <Button variant="plain" disabled={!canSave} onClick={() => void save()}>
+              Save
+            </Button>
+          )
         }
       >
-        <div className={s['tabs']}>
+        {reviewing ? (
+          <RomanisedReview
+            source={lyrics}
+            initialLanguage={language === 'ko' || language === 'ja' ? language : romanised.language}
+            onApply={applyConversion}
+            onBack={() => setReviewing(false)}
+          />
+        ) : null}
+        <div className={s['tabs']} hidden={reviewing}>
           <SegmentedControl
             label="Add song by"
             value={tab}
@@ -237,7 +285,7 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
             ]}
           />
         </div>
-        {tab === 'search' ? (
+        {reviewing ? null : tab === 'search' ? (
           <OnlineSearch initialTitle={title} initialArtist={artist} onPick={pick} />
         ) : (
           <form
@@ -257,6 +305,39 @@ export function AddSongSheet({ open, onClose, onSaved }: AddSongSheetProps) {
               >
                 Lyrics from LRCLIB. Review and edit them before saving; the source is kept with the
                 song.
+              </Banner>
+            ) : null}
+            {pasted !== null ? (
+              <Banner
+                tone="success"
+                action={
+                  <Button
+                    variant="plain"
+                    onClick={() => {
+                      setLyrics(pasted);
+                      setPasted(null);
+                    }}
+                  >
+                    Restore pasted text
+                  </Button>
+                }
+              >
+                Converted from the romanisation you pasted. Review the lyrics before saving; your
+                pasted text can be restored until you save.
+              </Banner>
+            ) : null}
+            {offerConversion ? (
+              <Banner
+                action={
+                  <Button variant="plain" onClick={() => setReviewing(true)}>
+                    Review
+                  </Button>
+                }
+                onDismiss={() => setRomanBannerHidden(true)}
+              >
+                These lyrics look romanised
+                {romanised.language ? ` (${LANG_NAME[romanised.language]})` : ''}. Overtone can
+                suggest the original script for you to check; nothing changes until you accept.
               </Banner>
             ) : null}
             {saveError ? (

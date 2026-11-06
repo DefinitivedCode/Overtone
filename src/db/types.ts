@@ -142,6 +142,8 @@ export interface Draft {
   language: 'auto' | LangCode;
   lyrics: string;
   usePastedReadings?: boolean;
+  /** Romanised text the user pasted before converting it to original script (restorable until saved). */
+  pastedRomanisation?: string;
   updatedAt: number;
 }
 
