@@ -31,7 +31,7 @@ A local-first lyrics learner for Korean, Japanese, Mandarin and Cantonese.
 
 Singing along in a language you are still learning is slow: you hunt for a romanisation, paste words into a dictionary, and lose your place. Overtone puts all of it on one screen. Paste the lyrics (or pull them from the free LRCLIB database), and every word gets its pronunciation, its meaning on a tap, and a progress check you can tick off line by line.
 
-It is designed first for the **iPhone Home Screen**, works **fully offline**, needs **no account and no server**, and never sends your songs anywhere.
+It is designed first for the **iPhone Home Screen**, works **offline** once installed (checked on a real iPhone, including after the app is swiped away), needs **no account and no server of its own**, and keeps your lyrics and library on your device. What can leave the device is listed under [Private by design](#features).
 
 ## Features
 
@@ -44,8 +44,8 @@ It is designed first for the **iPhone Home Screen**, works **fully offline**, ne
 | **Clean** | A plain, selectable layout, original or romanised. |
 | **Your library** | Search by title, artist, lyrics or romanisation (`saranghae` finds 사랑해). Per-song progress, backups as one JSON file, and a recovery screen if a browser clears storage. |
 | **Optional lyric search** | Search LRCLIB from inside the app. Pasting lyrics always works with no network. |
-| **Romanised lyrics** | Paste romanised Korean or Japanese and review a suggested original-script version (Hangul, or kana without kanji). Nothing changes until you accept, and Mandarin/Cantonese are not supported. |
-| **Private by design** | No analytics, no third-party scripts or fonts, a strict content security policy. Network calls go only to the app's own origin and, when you use search, `lrclib.net`. |
+| **Romanised lyrics** | Paste romanised Korean or Japanese and review a suggested original-script version. With the Korean dictionary installed, Korean spellings are ordered so real words come first. Japanese starts as kana, and with the Japanese dictionary installed common kanji are offered as extra options (not for conjugated verbs, names or slang). Nothing changes until you accept. Mandarin and Cantonese are not supported. |
+| **Private by design** | No analytics, no third-party scripts or fonts, a strict content security policy. Your songs, progress and settings never leave the device. The only network requests are to the app's own origin (the app itself and the language packs you choose to download; your host's ordinary request logs apply) and, **only when you use Search online**, to `lrclib.net`, which receives the title and artist you typed. |
 
 ## Screenshots
 
@@ -121,12 +121,14 @@ Architecture decisions, with measurements, are in [`docs/adr`](docs/adr). The or
 
 - Every linguistic test fixture was written by the project author, **not reviewed by a fluent speaker**, so scores are consistency checks, not proof of native-level accuracy. Details in [`docs/LINGUISTIC_REPORT.md`](docs/LINGUISTIC_REPORT.md).
 - Japanese gives one contextual reading per word; rare names and poetic readings may need correcting.
-- **Manual testing on a physical iPhone has begun** using the deployed PWA. The Library, Add Song, Learn, Karaoke and word-definition interfaces have been exercised; this testing revealed sheet presentation and scroll-position issues ([#1](https://github.com/DefinitivedCode/Overtone/issues/1), [#2](https://github.com/DefinitivedCode/Overtone/issues/2)). Full iOS verification, including installation, offline operation and updates, is not yet confirmed. See [`docs/IOS_VERIFICATION.md`](docs/IOS_VERIFICATION.md).
+- Korean and Japanese are the most-tested languages. Mandarin has had only light manual testing, and Cantonese none beyond the automated fixtures.
+- **Tested on a real iPhone** (2026-11-06, device and iOS version not recorded): cold launch in airplane mode after swiping the app away, the update prompt, sheet positioning, scroll position across modes and toggles, the Library sort menu, the animations, and the romanised-import review for Korean and Japanese all behaved correctly. Earlier testing found the sheet and scroll problems ([#1](https://github.com/DefinitivedCode/Overtone/issues/1), [#2](https://github.com/DefinitivedCode/Overtone/issues/2), [#5](https://github.com/DefinitivedCode/Overtone/issues/5)), now fixed. Most of the checklist is still unchecked, for example the install icon and splash, keyboard behaviour, VoiceOver, landscape and week-long storage persistence. See [`docs/IOS_VERIFICATION.md`](docs/IOS_VERIFICATION.md).
+- Reviewing the readings with a fluent speaker is set up but not done: ready-made sheets are in [`docs/review`](docs/review/README.md).
 - Full list: [`docs/KNOWN_LIMITATIONS.md`](docs/KNOWN_LIMITATIONS.md).
 
 ## Documentation
 
-[`PROGRESS`](docs/PROGRESS.md) · [`KNOWN_LIMITATIONS`](docs/KNOWN_LIMITATIONS.md) · [`LINGUISTIC_REPORT`](docs/LINGUISTIC_REPORT.md) · [`TRACEABILITY`](docs/TRACEABILITY.md) · [`RELEASE`](docs/RELEASE.md) · [`IOS_VERIFICATION`](docs/IOS_VERIFICATION.md)
+[`PROGRESS`](docs/PROGRESS.md) · [`KNOWN_LIMITATIONS`](docs/KNOWN_LIMITATIONS.md) · [`LINGUISTIC_REPORT`](docs/LINGUISTIC_REPORT.md) · [`TRACEABILITY`](docs/TRACEABILITY.md) · [`RELEASE`](docs/RELEASE.md) · [`IOS_VERIFICATION`](docs/IOS_VERIFICATION.md) · [`review`](docs/review/README.md)
 
 ## Licences and credits
 
