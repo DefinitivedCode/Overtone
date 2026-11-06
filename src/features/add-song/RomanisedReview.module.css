@@ -39,7 +39,11 @@
   line-height: 1.7;
 }
 .word {
-  display: inline;
+  /* A one-character kanji must still be a 24 px touch target. */
+  display: inline-block;
+  min-width: 24px;
+  min-height: 24px;
+  text-align: center;
   margin: 0;
   padding: 0 2px;
   border: 0;

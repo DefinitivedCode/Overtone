@@ -24,7 +24,7 @@ test.describe('romanised lyrics import (issue #4)', () => {
     await dialog.getByRole('button', { name: 'Review', exact: true }).click();
     const review = page.getByRole('dialog', { name: 'Convert Lyrics' });
     await expect(review).toBeVisible();
-    await expect(review.getByText(/converted to kana only/)).toBeVisible();
+    await expect(review.getByText(/lyrics start out as kana/)).toBeVisible();
     await expectNoOverflow(page, 'romanised review');
     await expectAxeClean(page, 'romanised review');
 
@@ -77,7 +77,7 @@ test.describe('romanised Korean uses the installed dictionary (issue #11)', () =
     const review = page.getByRole('dialog', { name: 'Convert Lyrics' });
     await expect(review).toBeVisible();
     await review.getByRole('radio', { name: 'Korean' }).check({ force: true });
-    await expect(review.getByText('Checking the Korean dictionary…')).toBeHidden();
+    await expect(review.getByText('Checking the dictionary…')).toBeHidden();
     return review;
   }
 
@@ -109,5 +109,51 @@ test.describe('romanised Korean uses the installed dictionary (issue #11)', () =
     await word.click();
     await expect(review.getByRole('button', { name: /^meogeo: 머거/ })).toBeVisible();
     await expectAxeClean(page, 'romanised review with dictionary');
+  });
+});
+
+test.describe('romanised Japanese offers kanji from the installed dictionary (issue #10)', () => {
+  const PASTE = 'sora wo mite\nkimi wa utau';
+
+  async function openReview(page: Page) {
+    const dialog = await openAdd(page);
+    await dialog.getByLabel('Title', { exact: true }).fill('Kanji');
+    await dialog.getByLabel('Lyrics').fill(PASTE);
+    await expect(dialog.getByText(/These lyrics look romanised \(Japanese\)/)).toBeVisible();
+    await dialog.getByRole('button', { name: 'Review', exact: true }).click();
+    const review = page.getByRole('dialog', { name: 'Convert Lyrics' });
+    await expect(review).toBeVisible();
+    await expect(review.getByText('Checking the dictionary…')).toBeHidden();
+    return { dialog, review };
+  }
+
+  test('without the dictionary: kana only, with a hint', async ({ page }) => {
+    const { review } = await openReview(page);
+    await expect(review.getByText(/Download the Japanese dictionary in Settings/)).toBeVisible();
+    await expect(review.getByRole('button', { name: /^sora: そら\. Option 1 of 2/ })).toBeVisible();
+  });
+
+  test('with the dictionary: kanji is an extra option, never the default, and can be applied', async ({
+    page,
+  }) => {
+    await page.goto('/settings');
+    await page
+      .getByRole('region', { name: 'Offline language downloads' })
+      .getByRole('listitem')
+      .filter({ hasText: 'Japanese' })
+      .getByRole('button', { name: /Download ·/ })
+      .click();
+    await expect(page.getByText(/Downloaded · [\d.]+ MB/).first()).toBeVisible({ timeout: 90_000 });
+
+    const { dialog, review } = await openReview(page);
+    await expect(review.getByText(/Common kanji are offered as extra options/)).toBeVisible();
+    const sora = review.getByRole('button', { name: /^sora: そら\. Option 1 of 3/ });
+    await expect(sora).toBeVisible(); // kana stays the default
+    await sora.click();
+    await expect(review.getByRole('button', { name: /^sora: 空\. Option 2 of 3/ })).toBeVisible();
+    await expectAxeClean(page, 'romanised Japanese review with kanji options');
+
+    await review.getByRole('button', { name: 'Use these lyrics' }).click();
+    await expect(dialog.getByLabel('Lyrics')).toHaveValue(/^空 を/);
   });
 });
