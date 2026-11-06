@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import type { KeyboardEvent, ReactNode, Ref } from 'react';
 import s from './ui.module.css';
 
@@ -39,9 +39,44 @@ export function Menu({ renderTrigger, items, align = 'end' }: MenuProps) {
     if (restoreFocus) triggerRef.current?.focus();
   }, []);
 
+  // Collision handling: keep the whole menu inside the visual viewport (with a margin that respects the
+  // safe-area insets, see `scroll-padding` in .menu) and flip above the trigger when there is no room below.
+  useLayoutEffect(() => {
+    const menu = menuRef.current;
+    const wrap = wrapRef.current;
+    if (!open || !menu || !wrap) return;
+    const place = () => {
+      menu.style.removeProperty('--menu-shift');
+      menu.removeAttribute('data-flip');
+      const vv = window.visualViewport;
+      const vw = document.documentElement.clientWidth;
+      const vh = vv?.height ?? window.innerHeight;
+      const cs = getComputedStyle(menu);
+      const padL = parseFloat(cs.scrollPaddingLeft) || 8;
+      const padR = parseFloat(cs.scrollPaddingRight) || 8;
+      const r = menu.getBoundingClientRect();
+      let shift = 0;
+      if (r.left < padL) shift = padL - r.left;
+      else if (r.right > vw - padR) shift = vw - padR - r.right;
+      // A menu wider than the available space is narrowed by max-width; shifting then only fixes the start edge.
+      if (shift !== 0) menu.style.setProperty('--menu-shift', `${shift}px`);
+      const trigger = wrap.getBoundingClientRect();
+      const room = { below: vh - trigger.bottom, above: trigger.top };
+      if (r.height + 8 > room.below && room.above > room.below)
+        menu.setAttribute('data-flip', 'true');
+    };
+    place();
+    window.addEventListener('resize', place);
+    window.visualViewport?.addEventListener('resize', place);
+    return () => {
+      window.removeEventListener('resize', place);
+      window.visualViewport?.removeEventListener('resize', place);
+    };
+  }, [open]);
+
   useEffect(() => {
     if (!open) return;
-    menuRef.current?.querySelector<HTMLButtonElement>('button')?.focus();
+    menuRef.current?.querySelector<HTMLButtonElement>('button')?.focus({ preventScroll: true });
     const onDown = (e: PointerEvent) => {
       if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
     };
