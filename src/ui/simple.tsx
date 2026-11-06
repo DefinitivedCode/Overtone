@@ -1,6 +1,7 @@
 import { useId } from 'react';
 import type {
   ButtonHTMLAttributes,
+  CSSProperties,
   ComponentPropsWithRef,
   InputHTMLAttributes,
   ReactNode,
@@ -68,8 +69,18 @@ export function SegmentedControl<T extends string>({
   className,
 }: SegmentedProps<T>) {
   const name = useId();
+  // The selected-segment thumb is a pseudo-element positioned from these two numbers and moved with a transform.
+  const selected = Math.max(
+    0,
+    options.findIndex((o) => o.value === value),
+  );
   return (
-    <div role="radiogroup" aria-label={label} className={cx(s['segmented'], className)}>
+    <div
+      role="radiogroup"
+      aria-label={label}
+      className={cx(s['segmented'], className)}
+      style={{ '--seg-count': options.length, '--seg-index': selected } as CSSProperties}
+    >
       {options.map((o) => (
         <label key={o.value} className={s['segment']}>
           <input

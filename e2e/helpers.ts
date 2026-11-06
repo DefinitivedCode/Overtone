@@ -130,7 +130,9 @@ export async function importBackup(page: Page, json: string, mode: 'merge' | 're
   const dialog = page.getByRole('dialog', { name: 'Import backup' });
   await expect(dialog).toBeVisible();
   if (mode === 'replace') {
-    await dialog.getByRole('radio', { name: 'Replace library' }).check({ force: true });
+    const replace = dialog.getByRole('radio', { name: 'Replace library' });
+    // No `force`: Playwright waits for the sliding sheet to stop moving before it clicks the (transparent) radio.
+    await replace.check();
     await dialog.getByRole('button', { name: 'Replace library…' }).click();
     await page
       .getByRole('dialog', { name: 'Replace your library?' })

@@ -1,13 +1,14 @@
 {
-  "_note": "Pins come from docs/adr/0006-dictionaries.md (downloaded 2026-11-05). The publishers update these files; a checksum mismatch means the upstream file changed and the pin must be refreshed deliberately (and the pack version bumped).",
+  "_note": "Pins come from docs/adr/0006-dictionaries.md (downloaded 2026-11-05). The publishers update these files; a checksum mismatch means the file changed and the pin must be refreshed deliberately (and the pack version bumped). A source with a \"vendored\" path is read from that committed copy instead of the network, because its upstream URL is a rolling \"latest\" file (MDBG rebuilds CC-CEDICT daily); \"url\" then records provenance only.",
   "sources": {
     "cedict": {
       "name": "CC-CEDICT",
       "url": "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip",
       "file": "cedict.zip",
-      "bytes": 3983517,
-      "sha256": "9e97e8e4b1e00125538c81cdb632255a791163133741362a1a99961b4449745a",
-      "version": "2026-11-05",
+      "vendored": "vendor/cedict-2026-11-06.zip",
+      "bytes": 3983590,
+      "sha256": "5b6db884de36cf04ac3be268d758cd4512ba3a487c1775348ba8e18ea8f0e25f",
+      "version": "2026-11-06",
       "licence": "CC BY-SA 4.0",
       "attribution": "CC-CEDICT, community maintained, published by MDBG (https://www.mdbg.net/chinese/dictionary?page=cc-cedict). Based on CEDICT © 1997, 1998 Paul Andrew Denisowski."
     },
@@ -64,7 +65,7 @@
   },
   "packs": {
     "ja-core": { "lang": "ja", "version": "2026.11.5", "sources": ["jmdict"] },
-    "zh-core": { "lang": "zh", "version": "2026.11.5.3", "sources": ["cedict"] },
+    "zh-core": { "lang": "zh", "version": "2026.11.6", "sources": ["cedict"] },
     "ko-core": { "lang": "ko", "version": "2026.11.5", "sources": ["wiktionary-ko", "kengdic"] },
     "yue-core": {
       "lang": "yue",

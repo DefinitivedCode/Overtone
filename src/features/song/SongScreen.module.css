@@ -1,3 +1,9 @@
+/* Scroll position across mode changes is compensated explicitly (SongScreen), so browser scroll anchoring must not
+   also adjust it. */
+.page {
+  overflow-anchor: none;
+}
+
 .header {
   display: grid;
   gap: var(--space-4);

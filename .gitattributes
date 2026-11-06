@@ -1,0 +1,17 @@
+# Repository-wide line-ending policy: text is LF in the index AND in every checkout, regardless of
+# core.autocrlf. Hashes (brand assets, the CSP inline-script hash) and `prettier --check` depend on it.
+* text=auto eol=lf
+
+# Binary assets: never touched by line-ending conversion.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.zip binary
+*.gz binary
+*.wasm binary
+*.ttf binary
+*.otf binary

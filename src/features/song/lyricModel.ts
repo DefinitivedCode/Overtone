@@ -16,10 +16,14 @@ export function toItems(lines: readonly Line[]): LyricItem[] {
   });
 }
 
-/** Index of the first lyric element whose bottom edge is below `topOffset` (for scroll anchoring). */
-export function firstVisibleLineIndex(root: ParentNode, topOffset: number): number | null {
+/** The first lyric element that starts at or below `topOffset` (fully clear of the sticky bars), and its top (for scroll anchoring). */
+export function firstVisibleLine(
+  root: ParentNode,
+  topOffset: number,
+): { index: number; top: number } | null {
   for (const el of root.querySelectorAll<HTMLElement>('[data-line-index]')) {
-    if (el.getBoundingClientRect().bottom > topOffset) return Number(el.dataset['lineIndex']);
+    const r = el.getBoundingClientRect();
+    if (r.top >= topOffset - 2) return { index: Number(el.dataset['lineIndex']), top: r.top };
   }
   return null;
 }

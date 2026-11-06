@@ -96,11 +96,16 @@ export function Sheet({
             ? lastPressed
             : null;
       dlg.showModal();
+      // Flush styles so the closed (off-screen) state is committed before the open class is applied; without
+      // it iOS can skip the transition and paint the panel mid-way or at its final position for a frame.
+      void dlg.offsetHeight;
     }
     document.documentElement.dataset['scrollLocked'] = 'true';
     const raf = requestAnimationFrame(() => {
       setShown(true);
-      titleRef.current?.focus();
+      // preventScroll: the panel is still translated off-screen here, and focusing it would otherwise scroll the
+      // (overflow-hidden) dialog to reveal the title, shifting the whole sheet upwards until the transition ends.
+      titleRef.current?.focus({ preventScroll: true });
     });
     history.pushState({ ...(history.state as object | null), overtoneSheet: true }, '');
     pushed.current = true;

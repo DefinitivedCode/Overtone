@@ -11,6 +11,8 @@
   background: transparent;
   color: var(--text);
   overflow: hidden;
+  /* clip (unlike hidden) can never be scrolled programmatically, e.g. by focus() or scrollIntoView(). */
+  overflow: clip;
 }
 .dialog::backdrop {
   background: var(--scrim);
@@ -43,12 +45,16 @@
 .panel[data-dragging='true'] {
   transition: none;
 }
+/* Heights are percentages of the dialog (the fixed, inset:0 box the panel is anchored to), not dvh: on iOS
+   Safari 100dvh and a fixed box's 100% disagree while the toolbar collapses, which left a gap above the
+   panel. The half detent is a fixed height (like iOS's medium detent) so late-arriving content scrolls
+   inside it instead of growing the sheet while it animates in. */
 .full {
-  height: calc(100dvh - var(--safe-top) - 8px);
+  height: calc(100% - var(--safe-top) - 8px);
 }
 .half {
-  max-height: 60dvh;
-  min-height: 38dvh;
+  height: min(55%, 100% - var(--safe-top) - 8px);
+  min-height: min(320px, 100% - var(--safe-top) - 8px);
 }
 
 .header {
