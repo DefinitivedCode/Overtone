@@ -40,6 +40,11 @@ jobs:
   # One runner per device profile instead of four profiles back to back.
   e2e:
     runs-on: ubuntu-latest
+    # Playwright's official image ships the browsers and their system libraries, so there is no apt step to hang
+    # ('playwright install-deps' stalled for an hour on two runs). Keep the tag equal to @playwright/test (checked below).
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble
+      options: --ipc=host
     # A hung runner step (seen: apt in install-deps) should fail fast, not sit for an hour.
     timeout-minutes: 25
     strategy:
@@ -47,13 +52,9 @@ jobs:
       matrix:
         include:
           - project: webkit-iphone
-            browser: webkit
           - project: webkit-iphone-se
-            browser: webkit
           - project: chromium-mobile
-            browser: chromium
           - project: chromium-desktop
-            browser: chromium
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -66,17 +67,10 @@ jobs:
           path: .cache/dicts
           key: dicts-${{ hashFiles('scripts/packs/sources.json') }}
       - run: npm run packs
-      - id: pw
-        run: echo "version=$(node -p "require('./node_modules/@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
-      - uses: actions/cache@v4
-        id: browsers
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ steps.pw.outputs.version }}-${{ matrix.browser }}
-      - if: steps.browsers.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps ${{ matrix.browser }}
-      - if: steps.browsers.outputs.cache-hit == 'true'
-        run: npx playwright install-deps ${{ matrix.browser }}
+      - name: Container image matches the installed Playwright
+        run: |
+          v="$(node -p "require('./node_modules/@playwright/test/package.json').version")"
+          test "$v" = "1.64.1" || { echo "@playwright/test is $v but the CI image is v1.64.1: update the container tag in ci.yml"; exit 1; }
       - run: npx playwright test --project=${{ matrix.project }}
       - uses: actions/upload-artifact@v4
         if: always()
