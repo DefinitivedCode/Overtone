@@ -119,7 +119,10 @@ export function overtoneHtml(): Plugin {
       if (isBuild) {
         const m = /<script id="theme-init">([\s\S]*?)<\/script>/.exec(html);
         if (!m) throw new Error('index.html is missing <script id="theme-init">');
-        const hash = `sha256-${createHash('sha256').update(m[1]!).digest('base64')}`;
+        // The HTML parser normalises CRLF to LF before the browser hashes the script, so hash that form
+        // (a checkout with CRLF line endings would otherwise produce a CSP that blocks the script).
+        const script = m[1]!.replace(/\r\n?/g, '\n');
+        const hash = `sha256-${createHash('sha256').update(script).digest('base64')}`;
         csp = CSP(hash);
         tags.unshift({
           tag: 'meta',
