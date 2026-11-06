@@ -54,6 +54,38 @@ test.describe('Corrections (J8)', () => {
     await expect(word(page, '노래해')).not.toHaveAttribute('data-corrected', 'true');
   });
 
+  test('a correction is searchable in the Library, and reverting removes it', async ({ page }) => {
+    await page.goto('/');
+    await addSong(page, { title: 'Bystander', lyrics: '사랑해' });
+    await page.getByRole('link', { name: 'Library' }).click();
+    await addSong(page, { title: 'Searchable', lyrics: '나는 노래해\n사랑해' });
+    await expect(page.locator('rt', { hasText: 'noraehae' })).toBeVisible();
+    const form = await openCorrect(page, '노래해');
+    await form.getByLabel('Romanisation', { exact: true }).fill('xyzzy-hae');
+    await form.getByRole('button', { name: 'Save' }).click();
+    await expect(page.locator('rt', { hasText: 'xyzzy-hae' })).toBeVisible();
+
+    const search = () => page.getByRole('searchbox', { name: /Search songs/ });
+    await page.getByRole('link', { name: 'Library' }).click();
+    await search().fill('xyzzy');
+    // The search is debounced: once the bystander is filtered out, the filter has been applied.
+    const songs = page.getByRole('list', { name: 'Songs' });
+    await expect(songs.getByRole('link', { name: /Bystander/ })).toHaveCount(0);
+    await expect(songs.getByRole('link', { name: /Searchable/ })).toBeVisible();
+
+    await search().fill('');
+    await page.getByRole('link', { name: /Searchable/ }).click();
+    await word(page, '노래해').click();
+    await page
+      .getByRole('dialog', { name: '노래해' })
+      .getByRole('button', { name: 'Revert' })
+      .click();
+    await expect(page.locator('rt', { hasText: /^noraehae$/ })).toBeVisible();
+    await page.getByRole('link', { name: 'Library' }).click();
+    await search().fill('xyzzy');
+    await expect(page.getByRole('heading', { name: 'No songs match' })).toBeVisible();
+  });
+
   test('"Every line in this song" applies on other lines; "This line" does not', async ({
     page,
   }) => {

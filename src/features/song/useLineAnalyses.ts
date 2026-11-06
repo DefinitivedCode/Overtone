@@ -2,13 +2,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useAnalysisRows } from '@/db/hooks';
 import { useInstalledPacks } from '@/features/packs/packs';
 import { pruneAnalyses, putAnalyses } from '@/db/repositories/analysis';
-import { setRomanisedSearchText } from '@/db/repositories/songs';
 import type { Line, Song } from '@/db/types';
 import { analysisCacheKey } from '@/engine/cacheKey';
 import { getEngineClient } from '@/engine/clientDefault';
 import type { LineInput } from '@/engine/analyse';
 import type { LineAnalysis } from '@/engine/model';
-import { romaniseLine } from '@/engine/romanLine';
 
 export interface AnalysisState {
   /** Analysis by line occurrence. Identical text and pasted readings share cached work. */
@@ -116,14 +114,7 @@ export function useLineAnalyses(song: Song, lines: readonly Line[]): AnalysisSta
     void pruneAnalyses(song.id, new Set([...wanted.values()].map((w) => w.cacheKey))).catch(
       () => undefined,
     );
-    if (song.language === 'ko' && !song.searchText.includes('\u0001')) {
-      const text = lyric
-        .map((l) => romaniseLine(fresh.get(l.id)?.tokens ?? []))
-        .filter(Boolean)
-        .join('\n');
-      if (text) void setRomanisedSearchText(song.id, text).catch(() => undefined);
-    }
-  }, [complete, song.id, song.language, song.searchText, wanted, lyric, fresh]);
+  }, [complete, song.id, wanted]);
 
   return { byLine: fresh, processing: running && missing.length > 0 };
 }

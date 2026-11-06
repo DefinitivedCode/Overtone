@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildSearchText, fold, matchesQuery, withRomanised } from './fold';
+import { buildSearchText, fold, matchesQuery, romanisedMatches, withRomanised } from './fold';
 
 describe('fold', () => {
   it.each([
@@ -61,5 +61,14 @@ describe('matchesQuery', () => {
     const ms = performance.now() - t0;
     expect(hits.length).toBeGreaterThan(0);
     expect(ms).toBeLessThan(50);
+  });
+});
+
+describe('romanisedMatches', () => {
+  it('compares the stored romanised suffix with the folded text', () => {
+    const stored = buildSearchText('T', null, '사랑', 'Saranghae\nNoraehae');
+    expect(romanisedMatches(stored, 'Saranghae\nNoraehae')).toBe(true);
+    expect(romanisedMatches(stored, 'saranghae\nnorae-hae')).toBe(false);
+    expect(romanisedMatches(buildSearchText('T', null, 'x'), '')).toBe(true);
   });
 });

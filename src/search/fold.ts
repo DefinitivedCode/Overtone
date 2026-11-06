@@ -34,6 +34,11 @@ export function withRomanised(searchText: string, romanised: string): string {
   return romanised ? `${base}${ROMAN_SEP}${fold(romanised)}` : base;
 }
 
+/** True when the stored search text already carries exactly this (folded) romanised suffix. */
+export function romanisedMatches(searchText: string, romanised: string): boolean {
+  return (searchText.split(ROMAN_SEP)[1] ?? '') === (romanised ? fold(romanised) : '');
+}
+
 /** AND semantics over whitespace-separated, folded query tokens. */
 export function matchesQuery(searchText: string, query: string): boolean {
   const q = fold(query);
