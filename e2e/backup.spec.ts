@@ -168,7 +168,9 @@ test.describe('backup', () => {
       buffer: Buffer.from(await backupJson([{ title: 'X', rawLyrics: 'x' }])),
     });
     const dialog = page.getByRole('dialog', { name: 'Import backup' });
-    await dialog.getByRole('radio', { name: 'Replace library' }).check({ force: true });
+    const replace = dialog.getByRole('radio', { name: 'Replace library' });
+    await expect(replace).toBeInViewport();
+    await replace.check({ force: true });
     await expect(
       dialog.getByRole('button', { name: 'Export current library first' }),
     ).toBeVisible();

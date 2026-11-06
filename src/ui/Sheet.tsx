@@ -103,7 +103,9 @@ export function Sheet({
     document.documentElement.dataset['scrollLocked'] = 'true';
     const raf = requestAnimationFrame(() => {
       setShown(true);
-      titleRef.current?.focus();
+      // preventScroll: the panel is still translated off-screen here, and focusing it would otherwise scroll the
+      // (overflow-hidden) dialog to reveal the title, shifting the whole sheet upwards until the transition ends.
+      titleRef.current?.focus({ preventScroll: true });
     });
     history.pushState({ ...(history.state as object | null), overtoneSheet: true }, '');
     pushed.current = true;

@@ -11,6 +11,8 @@
   background: transparent;
   color: var(--text);
   overflow: hidden;
+  /* clip (unlike hidden) can never be scrolled programmatically, e.g. by focus() or scrollIntoView(). */
+  overflow: clip;
 }
 .dialog::backdrop {
   background: var(--scrim);

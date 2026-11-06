@@ -130,7 +130,10 @@ export async function importBackup(page: Page, json: string, mode: 'merge' | 're
   const dialog = page.getByRole('dialog', { name: 'Import backup' });
   await expect(dialog).toBeVisible();
   if (mode === 'replace') {
-    await dialog.getByRole('radio', { name: 'Replace library' }).check({ force: true });
+    const replace = dialog.getByRole('radio', { name: 'Replace library' });
+    // The radio is visually hidden (force-checked): wait for the sheet to finish sliding in so it is on screen.
+    await expect(replace).toBeInViewport();
+    await replace.check({ force: true });
     await dialog.getByRole('button', { name: 'Replace library…' }).click();
     await page
       .getByRole('dialog', { name: 'Replace your library?' })
