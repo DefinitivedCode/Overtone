@@ -299,10 +299,6 @@ button.chip {
     0 0 0 0.5px var(--separator),
     0 12px 32px rgba(0, 0, 0, 0.18);
 }
-.menu[data-flip='true'] {
-  top: auto;
-  bottom: calc(100% + 4px);
-}
 .menuEnd {
   right: 0;
 }

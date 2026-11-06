@@ -40,17 +40,13 @@ export function Menu({ renderTrigger, items, align = 'end' }: MenuProps) {
   }, []);
 
   // Collision handling: keep the whole menu inside the visual viewport (with a margin that respects the
-  // safe-area insets, see `scroll-padding` in .menu) and flip above the trigger when there is no room below.
+  // safe-area insets, see `scroll-padding` in .menu). Vertically it always opens below the trigger: the page scrolls.
   useLayoutEffect(() => {
     const menu = menuRef.current;
-    const wrap = wrapRef.current;
-    if (!open || !menu || !wrap) return;
+    if (!open || !menu) return;
     const place = () => {
       menu.style.removeProperty('--menu-shift');
-      menu.removeAttribute('data-flip');
-      const vv = window.visualViewport;
       const vw = document.documentElement.clientWidth;
-      const vh = vv?.height ?? window.innerHeight;
       const cs = getComputedStyle(menu);
       const padL = parseFloat(cs.scrollPaddingLeft) || 8;
       const padR = parseFloat(cs.scrollPaddingRight) || 8;
@@ -60,10 +56,6 @@ export function Menu({ renderTrigger, items, align = 'end' }: MenuProps) {
       else if (r.right > vw - padR) shift = vw - padR - r.right;
       // A menu wider than the available space is narrowed by max-width; shifting then only fixes the start edge.
       if (shift !== 0) menu.style.setProperty('--menu-shift', `${shift}px`);
-      const trigger = wrap.getBoundingClientRect();
-      const room = { below: vh - trigger.bottom, above: trigger.top };
-      if (r.height + 8 > room.below && room.above > room.below)
-        menu.setAttribute('data-flip', 'true');
     };
     place();
     window.addEventListener('resize', place);
