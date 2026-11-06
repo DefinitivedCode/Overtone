@@ -34,7 +34,7 @@ import type { WordTarget } from '@/features/word/target';
 import { EditDetailsSheet } from './EditDetailsSheet';
 import { EditLyricsSheet } from './EditLyricsSheet';
 import { CleanView, KaraokeView, LearnView } from './LyricViews';
-import { firstVisibleLineIndex, toItems } from './lyricModel';
+import { firstVisibleLine, toItems } from './lyricModel';
 import type { LyricItem } from './lyricModel';
 import s from './SongScreen.module.css';
 import { UnmatchedSheet } from '@/features/word/UnmatchedSheet';
@@ -44,6 +44,13 @@ import { useDeleteSong } from './useDeleteSong';
 import { useLineAnalyses } from './useLineAnalyses';
 import { applyCorrections } from '@/engine/overlay';
 import type { LineAnalysis } from '@/engine/model';
+
+/** Height of the sticky top bar plus mode selector that lyric lines scroll underneath. */
+const STICKY_BARS = 112;
+/** At or below this scroll offset the reader is still at the top of the page and is left there. */
+const NEAR_TOP = 16;
+/** How long the reading position keeps being restored while the new layout settles. */
+const SETTLE_MS = 600;
 
 const MODE_OPTIONS = [
   { value: 'learn', label: 'Learn' },
@@ -62,7 +69,8 @@ export function SongScreen() {
   const [sheet, setSheet] = useState<'details' | 'lyrics' | null>(null);
   const [confirmReset, setConfirmReset] = useState(false);
   const { requestDelete, dialog } = useDeleteSong(() => navigate('/', { replace: true }));
-  const anchor = useRef<number | null>(null);
+  // The line being read, where it sits on screen and the scroll offset, captured just before a layout-changing choice.
+  const anchor = useRef<{ index: number; top: number; scrollY: number } | null>(null);
   const { ref: titleRef, collapsed } = useCollapsedTitle<HTMLHeadingElement>();
   // Optimistic: the control reflects the click at once; the stored value catches up a moment later.
   const [optMode, setOptMode] = useState<DisplayMode | null>(null);
@@ -81,13 +89,38 @@ export function SongScreen() {
     [settings],
   );
 
-  // Keep the first visible lyric line in place when the mode (and so the layout) changes.
-  const modeKey = `${optMode ?? song?.displayMode}|${optVariant ?? song?.cleanVariant}`;
+  // Keep the line being read at the same place on screen when the layout changes (mode, Clean variant, syllables).
+  // A reader still at the top (inside the collapsing header) stays at the top, so the mode selector does not move.
+  const modeKey = `${optMode ?? song?.displayMode}|${optVariant ?? song?.cleanVariant}|${display?.karaokeSyllables ?? false}`;
   useLayoutEffect(() => {
-    if (anchor.current === null) return;
-    const el = document.querySelector(`[data-line-index="${anchor.current}"]`);
+    const a = anchor.current;
+    if (a === null) return;
     anchor.current = null;
-    el?.scrollIntoView({ block: 'start' });
+    if (a.scrollY <= NEAR_TOP) return;
+    // Content can settle a few frames later (romanisation arrives, the page briefly shortens and the browser clamps the
+    // scroll offset), so keep restoring the line's position for a short window, until the reader scrolls themselves.
+    const start = performance.now();
+    let raf = 0;
+    const events = ['wheel', 'touchstart', 'pointerdown', 'keydown'] as const;
+    const stop = () => {
+      cancelAnimationFrame(raf);
+      events.forEach((e) => window.removeEventListener(e, stop));
+    };
+    const restore = () => {
+      const el = document.querySelector(`[data-line-index="${a.index}"]`);
+      if (!el) return;
+      const delta = el.getBoundingClientRect().top - a.top;
+      if (Math.abs(delta) > 0.5) window.scrollBy({ top: delta, left: 0, behavior: 'instant' });
+    };
+    const tick = () => {
+      restore();
+      if (performance.now() - start < SETTLE_MS) raf = requestAnimationFrame(tick);
+      else stop();
+    };
+    restore();
+    events.forEach((e) => window.addEventListener(e, stop, { passive: true }));
+    raf = requestAnimationFrame(tick);
+    return stop;
   }, [modeKey]);
 
   const back = { to: '/', label: 'Library' };
@@ -122,7 +155,8 @@ export function SongScreen() {
 
   const items = toItems(lines);
   const remember = () => {
-    anchor.current = firstVisibleLineIndex(document, 112);
+    const found = firstVisibleLine(document, STICKY_BARS);
+    anchor.current = found && { ...found, scrollY: window.scrollY };
   };
   const mode = optMode ?? song.displayMode;
   const variant = optVariant ?? song.cleanVariant;
@@ -159,7 +193,7 @@ export function SongScreen() {
         }
       />
       <main
-        className="screen"
+        className={`screen ${s['page']}`}
         style={showSyllableToggle ? ({ '--sticky-extra': '44px' } as CSSProperties) : undefined}
       >
         <header className={s['header']}>
@@ -197,7 +231,10 @@ export function SongScreen() {
             onChange={changeMode}
           />
           {showSyllableToggle ? (
-            <KaraokeOptions syllables={display?.karaokeSyllables ?? false} />
+            <KaraokeOptions
+              syllables={display?.karaokeSyllables ?? false}
+              onBeforeChange={remember}
+            />
           ) : null}
         </div>
 
@@ -371,7 +408,13 @@ function SongBody({
 }
 
 /** Karaoke-only choice, remembered on this device; Learn and Clean never read it. */
-function KaraokeOptions({ syllables }: { syllables: boolean }) {
+function KaraokeOptions({
+  syllables,
+  onBeforeChange,
+}: {
+  syllables: boolean;
+  onBeforeChange: () => void;
+}) {
   const toast = useToast();
   const [optimistic, setOptimistic] = useState<boolean | null>(null);
   if (optimistic !== null && optimistic === syllables) setOptimistic(null);
@@ -382,6 +425,7 @@ function KaraokeOptions({ syllables }: { syllables: boolean }) {
         pressed={value}
         onClick={() => {
           const karaokeSyllables = !value;
+          onBeforeChange();
           setOptimistic(karaokeSyllables);
           void updateSettings((x) => ({ ...x, display: { ...x.display, karaokeSyllables } })).catch(
             () => {
