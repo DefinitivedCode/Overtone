@@ -7,9 +7,15 @@ import { useCollapsedTitle } from '@/app/useCollapsedTitle';
 import { useCorrections, useLearnedKeys, useLines, useSettings, useSong } from '@/db/hooks';
 import { resetProgress } from '@/db/repositories/progress';
 import { updateSettings } from '@/db/repositories/settings';
-import { setCleanVariant, setDisplayMode, touchOpened } from '@/db/repositories/songs';
+import {
+  setCleanVariant,
+  setDisplayMode,
+  setRomanisedSearchText,
+  touchOpened,
+} from '@/db/repositories/songs';
 import type { DisplayMode, DisplaySettings } from '@/db/types';
-import { DEFAULT_ROMAN_PREFS } from '@/engine/romanLine';
+import { DEFAULT_ROMAN_PREFS, romaniseLine } from '@/engine/romanLine';
+import { romanisedMatches } from '@/search/fold';
 import type { RomanPrefs } from '@/engine/romanLine';
 import { langAttr } from '@/engine/segment/detect';
 import { LANG_CODE, LANG_NAME } from '@/features/language';
@@ -337,6 +343,17 @@ function SongBody({
     () => (ready ? corrections.filter((c) => !applied.has(c.id)) : []),
     [ready, corrections, applied],
   );
+  // Make the romanised text searchable (J10.1) as it is displayed, so corrections (and reverting them) are searchable too.
+  useEffect(() => {
+    if (!ready || song.language !== 'ko') return;
+    const text = items
+      .filter((i) => i.kind === 'lyric')
+      .map((i) => romaniseLine(byLine.get(i.line.id)?.tokens ?? []))
+      .filter(Boolean)
+      .join('\n');
+    if (text && !romanisedMatches(song.searchText, text))
+      void setRomanisedSearchText(song.id, text).catch(() => undefined);
+  }, [ready, song.id, song.language, song.searchText, items, byLine]);
   const [reviewing, setReviewing] = useState(false);
   const [word, setWord] = useState<WordTarget | null>(null);
   const [wordOpen, setWordOpen] = useState(false);
