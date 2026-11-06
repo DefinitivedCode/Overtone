@@ -44,6 +44,7 @@ It is designed first for the **iPhone Home Screen**, works **fully offline**, ne
 | **Clean** | A plain, selectable layout, original or romanised. |
 | **Your library** | Search by title, artist, lyrics or romanisation (`saranghae` finds 사랑해). Per-song progress, backups as one JSON file, and a recovery screen if a browser clears storage. |
 | **Optional lyric search** | Search LRCLIB from inside the app. Pasting lyrics always works with no network. |
+| **Romanised lyrics** | Paste romanised Korean or Japanese and review a suggested original-script version (Hangul, or kana without kanji). Nothing changes until you accept, and Mandarin/Cantonese are not supported. |
 | **Private by design** | No analytics, no third-party scripts or fonts, a strict content security policy. Network calls go only to the app's own origin and, when you use search, `lrclib.net`. |
 
 ## Screenshots
